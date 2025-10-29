@@ -65,3 +65,58 @@ const audio = document.getElementById("audio");
       const percent = offsetX / rect.width;
       audio.currentTime = percent * audio.duration;
     });
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    fetch("https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json")
+      .then(res => res.json())
+      .then(data => {
+        const g = data.Infogempa.gempa;
+        document.getElementById("gempa").innerHTML =`
+ <div class="tempatGempa">
+    <img src="https://data.bmkg.go.id/DataMKG/TEWS/${g.Shakemap}" width="50%">
+<div class="agarTidakKesamping">
+  <p><div class="font-text" style="font-family: 'Fredoka One', cursive; margin-left:20px;">EARTHQUAKE</div>
+  </p>
+   <p><div class="font-text" style="font-family: 'Patrick Hand', cursive;">MAGNITUDE: ${g.Magnitude}</div>
+  </p>
+  <p><div class="font-text" style="font-family: 'Patrick Hand', cursive;">TANGGAL: ${g.Tanggal}</div>
+  </p>
+   <p><div class="font-text" style="font-family: 'Patrick Hand', cursive;">JAM: ${g.Jam}</div>
+  </p>
+   <p><div class="font-text" style="font-family: 'Patrick Hand', cursive;">Coordinates: ${g.Coordinates}</div>
+  </p>
+   <p><div class="font-text" style="font-family: 'Patrick Hand', cursive;">LINTANG: ${g.Lintang}</div>
+  </p>
+   <p><div class="font-text" style="font-family: 'Patrick Hand', cursive;">BUJUR: ${g.Bujur}</div>
+  </p>
+   <p><div class="font-text" style="font-family: 'Patrick Hand', cursive;">KEDALAMAN: ${g.Kedalaman}</div>
+  </p>
+    </div>
+ </div>
+        `;
+ document.getElementById('dirasakan').innerHTML=`  <div class="agarTidakKesamping">
+ <p><div class="font-text" style="font-family: 'Patrick Hand', cursive;">WILAYAH: ${g.Wilayah}</div>
+  </p>
+ <p><div class="font-text" style="font-family: 'Patrick Hand', cursive;">DIRASAKAN: ${g.Dirasakan}</div>
+  </p></div>`;
+        })
+      .catch(err => {
+        document.getElementById("gempa").innerText = "Gagal memuat data BMKG.";
+        console.error(err);
+      });
+        
+        
+        
+        
+        
+        
+        
+        
