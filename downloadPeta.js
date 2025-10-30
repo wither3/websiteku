@@ -18,11 +18,11 @@ document.getElementById('whatsapp').addEventListener('click', function() {
 });
 
 document.getElementById('downloadPetaBedrock').addEventListener('click', function() {
-  window.location.href = 'https://sfile.mobi/1VKukAw2by6';
+  window.location.href = 'https://sfile.mobi/3BbytGdI5yT';
 });
 
 document.getElementById('downloadPetaJava').addEventListener('click', function() {
-  window.location.href = 'https://sfile.mobi/1zAu8HNRZuw';
+  window.location.href = 'https://sfile.mobi/4qTyVHpmb6a';
 });
 
 
