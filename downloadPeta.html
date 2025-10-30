@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="in">
+<head>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta charset="UTF-8">
+    <title>Home</title>
+     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
+       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Dancing+Script:wght@700&family=Poppins:wght@400;700&family=Lato:wght@400;700&family=Oswald:wght@400;700&family=Raleway:wght@400;700&family=Montserrat:wght@400;700&family=Open+Sans:wght@400;700&family=Lobster:wght@400&family=Pacifico:wght@400&family=Great+Vibes:wght@400&family=Satisfy:wght@400&family=Caveat:wght@400;700&family=Amatic+SC:wght@400;700&family=Shadows+Into+Light:wght@400&family=Kaushan+Script:wght@400&family=Allura:wght@400&family=Tangerine:wght@400;700&family=Parisienne:wght@400&family=Alex+Brush:wght@400&family=Marck+Script:wght@400&family=Bad+Script:wght@400&family=Calligraffitti:wght@400&family=Homemade+Apple:wght@400&family=Just+Another+Hand:wght@400&family=Kalam:wght@400;700&family=Handlee:wght@400&family=Patrick+Hand:wght@400&family=Coming+Soon:wght@400&family=Architects+Daughter:wght@400&family=Schoolbell:wght@400&family=Covered+By+Your+Grace:wght@400&family=Rock+Salt:wght@400&family=Permanent+Marker:wght@400&family=Fredoka+One:wght@400&family=Righteous:wght@400&family=Bungee:wght@400&family=Chewy:wght@400&family=Fredoka:wght@400;700&family=Comfortaa:wght@400;700&family=Nunito:wght@400;700&family=Quicksand:wght@400;700&family=Source+Sans+Pro:wght@400;700&family=Ubuntu:wght@400;700&family=Varela+Round:wght@400&family=Work+Sans:wght@400;700&family=PT+Sans:wght@400;700&family=Merriweather:wght@400;700&family=Playfair+Display:wght@400;700&family=Crimson+Text:wght@400;700&family=Libre+Baskerville:wght@400;700&family=Old+Standard+TT:wght@400;700&family=Vollkorn:wght@400;700&family=Lora:wght@400;700&family=Cardo:wght@400;700&family=EB+Garamond:wght@400;700&family=Amiri:wght@400;700&family=Tinos:wght@400;700&family=Courier+Prime:wght@400;700&family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;700&family=Fira+Code:wght@400;700&family=Inconsolata:wght@400;700&family=Source+Code+Pro:wght@400;700&family=Roboto+Mono:wght@400;700&family=Anonymous+Pro:wght@400;700&family=Overpass:wght@400;700&family=Inter:wght@400;700&family=Barlow:wght@400;700&family=Heebo:wght@400;700&family=Exo:wght@400;700&family=Rubik:wght@400;700&family=Bebas+Neue:wght@400&family=Anton:wght@400&family=Archivo+Black:wght@400&family=Black+Ops+One:wght@400&family=Bowlby+One:wght@400&family=Changa:wght@400;700&family=Francois+One:wght@400&family=Josefin+Sans:wght@400;700&family=Karla:wght@400;700&family=Mukti:wght@400;700&family=Rajdhani:wght@400;700&family=Signika:wght@400;700&family=Titillium+Web:wght@400;700&family=Yanone+Kaffeesatz:wght@400;700&family=Zilla+Slab:wght@400;700&family=Arimo:wght@400;700&family=Cabin:wght@400;700&family=Catamaran:wght@400;700&family=Chivo:wght@400;700&family=Fira+Sans:wght@400;700&family=Hind:wght@400;700&family=IBM+Plex+Sans:wght@400;700&family=Jost:wght@400;700&family=Kanit:wght@400;700&family=Lexend:wght@400;700&family=Mada:wght@400;700&family=Noto+Sans:wght@400;700&family=Outfit:wght@400;700&family=Public+Sans:wght@400;700&family=Red+Hat+Display:wght@400;700&family=Sarabun:wght@400;700&family=Sen:wght@400;700&family=Slabo+27px:wght@400&family=Sorts+Mill+Goudy:wght@400&family=Spectral:wght@400;700&family=Tenor+Sans:wght@400&family=Trispace:wght@400;700&family=Varta:wght@400;700&family=Yantramanav:wght@400;700&family=Zeyada:wght@400&display=swap" rel="stylesheet">
+       
+</head>
+<style>
+    body {
+  background-image: url('./fitur/igstalk/gambar/background.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color:white;
+}
+
+        
+     #sidebar {
+      transform: translateX(-102%);
+      transition: transform 0.6s ease-in-out;
+    }
+    #sidebar.open {
+      transform: translateX(0);
+    }
+    .hidden-text {
+      display: none;
+    }
+    
+.trans {
+  background-color: rgba(0, 0, 0, 0.14) !important;
+   border-radius: 15px;
+  box-shadow: 
+    0 0 5px rgba(135, 206, 235, 0.6),
+    0 0 5px rgba(135, 206, 235, 0.4),
+    0 0 5px rgba(135, 206, 235, 0.2);
+  color: white;
+
+  border: 0.8px solid #95f5ff;
+  backdrop-filter: blur(10px);
+  color: white;
+  }    
+ 
+ .menunya {
+     background-color: rgba(0, 0, 0, 0.14) !important;
+     box-shadow: 
+    0 0 5px rgba(135, 206, 235, 0.6),
+    0 0 5px rgba(135, 206, 235, 0.4),
+    0 0 5px rgba(135, 206, 235, 0.2);
+  color: white;
+  border: 1px solid #95f5ff;
+  backdrop-filter: blur(2px);
+ }
+ 
+ .kotak1{
+  background-color: rgba(0, 0, 0, 0.14) !important;
+   border-radius: 10px;
+  box-shadow: 
+    0 0 5px rgba(135, 206, 235, 0.6),
+    0 0 5px rgba(135, 206, 235, 0.4),
+    0 0 5px rgba(135, 206, 235, 0.2);
+  color: white;
+width:90%;
+  border: 0.8px solid #95f5ff;
+  backdrop-filter: blur(2px);
+  color: white;   
+  position: absolute;
+  z-index:1;
+  overflow: hidden;
+  padding-bottom:10px;
+ }  
+ 
+.Judulnya {
+    margin-top:5px;
+ 
+   
+   
+    width:100%;
+    text-align:center;
+}
+
+.tempatMusik {
+    display:flex;
+    position: absolute;
+    z-index:6;
+    width:65%;
+    right:5px;
+    top:174px;
+    
+}
+
+
+ .music-player {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 250px;
+}
+
+.progress-container {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: #00f2ff;
+  transition: width 0.1s linear;
+}
+
+.tombolMasuk{
+ width:95%;
+ background-color: rgba(0, 0, 0, 0.14);
+ box-shadow: 
+    0 0 5px rgba(135, 206, 235, 0.6),
+    0 0 5px rgba(135, 206, 235, 0.4),
+    0 0 5px rgba(135, 206, 235, 0.2);
+  color: white;
+Border:0.5px solid #95f5ff;
+border-radius:5px;
+padding:3px;
+display:flex;
+justify-content: center;
+  align-items: center;     
+
+  text-align: center;
+}
+.tombolMasuk:hover{
+    background-color:#95f5ff;
+}
+
+.downloadSekarang{
+background-color: rgba(0, 0, 0, 0.14);
+ box-shadow: 
+    0 0 5px rgba(135, 206, 235, 0.6),
+    0 0 5px rgba(135, 206, 235, 0.4),
+    0 0 5px rgba(135, 206, 235, 0.2);
+  color: white;
+Border:0.5px solid #95f5ff;
+border-radius:5px;
+padding:3px;
+display:flex;
+justify-content: center;
+  align-items: center;     
+width:40%;
+  text-align: center;    
+  margin-top:5px;
+}
+
+.downloadSekarang:hover{
+    background-color:#95f5ff;
+}
+
+
+
+</style>
+
+
+<body>
+<nav class="trans p-3 fixed w-[90%] top-2 left-1/2 transform -translate-x-1/2 text-white" style="z-index:1000;">
+    <div class="container mx-auto flex justify-between items-center">
+      <button class="text-white text-xl" id="menu-button">
+        <i class="fas fa-bars"></i>
+      </button>
+      <a class="text-white text-xl font-bold mx-auto" href="#">
+        MINECRAFT MAP
+      </a>
+    </div>
+  </nav>
+  <div class="fixed inset-0 bg-gray-800 bg-opacity-50 hidden" style="z-index:1001;" id="overlay"></div>
+  <div class="fixed inset-y-0 left-0 menunya w-64 p-4" style="z-index:1002;" id="sidebar">
+    <div class="flex justify-between items-center mb-4">
+      <span class="text-xl font-bold">Menu</span>
+      <button class="text-xl" id="close-button">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <ul class="space-y-4">
+      <li>
+        <a class="text-white-600 hover:text-[#95f5ff]" href="index.html">
+          Home
+        </a>
+      </li>
+      <li>
+        <a class="text-white-600 hover:text-[#95f5ff]" href="https://whatsapp.com/channel/0029VaKqCt63bbV2yoFFOL2d">
+          WhatsApp channel
+        </a>
+      </li>
+      <li>
+        <a class="text-white-600 hover:text-[#95f5ff]" href="./fitur/tiktokdownload/tiktokd.html">
+          TikTok Downloader
+        </a>
+      </li>
+      <li>
+        <a class="text-white-600 hover:text-[#95f5ff]" href="./fitur/igstalk/igstalk.html">
+          Instagram stalk
+        </a>
+      </li>
+    </ul>
+  </div>    
+ 
+ 
+ 
+ <br><br><br><br>
+ <div class="kotak1 left-1/2 transform -translate-x-1/2">
+<img src="./gambar/joingrup.jpg" style="width:100%;">
+<div class="Judulnya">
+   <div class="font-text" style="font-family: 'Fredoka One', cursive; margin-left:20px;">JOIN GRUP WHATSAPP:</div>
+</div>
+<center>
+<div style="width:97%; text-align:left;">
+    <div class="font-text" style="font-family: 'Patrick Hand', cursive;"><p>Jika Anda butuh shader dan distant horizon silahkan join ke grup Minecraft</p><br>Klik Tombol di bawah untuk bergabung</div>
+</div>
+<div id="whatsapp" class="tombolMasuk"><svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M17.6 6.31999C16.8669 5.58141 15.9943 4.99596 15.033 4.59767C14.0716 4.19938 13.0406 3.99622 12 3.99999C10.6089 4.00135 9.24248 4.36819 8.03771 5.06377C6.83294 5.75935 5.83208 6.75926 5.13534 7.96335C4.4386 9.16745 4.07046 10.5335 4.06776 11.9246C4.06507 13.3158 4.42793 14.6832 5.12 15.89L4 20L8.2 18.9C9.35975 19.5452 10.6629 19.8891 11.99 19.9C14.0997 19.9001 16.124 19.0668 17.6222 17.5816C19.1205 16.0965 19.9715 14.0796 19.99 11.97C19.983 10.9173 19.7682 9.87634 19.3581 8.9068C18.948 7.93725 18.3505 7.05819 17.6 6.31999ZM12 18.53C10.8177 18.5308 9.65701 18.213 8.64 17.61L8.4 17.46L5.91 18.12L6.57 15.69L6.41 15.44C5.55925 14.0667 5.24174 12.429 5.51762 10.8372C5.7935 9.24545 6.64361 7.81015 7.9069 6.80322C9.1702 5.79628 10.7589 5.28765 12.3721 5.37368C13.9853 5.4597 15.511 6.13441 16.66 7.26999C17.916 8.49818 18.635 10.1735 18.66 11.93C18.6442 13.6859 17.9355 15.3645 16.6882 16.6006C15.441 17.8366 13.756 18.5301 12 18.53ZM15.61 13.59C15.41 13.49 14.44 13.01 14.26 12.95C14.08 12.89 13.94 12.85 13.81 13.05C13.6144 13.3181 13.404 13.5751 13.18 13.82C13.07 13.96 12.95 13.97 12.75 13.82C11.6097 13.3694 10.6597 12.5394 10.06 11.47C9.85 11.12 10.26 11.14 10.64 10.39C10.6681 10.3359 10.6827 10.2759 10.6827 10.215C10.6827 10.1541 10.6681 10.0941 10.64 10.04C10.64 9.93999 10.19 8.95999 10.03 8.56999C9.87 8.17999 9.71 8.23999 9.58 8.22999H9.19C9.08895 8.23154 8.9894 8.25465 8.898 8.29776C8.8066 8.34087 8.72546 8.403 8.66 8.47999C8.43562 8.69817 8.26061 8.96191 8.14676 9.25343C8.03291 9.54495 7.98287 9.85749 8 10.17C8.0627 10.9181 8.34443 11.6311 8.81 12.22C9.6622 13.4958 10.8301 14.5293 12.2 15.22C12.9185 15.6394 13.7535 15.8148 14.58 15.72C14.8552 15.6654 15.1159 15.5535 15.345 15.3915C15.5742 15.2296 15.7667 15.0212 15.91 14.78C16.0428 14.4856 16.0846 14.1583 16.03 13.84C15.94 13.74 15.81 13.69 15.61 13.59Z" fill="#ffffff"></path> </g></svg>KLIK UNTUK BERGABUNG<svg style="margin-left:5px;" width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>send_round [#ffffff]</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Dribbble-Light-Preview" transform="translate(-60.000000, -959.000000)" fill="#ffffff"> <g id="icons" transform="translate(56.000000, 160.000000)"> <path d="M15.732,809.137 L21.547,803.322 C21.859,803.01 22.393,803.222 22.406,803.663 L22.444,805.029 C22.46,805.581 22.92,806 23.472,806 L23.25,806 C23.802,806 24,805.524 24,804.972 L24,801 C24,799.9 23.1,799 22,799 L18.483,799 C17.93,799 17,799.425 17,799.977 L17,799.98 C17,800.532 17.647,800.994 18.199,801.009 L19.733,801.05 C20.174,801.061 20.387,801.595 20.076,801.907 L14.289,807.723 C13.899,808.113 13.913,808.746 14.304,809.137 C14.694,809.527 15.341,809.528 15.732,809.137 M24,812.011 L24,817.015 C24,818.117 23.55,819 22.448,819 L6.44,819 C5.338,819 4,818.117 4,817.015 L4,801.007 C4,799.904 5.338,799 6.44,799 L11.444,799 C11.996,799 12.444,799.448 12.444,800 C12.444,800.553 11.996,801 11.444,801 L7.444,801 C6.892,801 6,801.458 6,802.011 L6,815.015 C6,816.117 7.338,817 8.44,817 L21.444,817 C21.996,817 22,816.563 22,816.011 L22,812.011 C22,811.458 22.447,811.011 23,811.011 C23.552,811.011 24,811.458 24,812.011" id="send_round-[#ffffff]"> </path> </g> </g> </g> </g></svg></div></center>
+</div>
+
+
+
+ <div class="kotak1 left-1/2 transform -translate-x-1/2" style="top:500px;">
+ <img src="./gambar/2025-09-30_21.09.18-min.png" style="width:100%;">
+       <div class="font-text" style="font-family: 'Fredoka One', cursive; margin-left:20px; text-align:center;">Map tambak udang dan ikan</div>
+<div class="font-text" style="font-family: 'Patrick Hand', cursive; margin-left:10px; margin-right:10px;"><p>Ini adalah map peternakan ikan dan udang. dulu aku buat dunia ini karena gabut + karena internet habis, tapi map ini berkembang karena ada yang request untuk di hosting agar pemain lain bisa masuk dan membuat bangunan yang dia sukai</p><br><p><b>Version: </b>1.21</p><p><b>Size: </b>20-35 Mb</p><p><b>Update: </b>30 September 2025</p></div>
+<div style="display:flex; justify-content: center; align-items: center; text-align:center; width:97%;">
+<div id="downloadPetaBedrock" class="downloadSekarang">BEDROCK</div>
+<div id="downloadPetaJava" class="downloadSekarang" style="margin-left:5px;">JAVA</div></div>
+
+</div>
+</div>
+     
+ </div>
+    
+    
+    
+    
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <br><br><br>
+ <br><br><br><br>
+ <br><br><br>
+ <br><br>
+ <br>
+  <br><br><br>
+ <br><br><br><br>
+ <br><br><br>
+ <br><br>
+ <br>
+  <br><br><br>
+ <br><br><br><br><br><br><br>
+ <br><br><br>
+ <br><br>
+ <br>
+  
+ 
+ 
+ <footer class="trans py-3 fixed w-full bottom-0" style="z-index:100;">
+    <div class="container mx-auto flex justify-around items-center">
+      <a class="text-white text-2xl" href="index.html">
+        <i class="fas fa-home"></i>
+      </a>
+      <a class="text-white text-2xl" href="index2.html">
+        <svg width="30px" height="30px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="#95f5ff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><defs><style>.a{fill:#95f5ff;fill-opacity:0;}.a,.b{stroke:#95f5ff;stroke-linecap:round;stroke-linejoin:round;}.b{fill:none;}</style></defs><path class="a" d="M43,31.8268h0L24.0162,43.0493,5,32.07V21.2225"></path><path class="a" d="M9.5524,29.2747l-1.808-1.0438v5.4239l9.7816,5.6474V37.4943L15.96,36.59v-1.808l-1.888-1.09v-3.616l-4.52-2.61Z"></path><path class="a" d="M17.6883,39.3959,8.1315,33.8783l3.1372-1.7424,2.8036,1.5564"></path><path class="a" d="M34.8641,17.0935l-2.6653-1.8714-6.0555,3.6536,4.2008,2.5154v1.808l5.9607,3.4473,3.1357-1.808L43,22.7869v0l-5.4239-3.8154"></path><path class="a" d="M32.1988,15.2221l-.0467-1.8271"></path><path class="a" d="M11.2448,17.596,5,21.2225,17.6883,28.548l12.6558-7.1569-5.78-3.4656,7.588-4.53L25.3548,9.4706,20.643,12.385"></path><path class="a" d="M30.3441,23.1991,17.6883,30.356v1.808l1.4035.81v1.808l4.9244,2.8431,10.8479-6.3928v-1.94l1.5116-.8727-.0709-1.773"></path><path class="a" d="M12.803,18.4952l.0258,3.8213,1.5657.7139,1.5658-.7139V20.5088l-.023-1.9927-1.5428.8984"></path><path class="a" d="M7.7444,15.575l6.65,3.84L20.4,15.9471V8.4181L14.3945,4.9507,7.7444,8.79Z"></path><path class="a" d="M34.8641,22.1927l1.451.8377,1.261-.728V14.7186l-1.261-.7281-1.451.97Z"></path><path class="a" d="M43,25.4988l-3.616,2.0877v.904l-1.8079,1.0438v1.808l-1.808,1.0438v3.616L43,31.8268Z"></path><line class="b" x1="17.6883" y1="28.548" x2="17.6883" y2="30.356"></line></g></svg>
+     
+      </a>
+      <a class="text-white text-2xl" href="index3.html">
+        <svg width="23px" height="23px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>file_player_media [#ffffff]</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Dribbble-Light-Preview" transform="translate(-60.000000, -1999.000000)" fill="#ffffff"> <g id="icons" transform="translate(56.000000, 160.000000)"> <path d="M16.4806,1850.51423 L12.4966,1852.78995 C11.8296,1853.17074 10.9996,1852.68901 10.9996,1851.92144 L10.9996,1847.37099 C10.9996,1846.60342 11.8296,1846.12269 12.4966,1846.50348 L16.4806,1848.7782 C17.1526,1849.16199 17.1526,1850.13044 16.4806,1850.51423 L16.4806,1850.51423 Z M21.9996,1855.64935 C21.9996,1856.20104 21.5526,1856.99059 20.9996,1856.99059 L6.9996,1856.99059 C6.4476,1856.99059 5.9996,1856.20104 5.9996,1855.64935 L5.9996,1841.6572 C5.9996,1841.10551 6.4476,1840.99957 6.9996,1840.99957 L15.9996,1840.99957 L15.9996,1844.65552 C15.9996,1845.7589 16.8956,1846.9962 17.9996,1846.9962 L21.9996,1846.9962 L21.9996,1855.64935 Z M23.7076,1844.36268 L18.2926,1839.12263 C18.1056,1838.93473 17.8506,1839.00069 17.5856,1839.00069 L5.9996,1839.00069 C4.8956,1839.00069 3.9996,1839.55338 3.9996,1840.65776 L3.9996,1856.64878 C3.9996,1857.75216 4.8956,1858.98947 5.9996,1858.98947 L21.9996,1858.98947 C23.1046,1858.98947 23.9996,1857.75216 23.9996,1856.64878 L23.9996,1845.06929 C23.9996,1844.80443 23.8946,1844.54958 23.7076,1844.36268 L23.7076,1844.36268 Z" id="file_player_media-[#ffffff]"> </path> </g> </g> </g> </g></svg>
+      </a>
+    </div>
+  </footer> 
+ 
+    
+  <script src="./downloadPeta.js"></script>
+  </body>
+  </html>
