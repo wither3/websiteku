@@ -1,1 +1,403 @@
+<!DOCTYPE html>
+<html lang="in">
+<head>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta charset="UTF-8">
+    <title>Home</title>
+     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
+       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Dancing+Script:wght@700&family=Poppins:wght@400;700&family=Lato:wght@400;700&family=Oswald:wght@400;700&family=Raleway:wght@400;700&family=Montserrat:wght@400;700&family=Open+Sans:wght@400;700&family=Lobster:wght@400&family=Pacifico:wght@400&family=Great+Vibes:wght@400&family=Satisfy:wght@400&family=Caveat:wght@400;700&family=Amatic+SC:wght@400;700&family=Shadows+Into+Light:wght@400&family=Kaushan+Script:wght@400&family=Allura:wght@400&family=Tangerine:wght@400;700&family=Parisienne:wght@400&family=Alex+Brush:wght@400&family=Marck+Script:wght@400&family=Bad+Script:wght@400&family=Calligraffitti:wght@400&family=Homemade+Apple:wght@400&family=Just+Another+Hand:wght@400&family=Kalam:wght@400;700&family=Handlee:wght@400&family=Patrick+Hand:wght@400&family=Coming+Soon:wght@400&family=Architects+Daughter:wght@400&family=Schoolbell:wght@400&family=Covered+By+Your+Grace:wght@400&family=Rock+Salt:wght@400&family=Permanent+Marker:wght@400&family=Fredoka+One:wght@400&family=Righteous:wght@400&family=Bungee:wght@400&family=Chewy:wght@400&family=Fredoka:wght@400;700&family=Comfortaa:wght@400;700&family=Nunito:wght@400;700&family=Quicksand:wght@400;700&family=Source+Sans+Pro:wght@400;700&family=Ubuntu:wght@400;700&family=Varela+Round:wght@400&family=Work+Sans:wght@400;700&family=PT+Sans:wght@400;700&family=Merriweather:wght@400;700&family=Playfair+Display:wght@400;700&family=Crimson+Text:wght@400;700&family=Libre+Baskerville:wght@400;700&family=Old+Standard+TT:wght@400;700&family=Vollkorn:wght@400;700&family=Lora:wght@400;700&family=Cardo:wght@400;700&family=EB+Garamond:wght@400;700&family=Amiri:wght@400;700&family=Tinos:wght@400;700&family=Courier+Prime:wght@400;700&family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;700&family=Fira+Code:wght@400;700&family=Inconsolata:wght@400;700&family=Source+Code+Pro:wght@400;700&family=Roboto+Mono:wght@400;700&family=Anonymous+Pro:wght@400;700&family=Overpass:wght@400;700&family=Inter:wght@400;700&family=Barlow:wght@400;700&family=Heebo:wght@400;700&family=Exo:wght@400;700&family=Rubik:wght@400;700&family=Bebas+Neue:wght@400&family=Anton:wght@400&family=Archivo+Black:wght@400&family=Black+Ops+One:wght@400&family=Bowlby+One:wght@400&family=Changa:wght@400;700&family=Francois+One:wght@400&family=Josefin+Sans:wght@400;700&family=Karla:wght@400;700&family=Mukti:wght@400;700&family=Rajdhani:wght@400;700&family=Signika:wght@400;700&family=Titillium+Web:wght@400;700&family=Yanone+Kaffeesatz:wght@400;700&family=Zilla+Slab:wght@400;700&family=Arimo:wght@400;700&family=Cabin:wght@400;700&family=Catamaran:wght@400;700&family=Chivo:wght@400;700&family=Fira+Sans:wght@400;700&family=Hind:wght@400;700&family=IBM+Plex+Sans:wght@400;700&family=Jost:wght@400;700&family=Kanit:wght@400;700&family=Lexend:wght@400;700&family=Mada:wght@400;700&family=Noto+Sans:wght@400;700&family=Outfit:wght@400;700&family=Public+Sans:wght@400;700&family=Red+Hat+Display:wght@400;700&family=Sarabun:wght@400;700&family=Sen:wght@400;700&family=Slabo+27px:wght@400&family=Sorts+Mill+Goudy:wght@400&family=Spectral:wght@400;700&family=Tenor+Sans:wght@400&family=Trispace:wght@400;700&family=Varta:wght@400;700&family=Yantramanav:wght@400;700&family=Zeyada:wght@400&display=swap" rel="stylesheet">
+       
+</head>
+<style>
+    body {
+  background-image: url('./fitur/igstalk/gambar/background.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color:white;
+}
 
+        
+     #sidebar {
+      transform: translateX(-102%);
+      transition: transform 0.6s ease-in-out;
+    }
+    #sidebar.open {
+      transform: translateX(0);
+    }
+    .hidden-text {
+      display: none;
+    }
+    
+.trans {
+  background-color: rgba(0, 0, 0, 0.14) !important;
+   border-radius: 15px;
+  box-shadow: 
+    0 0 5px rgba(135, 206, 235, 0.6),
+    0 0 5px rgba(135, 206, 235, 0.4),
+    0 0 5px rgba(135, 206, 235, 0.2);
+  color: white;
+
+  border: 0.8px solid #95f5ff;
+  backdrop-filter: blur(10px);
+  color: white;
+  }    
+ 
+ .menunya {
+     background-color: rgba(0, 0, 0, 0.14) !important;
+     box-shadow: 
+    0 0 5px rgba(135, 206, 235, 0.6),
+    0 0 5px rgba(135, 206, 235, 0.4),
+    0 0 5px rgba(135, 206, 235, 0.2);
+  color: white;
+  border: 1px solid #95f5ff;
+  backdrop-filter: blur(2px);
+ }
+ 
+ .kotak1{
+  background-color: rgba(0, 0, 0, 0.14) !important;
+   border-radius: 10px;
+  box-shadow: 
+    0 0 5px rgba(135, 206, 235, 0.6),
+    0 0 5px rgba(135, 206, 235, 0.4),
+    0 0 5px rgba(135, 206, 235, 0.2);
+  color: white;
+width:90%;
+height:400px;
+  border: 0.8px solid #95f5ff;
+  backdrop-filter: blur(2px);
+  color: white;   
+  position: absolute;
+  z-index:1;
+  overflow: hidden;
+ }  
+ 
+.inilatar {
+   background-image: url("./gambar/IMG_20250927182044220.jpg");
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+      
+   width:100%;
+   height:200px;
+   position: absolute;
+   z-index:2;
+} 
+.iniprofil {
+    background-image:url("./gambar/20251029_173857.jpg");
+    background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+    width:90px;
+    height:90px;
+    position: absolute;
+    z-index: 3;
+    margin-left:10px;
+    bottom:160px;
+    border-radius:10px;
+    Border:1px solid black;
+}
+
+.ininama {
+  
+  position: absolute;
+  z-index: 4;
+  bottom:110px;
+  color:white;
+  height:50px;
+  width:100%;
+}
+.bagiannama {
+    color:white;
+   
+    width:96%;
+    text-align:left;
+}
+.bDeskripsi {
+    color:white;
+    width:96%;
+    text-align:left;
+    margin-top:2px;
+}
+.mysocmed{
+    color:white;
+    display:flex;
+    position:absolute;
+    right:0;
+    top:205px;
+    z-index:5;
+    
+    
+}
+.mykotak {
+    color:white;
+    background-color: rgba(0, 0, 0, 0.14);
+    border: 0.5px solid #95f5ff;
+  backdrop-filter: blur(2px);
+  box-shadow: 
+    0 0 5px rgba(135, 206, 235, 0.6),
+    0 0 5px rgba(135, 206, 235, 0.4),
+    0 0 5px rgba(135, 206, 235, 0.2);
+    margin-right:5px;
+    display:flex;
+    padding-top:2px;
+    padding-left:2px;
+    padding-right:2px;
+    border-radius:7px;
+}
+
+.mykotak:hover {
+ Border:0.8px solid #ff8a80;
+  box-shadow:
+    0 0 5px rgba(255, 75, 75, 0.6),
+    0 0 10px rgba(255, 75, 75, 0.4),
+    0 0 15px rgba(255, 75, 75, 0.2);
+}
+
+.tempatMusik {
+    display:flex;
+    position: absolute;
+    z-index:6;
+    width:65%;
+    right:5px;
+    top:174px;
+    
+}
+
+
+ .music-player {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 250px;
+}
+
+.progress-container {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: #00f2ff;
+  transition: width 0.1s linear;
+}
+
+.kotak2{
+  background-color: rgba(0, 0, 0, 0.14) !important;
+   border-radius: 10px;
+  box-shadow: 
+    0 0 5px rgba(135, 206, 235, 0.6),
+    0 0 5px rgba(135, 206, 235, 0.4),
+    0 0 5px rgba(135, 206, 235, 0.2);
+  color: white;
+width:90%;
+
+  border: 0.8px solid #95f5ff;
+  backdrop-filter: blur(2px);
+  color: white;   
+  position: absolute;
+  z-index:1;
+  overflow: hidden;
+  top:520px;
+  transform: translateX(-50%);
+  left:50%;
+ }  
+ 
+ .tempatGempa{
+  height:200px;
+  display:flex;
+
+ }
+ 
+ .agarTidakKesamping{
+     height:auto;
+     margin-left:2px;
+ }
+</style>
+
+
+<body>
+<nav class="trans p-3 fixed w-[90%] top-2 left-1/2 transform -translate-x-1/2 text-white" style="z-index:1000;">
+    <div class="container mx-auto flex justify-between items-center">
+      <button class="text-white text-xl" id="menu-button">
+        <i class="fas fa-bars"></i>
+      </button>
+      <a class="text-white text-xl font-bold mx-auto" href="#">
+        BERANDA
+      </a>
+    </div>
+  </nav>
+  <div class="fixed inset-0 bg-gray-800 bg-opacity-50 hidden" style="z-index:1001;" id="overlay"></div>
+  <div class="fixed inset-y-0 left-0 menunya w-64 p-4" style="z-index:1002;" id="sidebar">
+    <div class="flex justify-between items-center mb-4">
+      <span class="text-xl font-bold">Menu</span>
+      <button class="text-xl" id="close-button">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <ul class="space-y-4">
+      <li>
+        <a class="text-white-600 hover:text-red-800" href="index.html">
+          Home
+        </a>
+      </li>
+      <li>
+        <a class="text-white-600 hover:text-blue-800" href="https://whatsapp.com/channel/0029VaKqCt63bbV2yoFFOL2d">
+          WhatsApp channel
+        </a>
+      </li>
+      <li>
+        <a class="text-white-600 hover:text-blue-800" href="./fitur/tiktokdownload/tiktokd.html">
+          TikTok Downloader
+        </a>
+      </li>
+      <li>
+        <a class="text-white-600 hover:text-blue-800" href="./fitur/igstalk/igstalk.html">
+          Instagram stalk
+        </a>
+      </li>
+    </ul>
+  </div>    
+ 
+ 
+ 
+ <br><br><br><br>
+ <div class="kotak1 left-1/2 transform -translate-x-1/2">
+ <div class="inilatar"></div>  
+ <div class="iniprofil"></div>
+ 
+ <div class="ininama">
+  <center>
+   <div class="bagiannama">
+     
+       
+        <div class="font-text" style="font-family: 'Oswald', sans-serif;">@qhairulpratama</div>
+   
+   </div>
+ 
+  <div class="bDeskripsi">
+     <div class="font-text" style="font-family: 'Patrick Hand', cursive;">Welcome! My name is Qhairul Pratama. This website was designed to help our members and followers conveniently locate and access various download links and tools.</div>
+     
+  </div>
+  </center>
+  </div>
+ 
+ <div class="mysocmed">
+  <div class="mykotak" id="tiktokBtn">
+      <svg fill="#ffffff" width="20px" height="20px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>tiktok</title> <path d="M16.656 1.029c1.637-0.025 3.262-0.012 4.886-0.025 0.054 2.031 0.878 3.859 2.189 5.213l-0.002-0.002c1.411 1.271 3.247 2.095 5.271 2.235l0.028 0.002v5.036c-1.912-0.048-3.71-0.489-5.331-1.247l0.082 0.034c-0.784-0.377-1.447-0.764-2.077-1.196l0.052 0.034c-0.012 3.649 0.012 7.298-0.025 10.934-0.103 1.853-0.719 3.543-1.707 4.954l0.020-0.031c-1.652 2.366-4.328 3.919-7.371 4.011l-0.014 0c-0.123 0.006-0.268 0.009-0.414 0.009-1.73 0-3.347-0.482-4.725-1.319l0.040 0.023c-2.508-1.509-4.238-4.091-4.558-7.094l-0.004-0.041c-0.025-0.625-0.037-1.25-0.012-1.862 0.49-4.779 4.494-8.476 9.361-8.476 0.547 0 1.083 0.047 1.604 0.136l-0.056-0.008c0.025 1.849-0.050 3.699-0.050 5.548-0.423-0.153-0.911-0.242-1.42-0.242-1.868 0-3.457 1.194-4.045 2.861l-0.009 0.030c-0.133 0.427-0.21 0.918-0.21 1.426 0 0.206 0.013 0.41 0.037 0.61l-0.002-0.024c0.332 2.046 2.086 3.59 4.201 3.59 0.061 0 0.121-0.001 0.181-0.004l-0.009 0c1.463-0.044 2.733-0.831 3.451-1.994l0.010-0.018c0.267-0.372 0.45-0.822 0.511-1.311l0.001-0.014c0.125-2.237 0.075-4.461 0.087-6.698 0.012-5.036-0.012-10.060 0.025-15.083z"></path> </g></svg>
+  <div class="font-text" style="font-family: 'Just Another Hand', cursive;">@qhairulpratama</div>
+
+
+
+      
+  </div>
+  
+  <div class="mykotak" id="YTBtn">
+  <svg width="20px" height="20px" viewBox="0 -3 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>youtube [#ffffff]</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Dribbble-Light-Preview" transform="translate(-300.000000, -7442.000000)" fill="#ffffff"> <g id="icons" transform="translate(56.000000, 160.000000)"> <path d="M251.988432,7291.58588 L251.988432,7285.97425 C253.980638,7286.91168 255.523602,7287.8172 257.348463,7288.79353 C255.843351,7289.62824 253.980638,7290.56468 251.988432,7291.58588 M263.090998,7283.18289 C262.747343,7282.73013 262.161634,7282.37809 261.538073,7282.26141 C259.705243,7281.91336 248.270974,7281.91237 246.439141,7282.26141 C245.939097,7282.35515 245.493839,7282.58153 245.111335,7282.93357 C243.49964,7284.42947 244.004664,7292.45151 244.393145,7293.75096 C244.556505,7294.31342 244.767679,7294.71931 245.033639,7294.98558 C245.376298,7295.33761 245.845463,7295.57995 246.384355,7295.68865 C247.893451,7296.0008 255.668037,7296.17532 261.506198,7295.73552 C262.044094,7295.64178 262.520231,7295.39147 262.895762,7295.02447 C264.385932,7293.53455 264.28433,7285.06174 263.090998,7283.18289" id="youtube-[#ffffff]"> </path> </g> </g> </g> </g></svg>  
+  <div class="font-text ml-1" style="font-family: 'Just Another Hand', cursive;">rullzNPC</div>
+
+  </div>
+
+<div class="mykotak" id="IgBtn">
+    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z" fill="#ffffff"></path> <path d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z" fill="#ffffff"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M1.65396 4.27606C1 5.55953 1 7.23969 1 10.6V13.4C1 16.7603 1 18.4405 1.65396 19.7239C2.2292 20.8529 3.14708 21.7708 4.27606 22.346C5.55953 23 7.23969 23 10.6 23H13.4C16.7603 23 18.4405 23 19.7239 22.346C20.8529 21.7708 21.7708 20.8529 22.346 19.7239C23 18.4405 23 16.7603 23 13.4V10.6C23 7.23969 23 5.55953 22.346 4.27606C21.7708 3.14708 20.8529 2.2292 19.7239 1.65396C18.4405 1 16.7603 1 13.4 1H10.6C7.23969 1 5.55953 1 4.27606 1.65396C3.14708 2.2292 2.2292 3.14708 1.65396 4.27606ZM13.4 3H10.6C8.88684 3 7.72225 3.00156 6.82208 3.0751C5.94524 3.14674 5.49684 3.27659 5.18404 3.43597C4.43139 3.81947 3.81947 4.43139 3.43597 5.18404C3.27659 5.49684 3.14674 5.94524 3.0751 6.82208C3.00156 7.72225 3 8.88684 3 10.6V13.4C3 15.1132 3.00156 16.2777 3.0751 17.1779C3.14674 18.0548 3.27659 18.5032 3.43597 18.816C3.81947 19.5686 4.43139 20.1805 5.18404 20.564C5.49684 20.7234 5.94524 20.8533 6.82208 20.9249C7.72225 20.9984 8.88684 21 10.6 21H13.4C15.1132 21 16.2777 20.9984 17.1779 20.9249C18.0548 20.8533 18.5032 20.7234 18.816 20.564C19.5686 20.1805 20.1805 19.5686 20.564 18.816C20.7234 18.5032 20.8533 18.0548 20.9249 17.1779C20.9984 16.2777 21 15.1132 21 13.4V10.6C21 8.88684 20.9984 7.72225 20.9249 6.82208C20.8533 5.94524 20.7234 5.49684 20.564 5.18404C20.1805 4.43139 19.5686 3.81947 18.816 3.43597C18.5032 3.27659 18.0548 3.14674 17.1779 3.0751C16.2777 3.00156 15.1132 3 13.4 3Z" fill="#ffffff"></path> </g></svg>
+  <div class="font-text ml-1" style="font-family: 'Just Another Hand', cursive;">rullznpc</div>  
+</div>
+ </div>
+ 
+ 
+    
+     
+     
+<div class="tempatMusik">
+      
+      
+   <div class="music-player">
+  <audio id="audio" src="musik.mp3"></audio>
+  <button id="playBtn"><i class="fa fa-play"></i></button>
+  
+  <div id="progress" class="progress-container">
+    <div id="bar" class="progress-bar"></div>
+  </div>
+</div>
+
+  
+
+
+
+    
+</div>
+   
+   
+     
+</div>
+ 
+ 
+ 
+<div class="kotak2">
+   <div id="gempa">
+       
+   </div>
+  <div id="dirasakan"></div>
+</div>
+ 
+    
+    
+    
+    
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <br><br><br>
+ <br><br><br><br>
+ <br><br><br>
+ <br><br>
+ <br>
+ <br><br><br>
+ <br><br><br><br>
+ <br><br><br>
+ <br><br>
+ <br>
+ <br><br><br>
+ <br><br><br><br>
+ <br><br><br>
+ <br><br>
+ <br>
+ 
+ 
+ <footer class="trans py-3 fixed w-full bottom-0" style="z-index:100;">
+    <div class="container mx-auto flex justify-around items-center">
+      <a class="text-white text-2xl" href="index.html">
+        <i class="fas fa-home" style="color:#95f5ff;"></i>
+      </a>
+      <a class="text-white text-2xl" href="downloadPeta.html">
+        <svg width="30px" height="30px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><defs><style>.a{fill:#ffffff;fill-opacity:0;}.a,.b{stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;}.b{fill:none;}</style></defs><path class="a" d="M43,31.8268h0L24.0162,43.0493,5,32.07V21.2225"></path><path class="a" d="M9.5524,29.2747l-1.808-1.0438v5.4239l9.7816,5.6474V37.4943L15.96,36.59v-1.808l-1.888-1.09v-3.616l-4.52-2.61Z"></path><path class="a" d="M17.6883,39.3959,8.1315,33.8783l3.1372-1.7424,2.8036,1.5564"></path><path class="a" d="M34.8641,17.0935l-2.6653-1.8714-6.0555,3.6536,4.2008,2.5154v1.808l5.9607,3.4473,3.1357-1.808L43,22.7869v0l-5.4239-3.8154"></path><path class="a" d="M32.1988,15.2221l-.0467-1.8271"></path><path class="a" d="M11.2448,17.596,5,21.2225,17.6883,28.548l12.6558-7.1569-5.78-3.4656,7.588-4.53L25.3548,9.4706,20.643,12.385"></path><path class="a" d="M30.3441,23.1991,17.6883,30.356v1.808l1.4035.81v1.808l4.9244,2.8431,10.8479-6.3928v-1.94l1.5116-.8727-.0709-1.773"></path><path class="a" d="M12.803,18.4952l.0258,3.8213,1.5657.7139,1.5658-.7139V20.5088l-.023-1.9927-1.5428.8984"></path><path class="a" d="M7.7444,15.575l6.65,3.84L20.4,15.9471V8.4181L14.3945,4.9507,7.7444,8.79Z"></path><path class="a" d="M34.8641,22.1927l1.451.8377,1.261-.728V14.7186l-1.261-.7281-1.451.97Z"></path><path class="a" d="M43,25.4988l-3.616,2.0877v.904l-1.8079,1.0438v1.808l-1.808,1.0438v3.616L43,31.8268Z"></path><line class="b" x1="17.6883" y1="28.548" x2="17.6883" y2="30.356"></line></g></svg>
+     
+      </a>
+      <a class="text-white text-2xl" href="index3.html">
+        <svg width="23px" height="23px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>file_player_media [#ffffff]</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Dribbble-Light-Preview" transform="translate(-60.000000, -1999.000000)" fill="#ffffff"> <g id="icons" transform="translate(56.000000, 160.000000)"> <path d="M16.4806,1850.51423 L12.4966,1852.78995 C11.8296,1853.17074 10.9996,1852.68901 10.9996,1851.92144 L10.9996,1847.37099 C10.9996,1846.60342 11.8296,1846.12269 12.4966,1846.50348 L16.4806,1848.7782 C17.1526,1849.16199 17.1526,1850.13044 16.4806,1850.51423 L16.4806,1850.51423 Z M21.9996,1855.64935 C21.9996,1856.20104 21.5526,1856.99059 20.9996,1856.99059 L6.9996,1856.99059 C6.4476,1856.99059 5.9996,1856.20104 5.9996,1855.64935 L5.9996,1841.6572 C5.9996,1841.10551 6.4476,1840.99957 6.9996,1840.99957 L15.9996,1840.99957 L15.9996,1844.65552 C15.9996,1845.7589 16.8956,1846.9962 17.9996,1846.9962 L21.9996,1846.9962 L21.9996,1855.64935 Z M23.7076,1844.36268 L18.2926,1839.12263 C18.1056,1838.93473 17.8506,1839.00069 17.5856,1839.00069 L5.9996,1839.00069 C4.8956,1839.00069 3.9996,1839.55338 3.9996,1840.65776 L3.9996,1856.64878 C3.9996,1857.75216 4.8956,1858.98947 5.9996,1858.98947 L21.9996,1858.98947 C23.1046,1858.98947 23.9996,1857.75216 23.9996,1856.64878 L23.9996,1845.06929 C23.9996,1844.80443 23.8946,1844.54958 23.7076,1844.36268 L23.7076,1844.36268 Z" id="file_player_media-[#ffffff]"> </path> </g> </g> </g> </g></svg>
+      </a>
+    </div>
+  </footer> 
+ 
+    
+  <script src="./java.js"></script> 
+</body>
+</html>
