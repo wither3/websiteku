@@ -8,12 +8,14 @@
     {
       "src": "codenya/*.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "index.html",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
-    {
-      "src": "(.*)",
-      "dest": "/index.js"
-    }
+    { "src": "/", "dest": "/index.html" },
+    { "src": "/(.*)", "dest": "/index.js" }
   ]
 }
