@@ -64,7 +64,8 @@ function stalk() {
   bionya.innerHTML = "Memuat data...";
   postsContainer.innerHTML = "<p style='text-align:center;'>Memuat postingan...</p>";
 
-  fetch(`https://tik-downloaders.vercel.app/igstalk?username=${encodeURIComponent(username)}`)
+  fetch(`/igstalk?username=${encodeURIComponent(username)}`)
+    
     .then(res => res.json())
     .then(json => {
       const user = json?.data?.data;
@@ -101,7 +102,8 @@ function stalk() {
       nama.innerHTML = `<p><font size="2">${user.full_name}</font></p>`;
 
       // lanjut fetch postingan
-      return fetch(`https://tik-downloaders.vercel.app/igpost?username=${encodeURIComponent(username)}`);
+      return fetch(`/igpost?username=${encodeURIComponent(username)}`);
+      
     })
     .then(res => res.json())
     .then(postJson => {
