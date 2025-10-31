@@ -11,6 +11,12 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
+app.get('/', (req, res) => {
+  const filePath = path.join(__dirname, 'index.html');
+  const html = fs.readFileSync(filePath, 'utf-8');
+  res.setHeader('Content-Type', 'text/html');
+  res.send(html);
+});
 
 app.use((req, res, next) => {
   if (req.path === '/favicon.ico') {
