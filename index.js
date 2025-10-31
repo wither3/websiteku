@@ -6,6 +6,7 @@ const path = require('path');
 const { ttsave } = require('./ttsave');
 const igStalk = require('./igstalk');
 const igStalkPosts = require('./igpost');
+const ttDL = require('./codenya/ttdl');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,6 +21,22 @@ app.use(express.json());
 // ✅ Tampilkan index.html di halaman utama
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+
+app.get('/ttdl', async (req, res) => {
+  const { url } = req.query;
+  if (!url) {
+    return res.status(400).json({ error: 'Masukkan parameter ?url=' });
+  }
+
+  try {
+    const result = await ttDL(url);
+    res.setHeader('Content-Type', 'application/json');
+    res.send(result); // sudah rapi dari ttdl.js
+  } catch (err) {
+    res.status(500).json({ error: err.message || 'Terjadi kesalahan' });
+  }
 });
 
 // ✅ IG Post API
