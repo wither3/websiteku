@@ -69,26 +69,7 @@ app.get("/ttsave", async (req, res) => {
         });
     }
 });
-app.get("/lovetik", async (req, res) => {
-    const url = req.query.url; // Ambil URL dari query parameter
-    if (!url) {
-        return res.status(400).json({
-            status: false,
-            message: "URL TikTok diperlukan!"
-        });
-    }
 
-    try {
-        const result = await LoveTik(url);
-        res.status(200).json(result);
-    } catch (error) {
-        res.status(500).json({
-            status: false,
-            message: "Terjadi kesalahan!",
-            error: error.message
-        });
-    }
-});
 
 app.get('/tikstalk', async (req, res) => {
     const username = req.query.username; // Ambil username dari query parameter
