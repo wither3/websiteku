@@ -27,7 +27,7 @@ goBtn.addEventListener('click', async () => {
   }
 
   statusEl.textContent = 'Mengambil data...';
-  const apiUrl = 'https://endernet.web.id/tiktok?url=' + encodeURIComponent(userUrl);
+  const apiUrl = '/tiktok?url=' + encodeURIComponent(userUrl);
 
   try {
     const res = await fetch(apiUrl);
