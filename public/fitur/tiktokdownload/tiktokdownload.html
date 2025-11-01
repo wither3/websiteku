@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="id">
+<head>
+   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta charset="UTF-8">
+    <title>TikDownloader</title>
+     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
+       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Dancing+Script:wght@700&family=Poppins:wght@400;700&family=Lato:wght@400;700&family=Oswald:wght@400;700&family=Raleway:wght@400;700&family=Montserrat:wght@400;700&family=Open+Sans:wght@400;700&family=Lobster:wght@400&family=Pacifico:wght@400&family=Great+Vibes:wght@400&family=Satisfy:wght@400&family=Caveat:wght@400;700&family=Amatic+SC:wght@400;700&family=Shadows+Into+Light:wght@400&family=Kaushan+Script:wght@400&family=Allura:wght@400&family=Tangerine:wght@400;700&family=Parisienne:wght@400&family=Alex+Brush:wght@400&family=Marck+Script:wght@400&family=Bad+Script:wght@400&family=Calligraffitti:wght@400&family=Homemade+Apple:wght@400&family=Just+Another+Hand:wght@400&family=Kalam:wght@400;700&family=Handlee:wght@400&family=Patrick+Hand:wght@400&family=Coming+Soon:wght@400&family=Architects+Daughter:wght@400&family=Schoolbell:wght@400&family=Covered+By+Your+Grace:wght@400&family=Rock+Salt:wght@400&family=Permanent+Marker:wght@400&family=Fredoka+One:wght@400&family=Righteous:wght@400&family=Bungee:wght@400&family=Chewy:wght@400&family=Fredoka:wght@400;700&family=Comfortaa:wght@400;700&family=Nunito:wght@400;700&family=Quicksand:wght@400;700&family=Source+Sans+Pro:wght@400;700&family=Ubuntu:wght@400;700&family=Varela+Round:wght@400&family=Work+Sans:wght@400;700&family=PT+Sans:wght@400;700&family=Merriweather:wght@400;700&family=Playfair+Display:wght@400;700&family=Crimson+Text:wght@400;700&family=Libre+Baskerville:wght@400;700&family=Old+Standard+TT:wght@400;700&family=Vollkorn:wght@400;700&family=Lora:wght@400;700&family=Cardo:wght@400;700&family=EB+Garamond:wght@400;700&family=Amiri:wght@400;700&family=Tinos:wght@400;700&family=Courier+Prime:wght@400;700&family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;700&family=Fira+Code:wght@400;700&family=Inconsolata:wght@400;700&family=Source+Code+Pro:wght@400;700&family=Roboto+Mono:wght@400;700&family=Anonymous+Pro:wght@400;700&family=Overpass:wght@400;700&family=Inter:wght@400;700&family=Barlow:wght@400;700&family=Heebo:wght@400;700&family=Exo:wght@400;700&family=Rubik:wght@400;700&family=Bebas+Neue:wght@400&family=Anton:wght@400&family=Archivo+Black:wght@400&family=Black+Ops+One:wght@400&family=Bowlby+One:wght@400&family=Changa:wght@400;700&family=Francois+One:wght@400&family=Josefin+Sans:wght@400;700&family=Karla:wght@400;700&family=Mukti:wght@400;700&family=Rajdhani:wght@400;700&family=Signika:wght@400;700&family=Titillium+Web:wght@400;700&family=Yanone+Kaffeesatz:wght@400;700&family=Zilla+Slab:wght@400;700&family=Arimo:wght@400;700&family=Cabin:wght@400;700&family=Catamaran:wght@400;700&family=Chivo:wght@400;700&family=Fira+Sans:wght@400;700&family=Hind:wght@400;700&family=IBM+Plex+Sans:wght@400;700&family=Jost:wght@400;700&family=Kanit:wght@400;700&family=Lexend:wght@400;700&family=Mada:wght@400;700&family=Noto+Sans:wght@400;700&family=Outfit:wght@400;700&family=Public+Sans:wght@400;700&family=Red+Hat+Display:wght@400;700&family=Sarabun:wght@400;700&family=Sen:wght@400;700&family=Slabo+27px:wght@400&family=Sorts+Mill+Goudy:wght@400&family=Spectral:wght@400;700&family=Tenor+Sans:wght@400&family=Trispace:wght@400;700&family=Varta:wght@400;700&family=Yantramanav:wght@400;700&family=Zeyada:wght@400&display=swap" rel="stylesheet">
+</head>
+<body>
+<style>
+ body {
+  background-image: url('./gambar/background.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color:white;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+ 
+}
+
+        
+     #sidebar {
+      transform: translateX(-102%);
+      transition: transform 0.6s ease-in-out;
+    }
+    #sidebar.open {
+      transform: translateX(0);
+    }
+    .hidden-text {
+      display: none;
+    }
+    
+.trans {
+  background-color: rgba(0, 0, 0, 0.14) !important;
+   border-radius: 15px;
+  box-shadow: 
+    0 0 5px rgba(135, 206, 235, 0.6),
+    0 0 5px rgba(135, 206, 235, 0.4),
+    0 0 5px rgba(135, 206, 235, 0.2);
+  color: white;
+
+  border: 0.8px solid #95f5ff;
+  backdrop-filter: blur(10px);
+  color: white;
+  }    
+ 
+ .menunya {
+     background-color: rgba(0, 0, 0, 0.14) !important;
+     box-shadow: 
+    0 0 5px rgba(135, 206, 235, 0.6),
+    0 0 5px rgba(135, 206, 235, 0.4),
+    0 0 5px rgba(135, 206, 235, 0.2);
+  color: white;
+  border: 1px solid #95f5ff;
+  backdrop-filter: blur(2px);
+  text-align:left;
+  align-items: left;
+  justify-content: left;
+ }
+ 
+ .kotak1{
+  background-color: rgba(0, 0, 0, 0.14);
+   border-radius: 10px;
+  box-shadow: 
+    0 0 5px rgba(135, 206, 235, 0.6),
+    0 0 5px rgba(135, 206, 235, 0.4),
+    0 0 5px rgba(135, 206, 235, 0.2);
+  color: white;
+width:90%;
+padding-bottom:10px;
+  border: 0.8px solid #95f5ff;
+  backdrop-filter: blur(2px);
+  color: white;   
+  position: relative;
+  
+  overflow: hidden;
+ }    
+  
+.inputnya {
+  background-color:white;
+  width:90%;
+  color:black;
+  border-radius:6px;
+  padding:5px;
+}
+ .tombolDown {
+   background-color: rgba(0, 0, 0, 0.14);
+   border-radius:4px;
+   box-shadow: 
+    0 0 5px rgba(135, 206, 235, 0.6),
+    0 0 5px rgba(135, 206, 235, 0.4),
+    0 0 5px rgba(135, 206, 235, 0.2);
+  color: white;
+  width:90%;
+  border: 0.6px solid #95f5ff;
+  padding:5px;
+  margin-top:5px;
+  display:flex;
+  text-align:center;
+  align-items: center;
+  justify-content: center;
+ }   
+ .tombolDown:hover{
+     background-color:#95f5ff;
+     
+ }
+ .bagianProfile {
+     display:flex;
+     padding:3px;
+     
+     
+     
+ }
+ 
+ .kotak2{
+  background-color: rgba(0, 0, 0, 0.14);
+   border-radius: 10px;
+  box-shadow: 
+    0 0 5px rgba(135, 206, 235, 0.6),
+    0 0 5px rgba(135, 206, 235, 0.4),
+    0 0 5px rgba(135, 206, 235, 0.2);
+  color: white;
+width:90%;
+
+padding-bottom:10px;
+  border: 0.8px solid #95f5ff;
+  backdrop-filter: blur(2px);
+  color: white;   
+  position: relative;
+  
+  overflow: hidden;
+ }    
+  .tombolDown2 {
+   background-color: rgba(0, 0, 0, 0.14);
+   border-radius:4px;
+   box-shadow: 
+    0 0 5px rgba(135, 206, 235, 0.6),
+    0 0 5px rgba(135, 206, 235, 0.4),
+    0 0 5px rgba(135, 206, 235, 0.2);
+  color: white;
+  margin-left:3px;
+  margin-right:3px;
+  border: 0.6px solid #95f5ff;
+  padding:5px;
+  margin-top:5px;
+  display:flex;
+  text-align:center;
+  align-items: center;
+  justify-content: center;
+ }  
+ .tombolDown2:hover{
+     background-color:#95f5ff;
+ } 
+</style>
+<br>
+<br>
+<nav class="trans p-3 fixed w-[90%] top-2 left-1/2 transform -translate-x-1/2 text-white" style="z-index:1000;">
+    <div class="container mx-auto flex justify-between items-center">
+      <button class="text-white text-xl" id="menu-button">
+        <i class="fas fa-bars"></i>
+      </button>
+      <a class="text-white text-xl font-bold mx-auto" href="#">
+        INI BELUM JADI
+      </a>
+    </div>
+  </nav>
+  <div class="fixed inset-0 bg-gray-800 bg-opacity-50 hidden" style="z-index:1001;" id="overlay"></div>
+  <div class="fixed inset-y-0 left-0 menunya w-64 p-4" style="z-index:1002;" id="sidebar">
+    <div class="flex justify-between items-center mb-4">
+      <span class="text-xl font-bold">Menu</span>
+      <button class="text-xl" id="close-button">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <ul class="space-y-4">
+      <li>
+        <a class="text-white-600 hover:text-[#95f5ff]" href="index.html">
+          Home
+        </a>
+      </li>
+      <li>
+        <a class="text-white-600 hover:text-[#95f5ff]" href="https://whatsapp.com/channel/0029VaKqCt63bbV2yoFFOL2d">
+          WhatsApp channel
+        </a>
+      </li>
+      <li>
+        <a class="text-white-600 hover:text-[#95f5ff]" href="./fitur/tiktokdownload/tiktokdownload.html">
+          TikTok Downloader
+        </a>
+      </li>
+      <li>
+        <a class="text-white-600 hover:text-[#95f5ff]" href="./fitur/igstalk/igstalk.html">
+          Instagram stalk
+        </a>
+      </li>
+    </ul>
+  </div>  
+
+
+
+<br><br>
+  <div class="font-text" style="font-family: 'Fira Code', monospace;"><b>Download video/slide tiktok di sini dengan hasil respon yang lengkap</b></div>
+<br>
+<center>
+<div class="kotak1">
+  <div class="font-text" style="font-family: 'Patrick Hand', cursive;">Masukkan link tiktok video/slide
+contoh: https://vt.tiktok.com/ZSy6qo9te/</div>
+
+  <input class="inputnya" id="url" type="text" size="60" value="https://vt.tiktok.com/ZSy2Qso6F/">
+  <button class="tombolDown" id="go"><div class="font-text" style="font-family: 'Bebas Neue', cursive;"><b>DOWNLOAD SEKARANG!</b></div>
+  </button>
+  <p id="status"></p>
+</div>
+<br>
+  <div id="result"></div>
+</center>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="./TikDownloader.js"></script>
+</body>
+</html>
