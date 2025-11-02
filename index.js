@@ -60,7 +60,20 @@ app.get('/igpost', async (req, res) => {
       .json({ error: err.message || 'Terjadi kesalahan saat fetch' });
   }
 });
+app.get('/tikstalk', async (req, res) => {
+const username = req.query.username;
+  if (!username)
+    return res.status(400).json({ error: 'masukkan username'});
+  try {
+    const data await getTiktokProfile(username);
+    res.json(data);
+  } catch(error) {
+    res.json(error);
+  }
+  })
 
+
+})
 // ✅ IG Stalk API
 app.get('/igstalk', async (req, res) => {
   const username = req.query.username;
