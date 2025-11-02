@@ -77,13 +77,13 @@ padding-bottom:10px;
   backdrop-filter: blur(2px);
   color: white;   
   position: relative;
-  
+  max-width:340px;
   overflow: hidden;
  }    
   
 .inputnya {
   background-color:white;
-  width:90%;
+  width:98%;
   color:black;
   border-radius:6px;
   padding:5px;
@@ -96,7 +96,7 @@ padding-bottom:10px;
     0 0 5px rgba(135, 206, 235, 0.4),
     0 0 5px rgba(135, 206, 235, 0.2);
   color: white;
-  width:90%;
+  width:98%;
   border: 0.6px solid #95f5ff;
   padding:5px;
   margin-top:5px;
@@ -126,15 +126,35 @@ padding-bottom:10px;
     0 0 5px rgba(135, 206, 235, 0.2);
   color: white;
 width:90%;
-
+max-width:340px;
 padding-bottom:10px;
   border: 0.8px solid #95f5ff;
   backdrop-filter: blur(2px);
   color: white;   
   position: relative;
-  
+  margin-left:15px;
   overflow: hidden;
+  margin-top:5px;
  }    
+ .inideskripsi {
+  background-color: rgba(0, 0, 0, 0.14);
+   border-radius: 10px;
+  box-shadow: 
+    0 0 5px rgba(135, 206, 235, 0.6),
+    0 0 5px rgba(135, 206, 235, 0.4),
+    0 0 5px rgba(135, 206, 235, 0.2);
+  color: white;
+width:95%;
+max-width:340px;
+padding-bottom:10px;
+  border: 0.5px solid #95f5ff;
+  backdrop-filter: blur(2px);   
+  text-align:left;
+  padding:2px;
+  margin-top:5px;
+  overflow-y:auto;
+  height:90px;
+ }
   .tombolDown2 {
    background-color: rgba(0, 0, 0, 0.14);
    border-radius:4px;
@@ -152,10 +172,20 @@ padding-bottom:10px;
   text-align:center;
   align-items: center;
   justify-content: center;
+  width:98%;
  }  
  .tombolDown2:hover{
      background-color:#95f5ff;
  } 
+ 
+ .pleks {
+     display:flex;
+     flex-wrap: wrap;
+       text-align:center;
+  align-items: center;
+  justify-content: center;
+  width:100%;
+ }
 </style>
 <br>
 <br>
@@ -179,7 +209,7 @@ padding-bottom:10px;
     </div>
     <ul class="space-y-4">
       <li>
-        <a class="text-white-600 hover:text-[#95f5ff]" href="index.html">
+        <a class="text-white-600 hover:text-[#95f5ff]" href="../../index.html">
           Home
         </a>
       </li>
@@ -194,7 +224,7 @@ padding-bottom:10px;
         </a>
       </li>
       <li>
-        <a class="text-white-600 hover:text-[#95f5ff]" href="./fitur/igstalk/igstalk.html">
+        <a class="text-white-600 hover:text-[#95f5ff]" href="../igstalk/igstalk.html">
           Instagram stalk
         </a>
       </li>
@@ -204,22 +234,24 @@ padding-bottom:10px;
 
 
 <br><br>
+<div class="pleks">
   <div class="font-text" style="font-family: 'Fira Code', monospace;"><b>Download video/slide tiktok di sini dengan hasil respon yang lengkap</b></div>
 <br>
-<center>
+
 <div class="kotak1">
   <div class="font-text" style="font-family: 'Patrick Hand', cursive;">Masukkan link tiktok video/slide
 contoh: https://vt.tiktok.com/ZSy6qo9te/</div>
 
-  <input class="inputnya" id="url" type="text" size="60" value="https://vt.tiktok.com/ZSy2Qso6F/">
+  <input class="inputnya" id="url" type="text" size="60" value="">
+ <center>
   <button class="tombolDown" id="go"><div class="font-text" style="font-family: 'Bebas Neue', cursive;"><b>DOWNLOAD SEKARANG!</b></div>
-  </button>
+  </button></center>
   <p id="status"></p>
 </div>
 <br>
   <div id="result"></div>
-</center>
-  
+
+  </div>
   
   
   
