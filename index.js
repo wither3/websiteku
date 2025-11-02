@@ -65,7 +65,7 @@ const username = req.query.username;
   if (!username)
     return res.status(400).json({ error: 'masukkan username'});
   try {
-    const data await getTiktokProfile(username);
+    const data = await getTiktokProfile(username);
     res.json(data);
   } catch(error) {
     res.json(error);
