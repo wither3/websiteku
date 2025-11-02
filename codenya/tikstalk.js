@@ -38,7 +38,7 @@ async function getTiktokProfile(profileName) {
     }
 
     const json = JSON.parse(text);
-    const hasilnya = JSON.stringify(json, null, 2);
+    const hasilnya = json;
 
 console.log(hasilnya);
     return hasilnya;
