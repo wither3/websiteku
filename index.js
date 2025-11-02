@@ -8,6 +8,7 @@ const igStalk = require('./igstalk');
 const igStalkPosts = require('./igpost');
 const ttDL = require('./codenya/ttdl');
 const tikDl = require('./codenya/tikDl.js');
+const getTiktokProfile = require(`./codenya/tikstalk.js`);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
