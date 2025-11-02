@@ -70,10 +70,10 @@ const username = req.query.username;
   } catch(error) {
     res.json(error);
   }
-  })
+  });
 
 
-})
+
 // ✅ IG Stalk API
 app.get('/igstalk', async (req, res) => {
   const username = req.query.username;
