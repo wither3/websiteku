@@ -114,7 +114,7 @@ const audio = document.getElementById("audio");
       });
         
         
-const usernameNya =`https://endernet.web.id/tikstalk?username=qhairulpratama`;
+const usernameNya =`/tikstalk?username=qhairulpratama`;
 
 fetch(usernameNya)
       .then(res => res.json())
