@@ -108,21 +108,34 @@ app.get('/ttsave', async (req, res) => {
   }
 });
 
-app.get('/bagian1', async (req, res) => {
-  const { cmd, url } = req.query;
+app.get('/bagian1/:api?', async (req, res) => {
+  const api = req.params.api || req.query.api; // baca dari path atau query
+  const { url } = req.query;
 
-  switch (cmd) {
+  if (!api) {
+    return res.json({
+      status: true,
+      message: "API EnderNet aktif!",
+      usage: "/bagian1/datanyaaa atau ?api=datanyaaa"
+    });
+  }
+
+  switch (api) {
     case 'datanyaaa':
-      // fetch TikTok + kirim JSON
-    const kenapa =`Hii, Selamat datang di papan klip Gboard, teks apa pun yang Anda salin akan disimpan di sini.`;
-     res.status(200).json({status: true, kenapa});
-      
+      res.json({ status: true, kenapa: "Hii, Selamat datang di papan klip Gboard..." });
       break;
+
     case 'disinidibataskotaini':
-    let down =`dicoba dulu`;
-      res.status(200).json({status:true,down});
+      res.json({ status: true, down: "dicoba dulu" });
       break;
-    
+
+    case 'tiksave':
+      if (!url) return res.status(400).json({ status: false, error: "URL wajib!" });
+      // ... logic ttsave
+      break;
+
+    default:
+      res.status(404).json({ status: false, message: "API tidak ditemukan" });
   }
 });
 
