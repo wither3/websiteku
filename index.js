@@ -116,7 +116,7 @@ app.get('/bagian1/:api?', async (req, res) => {
     return res.json({
       status: true,
       message: "API EnderNet aktif!",
-      usage: "/bagian1/datanyaaa atau ?api=datanyaaa"
+      usage: "Maaf ini masih di kembangkan oleh rullzNPC bersama ChatGPT, Kenapa harus chatGPT karena aku tidak punya teman yang jago coding."
     });
   }
 
