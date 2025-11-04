@@ -108,7 +108,23 @@ app.get('/ttsave', async (req, res) => {
   }
 });
 
+app.get('/bagian1', async (req, res) => {
+  const { cmd, url } = req.query;
 
+  switch (cmd) {
+    case 'datanyaaa':
+      // fetch TikTok + kirim JSON
+    const kenapa =`Hii, Selamat datang di papan klip Gboard, teks apa pun yang Anda salin akan disimpan di sini.`;
+     res.status(200).json({status: true, kenapa});
+      
+      break;
+    case 'disinidibataskotaini':
+    let down =`dicoba dulu`;
+      res.status(200).json({status:true,down});
+      break;
+    
+  }
+});
 
 // ✅ Fallback untuk 404 (halaman tidak ditemukan)
 app.use((req, res) => {
