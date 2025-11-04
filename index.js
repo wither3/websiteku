@@ -121,10 +121,15 @@ app.get('/bagian1/:api?', async (req, res) => {
   }
 
   switch (api) {
-    case 'datanyaaa' :
+    case 'maptambakudangdanikan' :
     const datany = {
+  version: "1.21.111",
   mapTambakJava: "https://sfile.mobi/4qTyVHpmb6a",
   mapTambakBedrock: "https://sfile.mobi/3BbytGdI5yT",
+  admin:{
+    no1: "rullzNPC",
+    no2: "ARWIS"
+  },
   WhatsApp: {
     linkChannel: "https://whatsapp.com/channel/0029VbAyEGXJuyACiijTNb03",
     linkWAgcJava: "https://chat.whatsapp.com/FZtfxpSyYCN9FyCjWekyZN?mode=wwt",
