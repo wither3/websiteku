@@ -121,8 +121,16 @@ app.get('/bagian1/:api?', async (req, res) => {
   }
 
   switch (api) {
-    case 'datanyaaa':
-      res.json({ status: true, kenapa: "Hii, Selamat datang di papan klip Gboard..." });
+    const datany = {
+  mapTambakJava: "https://sfile.mobi/4qTyVHpmb6a",
+  mapTambakBedrock: "https://sfile.mobi/3BbytGdI5yT",
+  WhatsApp: {
+    linkChannel: "https://whatsapp.com/channel/0029VbAyEGXJuyACiijTNb03",
+    linkWAgcJava: "https://chat.whatsapp.com/FZtfxpSyYCN9FyCjWekyZN?mode=wwt",
+    linkWAgcBedrock: "https://chat.whatsapp.com/JYoK6GPec1r8KSuFew4UJo?mode=wwt"
+  } // ← TANPA KOMA DI SINI
+};
+      res.json({ status: true, datany });
       break;
 
     case 'disinidibataskotaini':
