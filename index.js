@@ -121,6 +121,7 @@ app.get('/bagian1/:api?', async (req, res) => {
   }
 
   switch (api) {
+    case 'datanyaaa' :
     const datany = {
   mapTambakJava: "https://sfile.mobi/4qTyVHpmb6a",
   mapTambakBedrock: "https://sfile.mobi/3BbytGdI5yT",
