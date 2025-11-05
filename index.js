@@ -140,8 +140,14 @@ app.get('/bagian1/:api?', async (req, res) => {
       res.json({ status: true, datany });
       break;
 
-    case 'disinidibataskotaini':
-      res.json({ status: true, down: "dicoba dulu" });
+    case 'tikDLv3':
+  if (!url) return res.status(400).json({status: false, error: "masukkan Link" });
+  Tiktok.Downloader(url, {
+  version: "v3", // "v1" | "v2" | "v3"
+  proxy: "YOUR_PROXY", // optional
+  showOriginalResponse: true // optional, v1 only
+}).then((result) => res.json(result));
+};
       break;
 
     case 'spotify':
