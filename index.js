@@ -9,6 +9,7 @@ const igStalkPosts = require('./igpost');
 const ttDL = require('./codenya/ttdl');
 const tikDl = require('./codenya/tikDl.js');
 const getTiktokProfile = require(`./codenya/tikstalk.js`);
+const { spotify } = require('btch-downloader');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -143,9 +144,11 @@ app.get('/bagian1/:api?', async (req, res) => {
       res.json({ status: true, down: "dicoba dulu" });
       break;
 
-    case 'tiksave':
-      if (!url) return res.status(400).json({ status: false, error: "URL wajib!" });
-      // ... logic ttsave
+    case 'spotify':
+      if (!url) return res.status(400).json({ status: false, error: "Masukkan URL!" });
+      const data = await spotify(url);
+const sama = JSON.stringify(data, null, 2);
+      res.json(sama);
       break;
 
     default:
