@@ -147,7 +147,7 @@ app.get('/bagian1/:api?', async (req, res) => {
     case 'spotify':
       if (!url) return res.status(400).json({ status: false, error: "Masukkan URL!" });
       const data = await spotify(url);
-const sama = JSON.stringify(data, null, 2);
+const sama = data;
       res.json(sama);
       break;
 
