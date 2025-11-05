@@ -11,6 +11,7 @@ const tikDl = require('./codenya/tikDl.js');
 const getTiktokProfile = require(`./codenya/tikstalk.js`);
 const { spotify } = require('btch-downloader');
 const Tiktok = require("@tobyg74/tiktok-api-dl")
+const getTiktokVideo = require("./codenya/tikUservideo.js);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -74,7 +75,17 @@ const username = req.query.username;
   }
   });
 
-
+app.get('/tikuservideo', async (req, res) => {
+const username = req.query.username;
+  if (!username)
+    return res.status(400).json({ error: 'masukkan username'});
+  try {
+    const data = await getTiktokVideo(username);
+    res.json(data);
+  } catch(error) {
+    res.json(error);
+  }
+  });
 
 // ✅ IG Stalk API
 app.get('/igstalk', async (req, res) => {
