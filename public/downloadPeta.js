@@ -17,16 +17,25 @@ document.getElementById('whatsapp').addEventListener('click', function() {
   window.location.href = 'https://chat.whatsapp.com/FZtfxpSyYCN9FyCjWekyZN?mode=wwt';
 });
 
-document.getElementById('downloadPetaBedrock').addEventListener('click', function() {
-  window.location.href = 'https://sfile.mobi/3BbytGdI5yT';
-});
-
-document.getElementById('downloadPetaJava').addEventListener('click', function() {
-  window.location.href = 'https://sfile.mobi/4qTyVHpmb6a';
-});
 
 
 
+
+
+fetch('https://endernet.web.id/bagian1?api=maptambakudangdanikan')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('downloadPetaBedrock').addEventListener('click', function() {
+                    window.location.href = `${data.datany.mapTambakBedrock}`;
+                });               
+               
+                document.getElementById('downloadPetaJava').addEventListener('click', function() {
+                    window.location.href = `${data.datany.mapTambakJava}`;
+                });               
+            })
+            .catch(error => {
+                document.getElementById('result').innerHTML = 'Error: ' + error;
+            });
 
 
 
