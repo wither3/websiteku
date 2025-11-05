@@ -141,14 +141,36 @@ app.get('/bagian1/:api?', async (req, res) => {
       break;
 
     case 'tikDLv3':
-  if (!url) return res.status(400).json({status: false, error: "masukkan Link" });
-  Tiktok.Downloader(url, {
-  version: "v3", // "v1" | "v2" | "v3"
-  proxy: "YOUR_PROXY", // optional
-  showOriginalResponse: true // optional, v1 only
-}).then((result) => res.json(result));
-};
-      break;
+  const url = req.query.url?.trim();
+
+  // Validasi URL
+  if (!url) {
+    return res.status(400).json({ status: false, error: "Masukkan link TikTok!" });
+  }
+  if (!url.includes('tiktok.com')) {
+    return res.status(400).json({ status: false, error: "Link harus dari TikTok!" });
+  }
+
+  try {
+    const result = await Tiktok.Downloader(url, {
+      version: "v3",
+      // proxy: "YOUR_PROXY", // hapus kalau nggak pakai
+      showOriginalResponse: false // v3 nggak support ini
+    });
+
+    res.json({
+      status: true,
+      version: "v3",
+      data: result
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: false,
+      error: "Gagal download",
+      details: error.message
+    });
+  }
+  break;
 
     case 'spotify':
       if (!url) return res.status(400).json({ status: false, error: "Masukkan URL!" });
