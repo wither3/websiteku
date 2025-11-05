@@ -11,7 +11,7 @@ const tikDl = require('./codenya/tikDl.js');
 const getTiktokProfile = require(`./codenya/tikstalk.js`);
 const { spotify } = require('btch-downloader');
 const Tiktok = require("@tobyg74/tiktok-api-dl")
-const getTiktokVideo = require("./codenya/tikUservideo.js);
+const getTiktokVideo = require("./codenya/tikUservideo.js");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
