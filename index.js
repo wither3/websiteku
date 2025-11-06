@@ -12,6 +12,8 @@ const getTiktokProfile = require(`./codenya/tikstalk.js`);
 const { spotify } = require('btch-downloader');
 const Tiktok = require("@tobyg74/tiktok-api-dl")
 const getTiktokVideo = require("./codenya/tikUserVideo.js");
+const { yts } = require('./codenya/scraper.js');
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -191,6 +193,18 @@ const sama = data;
       res.json(sama);
       break;
 
+    case 'ytplay':
+const teks = req.query.teks
+if (!teks) return res.json("Masukkan judul");
+try {
+const ternyataGini = await yts(teks);
+res.json(ternyataGini);
+} catch (error) {
+res.json(error);
+}
+
+      
+  break;    
     default:
       res.status(404).json({ status: false, message: "API tidak ditemukan" });
   }
