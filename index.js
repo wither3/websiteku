@@ -206,7 +206,7 @@ res.json(error);
       break;
     case 'imagen4ultra':
 const askvkfjfk = req.query.teks;
-if (!teks) return res.json(`masukkan teks`);
+if (!askvlfjfk) return res.json(`masukkan teks`);
 try {
 let api =`https://api.nekolabs.web.id/ai/imagen/4-ultra?prompt=${askvkfjfk}&ratio=16%3A9`;
 var xios = await axios.get(api);
