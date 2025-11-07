@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const axios = require('axios');
 
 // Import fungsi dari folder codenya/
 const { ttsave } = require('./ttsave');
@@ -202,8 +203,17 @@ res.json(ternyataGini);
 } catch (error) {
 res.json(error);
 }
-
-      
+      break;
+    case 'imagen4ultra':
+const teks = req.query.teks;
+if (!teks) return res.json(`masukkan teks`);
+try {
+let api =`https://api.nekolabs.web.id/ai/imagen/4-ultra?prompt=${teks}&ratio=16%3A9`;
+var xios = await axios.get(api);
+res.json(api);
+} catch(error) {
+res.json(error);
+}
   break;    
     default:
       res.status(404).json({ status: false, message: "API tidak ditemukan" });
