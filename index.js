@@ -204,17 +204,40 @@ res.json(ternyataGini);
 res.json(error);
 }
       break;
-    case 'imagen4ultra':
-const askvkfjfk = req.query.teks;
-if (!askvkfjfk) return res.json(`masukkan teks`);
-try {
-let api =`https://api.nekolabs.web.id/ai/imagen/4-ultra?prompt=${askvkfjfk}&ratio=16%3A9`;
-var xios = await axios.get(api);
-res.json(xios);
-} catch(error) {
-res.json(error);
+case 'imagen4ultra': {
+  const prompt = req.query.teks;
+  if (!prompt)
+    return res.status(400).json({ success: false, error: "Masukkan teks prompt!" });
+
+  try {
+    const apiUrl = `https://api.nekolabs.web.id/ai/imagen/4-ultra?prompt=${encodeURIComponent(prompt)}&ratio=16:9`;
+
+    const response = await axios.get(apiUrl, {
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+
+    // Jika API mengembalikan JSON seperti contohmu
+    if (response.data && response.data.success) {
+      res.json(response.data);
+    } else {
+      res.status(500).json({
+        success: false,
+        message: "API tidak mengembalikan hasil yang diharapkan",
+        data: response.data
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Gagal memproses imagen4ultra",
+      error: error.message
+    });
+  }
+  break;
 }
-  break;    
+      
     default:
       res.status(404).json({ status: false, message: "API tidak ditemukan" });
   }
