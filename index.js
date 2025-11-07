@@ -205,10 +205,10 @@ res.json(error);
 }
       break;
     case 'imagen4ultra':
-const teks = req.query.teks;
+const askvkfjfk = req.query.teks;
 if (!teks) return res.json(`masukkan teks`);
 try {
-let api =`https://api.nekolabs.web.id/ai/imagen/4-ultra?prompt=${teks}&ratio=16%3A9`;
+let api =`https://api.nekolabs.web.id/ai/imagen/4-ultra?prompt=${askvkfjfk}&ratio=16%3A9`;
 var xios = await axios.get(api);
 res.json(api);
 } catch(error) {
