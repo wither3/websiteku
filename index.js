@@ -210,7 +210,7 @@ if (!askvkfjfk) return res.json(`masukkan teks`);
 try {
 let api =`https://api.nekolabs.web.id/ai/imagen/4-ultra?prompt=${askvkfjfk}&ratio=16%3A9`;
 var xios = await axios.get(api);
-res.json(api);
+res.json(xios);
 } catch(error) {
 res.json(error);
 }
