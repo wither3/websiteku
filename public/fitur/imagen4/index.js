@@ -21,7 +21,7 @@ async function kirimData() {
   if (!input.trim()) return alert('Harap isi pesan dulu!');
 hasil.innerHTML =`<div class="font-text" style="font-family: 'Patrick Hand', cursive;">SEDANG MEMBUAT GAMBAR...</div>`
   try {
-    const res = await fetch(`https://endernet.web.id/bagian1/imagen4ultra?teks=${encodeURIComponent(input)}`, { 
+    const res = await fetch(`/bagian1/imagen4ultra?teks=${encodeURIComponent(input)}`, { 
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     });
