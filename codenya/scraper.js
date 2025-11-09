@@ -1,51 +1,67 @@
-async function TIKDOWNLOADER(ur) {
-const Tiktok = require("@tobyg74/tiktok-api-dl")
+// === Import library utama ===
+const https = require('https');
+const { yts } = require('btch-downloader');
+const Tiktok = require('@tobyg74/tiktok-api-dl');
+const { spotify } = require('btch-downloader');
 
-const url = "https://vt.tiktok.com/ZSyfPaoxu/"
-Tiktok.Downloader(url, {
-  version: "v3", // "v1" | "v2" | "v3"
-  proxy: "YOUR_PROXY", // optional
-  showOriginalResponse: true // optional, v1 only
-}).then((result) => console.log(result))
-};
-
-async function tikStalk() {
-  const Tiktok = require("@tobyg74/tiktok-api-dl")
-
-const username = "qhairulpratama"
-Tiktok.StalkUser(username, {
-  proxy: "YOUR_PROXY" // optional
-}).then((result) => console.log(result))
+// === TikTok Downloader ===
+async function TIKDOWNLOADER(url) {
+  try {
+    const result = await Tiktok.Downloader(url, {
+      version: 'v3', // bisa: 'v1', 'v2', 'v3'
+      showOriginalResponse: true
+    });
+    console.log(result);
+    return result;
+  } catch (err) {
+    console.error('Gagal download TikTok:', err);
+    return null;
+  }
 }
 
-async function userPost() {
-  const Tiktok = require("@tobyg74/tiktok-api-dl")
-
-const username = "qhairulpratama"
-Tiktok.GetUserPosts(username, {
-  postLimit: 10, // optional, default is 30
-  proxy: "YOUR_PROXY" // optional
-}).then((result) => console.log(result))
+// === TikTok Stalk ===
+async function tikStalk(username) {
+  try {
+    const result = await Tiktok.StalkUser(username);
+    console.log(result);
+    return result;
+  } catch (err) {
+    console.error('Gagal stalk user TikTok:', err);
+    return null;
+  }
 }
 
-
-async function t() {
-  const { spotify } = require('btch-downloader');
-
-const url = 'https://open.spotify.com/track/5YFjWEjtZW0ZDmVDhvv1h2?si=qu0tEIk_RoKwGxqy7a_kNA';
-const data = await spotify(url);
-const sama = JSON.stringify(data, null, 2);
-console.log(sama);
+// === TikTok User Posts ===
+async function userPost(username) {
+  try {
+    const result = await Tiktok.GetUserPosts(username, { postLimit: 10 });
+    console.log(result);
+    return result;
+  } catch (err) {
+    console.error('Gagal ambil postingan TikTok:', err);
+    return null;
+  }
 }
 
-async function ytmp3(idnya) {
-  const https = require('https');
+// === Spotify Downloader ===
+async function spotifyDL(url) {
+  try {
+    const data = await spotify(url);
+    console.log(JSON.stringify(data, null, 2));
+    return data;
+  } catch (err) {
+    console.error('Gagal ambil data Spotify:', err);
+    return null;
+  }
+}
 
+// === YouTube MP3 ===
+async function ytmp3(id) {
   const options = {
     method: 'GET',
     hostname: 'youtube-mp36.p.rapidapi.com',
     port: 443,
-    path: `/dl?id=${idnya}`,
+    path: `/dl?id=${id}`,
     headers: {
       'x-rapidapi-key': '2d8efbca6cmshba7782a3d1b31bcp160901jsn1b8edec486b4',
       'x-rapidapi-host': 'youtube-mp36.p.rapidapi.com'
@@ -56,12 +72,11 @@ async function ytmp3(idnya) {
     const req = https.request(options, (res) => {
       let data = '';
 
-      res.on('data', (chunk) => data += chunk);
-
+      res.on('data', (chunk) => (data += chunk));
       res.on('end', () => {
         try {
           const result = JSON.parse(data);
-          resolve(result); // kirim result sebagai nilai kembalian
+          resolve(result);
         } catch (e) {
           reject(e);
         }
@@ -73,39 +88,58 @@ async function ytmp3(idnya) {
   });
 }
 
+// === YouTube Search + Convert MP3 ===
+async function ytSearch(query) {
+  try {
+    // cari video lewat btch-downloader
+    const hasil = await yts(query);
 
-async function yts(judul) {
-const { yts } = require('btch-downloader');
-    
+    // pastikan hasil valid
+    if (!hasil || !hasil.result || !Array.isArray(hasil.result.all) || hasil.result.all.length === 0) {
+      throw new Error('Tidak ada hasil dari pencarian YouTube.');
+    }
 
-const query = judul;
-const hasil = await yts(query);
-const gini = JSON.stringify(hasil, null, 2);
-const oh = JSON.parse(gini);
-const ouh = oh.result.all[0];
-const audionya = await ytmp3(ouh.videoId);
-const ha ={
-  videoId: ouh.videoId,
-  penonton: ouh.views,
-  url: ouh.url,
-  judul: ouh.title,
-  waktu: ouh.seconds,
-  durasi: ouh.timestamp,
-  deskripsi: ouh.description,
-  thumbnail: ouh.thumbnail,
-  kapan: ouh.ago,
-  channel: ouh.author.name,
-  urlChannel: ouh.author.url,
-  download: {
-    title: audionya.title,
-    mp3: audionya.link
+    const video = hasil.result.all[0];
+
+    // ambil MP3
+    const audio = await ytmp3(video.videoId);
+
+    // hasil lengkap
+    const data = {
+      videoId: video.videoId,
+      penonton: video.views,
+      url: video.url,
+      judul: video.title,
+      waktu: video.seconds,
+      durasi: video.timestamp,
+      deskripsi: video.description,
+      thumbnail: video.thumbnail,
+      kapan: video.ago,
+      channel: video.author.name,
+      urlChannel: video.author.url,
+      download: {
+        title: audio?.title || 'Tidak diketahui',
+        mp3: audio?.link || null
+      }
+    };
+
+    console.log(JSON.stringify(data, null, 2));
+    return data;
+  } catch (err) {
+    console.error('Gagal mencari YouTube:', err.message);
+    return null;
   }
 }
 
-return ha;
-}
+// === Tes fungsi ===
 
 
-yts('dj malam ini')
-
-module.exports = { yts }
+// === Export semua fungsi ===
+module.exports = {
+  TIKDOWNLOADER,
+  tikStalk,
+  userPost,
+  spotifyDL,
+  ytSearch,
+  ytmp3
+};
