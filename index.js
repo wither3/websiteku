@@ -15,9 +15,9 @@ const Tiktok = require("@tobyg74/tiktok-api-dl")
 const getTiktokVideo = require("./codenya/tikUserVideo.js");
 const { ytSearch } = require('./codenya/scraper.js');
 const tokdl = require('./codenya/tokdl.js');
-const { douyin } = require('./scraper.js');
-const {TIKDOWNLOADER} = require('./scraper.js');
-const {spot} = require('./scraper.js');
+const { douyin } = require('./codenya/scraper.js');
+const {TIKDOWNLOADER} = require('./codenya/scraper.js');
+const {spot} = require('./codenya/scraper.js');
 
 
 const app = express();
