@@ -14,7 +14,7 @@ const { spotify } = require('btch-downloader');
 const Tiktok = require("@tobyg74/tiktok-api-dl")
 const getTiktokVideo = require("./codenya/tikUserVideo.js");
 const { yts } = require('./codenya/scraper.js');
-
+const tokdl = require('./codenya/tokdl.js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -237,6 +237,19 @@ case 'imagen4ultra': {
   }
   break;
 }
+    case 'tokdl': {
+const link = req.query.link;
+if (!link) return res.json('Masukkan Link');
+try{
+const gimana = await tokdl(link);
+const ze = JSON.stringify(gimana, null, 2);
+res.json(ze);
+} catch(error){
+res.json(error);
+}
+break;
+    }
+    
       
     default:
       res.status(404).json({ status: false, message: "API tidak ditemukan" });
