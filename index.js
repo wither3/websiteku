@@ -15,6 +15,10 @@ const Tiktok = require("@tobyg74/tiktok-api-dl")
 const getTiktokVideo = require("./codenya/tikUserVideo.js");
 const { ytSearch } = require('./codenya/scraper.js');
 const tokdl = require('./codenya/tokdl.js');
+const { douyin } = require('./scraper.js');
+const {TIKDOWNLOADER} = require('./scraper.js');
+const {spot} = require('./scraper.js');
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -167,17 +171,10 @@ app.get('/bagian1/:api?', async (req, res) => {
   }
 
   try {
-    const result = await Tiktok.Downloader(url, {
-      version: "v3",
-      // proxy: "YOUR_PROXY", // hapus kalau nggak pakai
-      showOriginalResponse: false // v3 nggak support ini
-    });
-
-    res.json({
-      status: true,
-      version: "v3",
-      data: result
-    });
+const link = url;
+const hasil = await TIKDOWNLOADER(link);
+res.json(hasil);
+    
   } catch (error) {
     res.status(500).json({
       status: false,
