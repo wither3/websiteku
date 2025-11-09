@@ -13,7 +13,7 @@ const getTiktokProfile = require(`./codenya/tikstalk.js`);
 const { spotify } = require('btch-downloader');
 const Tiktok = require("@tobyg74/tiktok-api-dl")
 const getTiktokVideo = require("./codenya/tikUserVideo.js");
-const { yts } = require('./codenya/scraper.js');
+const { ytSearch } = require('./codenya/scraper.js');
 const tokdl = require('./codenya/tokdl.js');
 
 const app = express();
@@ -198,7 +198,7 @@ const sama = data;
 const teks = req.query.teks
 if (!teks) return res.json("Masukkan judul");
 try {
-const ternyataGini = await yts(teks);
+const ternyataGini = await ytSearch(teks);
 res.json(ternyataGini);
 } catch (error) {
 res.json(error);
