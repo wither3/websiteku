@@ -242,7 +242,7 @@ const link = req.query.link;
 if (!link) return res.json('Masukkan Link');
 try{
 const gimana = await tokdl(link);
-const ze = JSON.stringify(gimana, null, 2);
+const ze = gimana;
 res.json(ze);
 } catch(error){
 res.json(error);
