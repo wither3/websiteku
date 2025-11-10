@@ -144,8 +144,9 @@ app.get('/bagian1/:api?', async (req, res) => {
     case 'maptambakudangdanikan' :
     const datany = {
   version: "1.21.111",
-  mapTambakJava: "https://sfile.mobi/4qTyVHpmb6a",
-  mapTambakBedrock: "https://sfile.mobi/3BbytGdI5yT",
+  update: "10 November 2025",
+  mapTambakJava: "https://sfile.mobi/2LtX2T2IFOK",
+  mapTambakBedrock: "https://sfile.mobi/9co0BDzermQ",
   admin:{
     no1: "rullzNPC",
     no2: "ARWIS"
