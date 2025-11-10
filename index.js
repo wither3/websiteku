@@ -186,7 +186,7 @@ res.json(hasil);
 
     case 'spotify':
       if (!url) return res.status(400).json({ status: false, error: "Masukkan URL!" });
-      const data = await spotify(url);
+      const data = await spot(url);
 const sama = data;
       res.json(sama);
       break;
