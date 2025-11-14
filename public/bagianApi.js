@@ -24,7 +24,7 @@ const datanya = document.getElementById('datanya');
 datanya.innerHTML =`
 <div class="kotak1" style="padding:5px;">
     <center>
- <div style="font-family: 'BBH Sans Bogle', sans-serif; font-weight: bold;">SERVER STATUS</div><div style="margin-top:10px;"><p>${gini.cpu.brand}</p><p>${gini.system.operating_system}</p></div>
+ <div style="font-family: 'BBH Sans Bogle', sans-serif; font-weight: bold;">HOSTING STATUS</div><div style="margin-top:10px;"><p>${gini.cpu.brand}</p><p>${gini.system.operating_system}</p></div>
  <div style="display:flex; flex-wrap:wrap; font-family: 'BBH Sans Bogle', sans-serif; font-weight: bold; width:100%;">
  <div class="ininya">
  <p><b>MEMORY</b></p>
