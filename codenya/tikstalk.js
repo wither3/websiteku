@@ -1,54 +1,52 @@
-const axios = require('axios');
+const { request } = require('undici');
 const { decompress } = require('@mongodb-js/zstd');
 const zlib = require('zlib');
 
 async function getTiktokProfile(profileName) {
   try {
-    const response = await axios.post(
-      'https://tools.xrespond.com/api/tiktok/profile/details',
-      { profile: profileName },
-      {
-        headers: {
-          'accept': 'application/json',
-          'content-type': 'application/json',
-          'origin': 'https://tikviewr.com',
-          'referer': 'https://tikviewr.com/',
-          'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36',
-          'accept-language': 'id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7',
-          'accept-encoding': 'gzip, deflate, br, zstd',
-        },
-        responseType: 'arraybuffer',
-      }
-    );
+    const api = 'https://tools.xrespond.com/api/tiktok/profile/details';
 
-    const encoding = response.headers['content-encoding'];
-    let buffer = response.data;
+    const { body, headers, statusCode } = await request(api, {
+      method: 'POST',
+      headers: {
+        'accept': 'application/json',
+        'content-type': 'application/json',
+        'origin': 'https://tikviewr.com',
+        'referer': 'https://tikviewr.com/',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36',
+        'accept-language': 'id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7',
+        'accept-encoding': 'gzip, deflate, br, zstd',
+      },
+      body: JSON.stringify({ profile: profileName })
+    });
+
+    // Ambil buffer hasil response
+    const buffer = Buffer.from(await body.arrayBuffer());
+    const encoding = headers['content-encoding'];
+
     let text;
 
     if (encoding === 'zstd') {
-      // ✅ Dekompres dengan @mongodb-js/zstd
-      const decompressed = await decompress(Buffer.from(buffer));
+      const decompressed = await decompress(buffer);
       text = decompressed.toString('utf-8');
     } else if (encoding === 'gzip') {
       text = zlib.gunzipSync(buffer).toString('utf-8');
     } else if (encoding === 'deflate') {
       text = zlib.inflateSync(buffer).toString('utf-8');
     } else {
-      text = Buffer.from(buffer).toString('utf-8');
+      text = buffer.toString('utf-8');
     }
 
     const json = JSON.parse(text);
-    const hasilnya = json;
+    console.log(json);
 
-console.log(hasilnya);
-    return hasilnya;
+    return json;
+
   } catch (error) {
     console.error('❌ Error:', error.message);
-    if (error.response) {
-      console.error('Status:', error.response.status);
-    }
+    return { error: error.message };
   }
 }
 
-// Contoh penggunaan
 module.exports = getTiktokProfile;
+    
