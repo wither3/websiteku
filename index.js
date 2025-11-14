@@ -318,12 +318,15 @@ res.json(error);
 
 break;
     }
+
 case 'serverinfo': {
   const os = require('os');
   
-  // Function untuk mendapatkan CPU usage
+  // Function untuk CPU usage real-time dengan cache
   const getCpuUsage = () => {
     const cpus = os.cpus();
+    
+    // Hitung total waktu CPU untuk semua core
     let totalIdle = 0, totalTick = 0;
     
     cpus.forEach(cpu => {
@@ -333,12 +336,30 @@ case 'serverinfo': {
       totalIdle += cpu.times.idle;
     });
     
-    return {
-      idle: totalIdle / cpus.length,
-      total: totalTick / cpus.length,
-      usage: ((1 - totalIdle / totalTick) * 100).toFixed(2) + '%'
-    };
+    return { totalIdle, totalTick, timestamp: Date.now() };
   };
+
+  // Simpan previous measurement
+  if (!global.prevCpuMeasurement) {
+    global.prevCpuMeasurement = getCpuUsage();
+    // Return 0% untuk pertama kali
+    var cpuUsagePercent = '0%';
+  } else {
+    // Ambil measurement sebelumnya dan sekarang
+    const prev = global.prevCpuMeasurement;
+    const current = getCpuUsage();
+    
+    // Hitung perbedaan waktu
+    const idleDiff = current.totalIdle - prev.totalIdle;
+    const totalDiff = current.totalTick - prev.totalTick;
+    
+    // Hitung CPU usage
+    const usage = ((1 - idleDiff / totalDiff) * 100).toFixed(2);
+    cpuUsagePercent = usage + '%';
+    
+    // Update previous measurement
+    global.prevCpuMeasurement = current;
+  }
 
   // RAM Usage
   const totalMem = os.totalmem();
@@ -349,7 +370,6 @@ case 'serverinfo': {
   // CPU Info
   const cpus = os.cpus();
   const loadAvg = os.loadavg();
-  const cpuUsage = getCpuUsage();
   
   // Current Time
   const now = new Date();
@@ -372,17 +392,18 @@ case 'serverinfo': {
       hostname: os.hostname()
     },
     
-    // CPU Information
+    // CPU Information - SEKARANG REAL-TIME!
     cpu: {
       brand: cpus[0]?.model,
       cores: cpus.length,
       speed: cpus[0]?.speed + ' MHz',
-      usage_percent: cpuUsage.usage,
+      usage_percent: cpuUsagePercent, // ← INI REAL-TIME!
       usage: {
         load_1min: loadAvg[0],
         load_5min: loadAvg[1], 
         load_15min: loadAvg[2]
-      }
+      },
+      note: "CPU usage dihitung berdasarkan perbedaan antara request sebelumnya dan sekarang"
     },
     
     // Memory Information
@@ -417,7 +438,7 @@ case 'serverinfo': {
   
   res.json(serverInfo);
   break;
-}
+  }
 
       
       
