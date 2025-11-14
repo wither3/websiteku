@@ -1,5 +1,44 @@
 const Tiktok = require("@tobyg74/tiktok-api-dl")
 
+async function spotifydl(url) {
+const axios = require('axios');
+const cheerio = require('cheerio');
+    
+    try {
+        if (!url.includes('open.spotify.com')) throw new Error('Invalid url.');
+        
+        const rynn = await axios.get('https://spotdl.io/', {
+            headers: {
+                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+            }
+        });
+        const $ = cheerio.load(rynn.data);
+        
+        const api = axios.create({
+            baseURL: 'https://spotdl.io',
+            headers: {
+                cookie: rynn.headers['set-cookie'].join('; '),
+                'content-type': 'application/json',
+                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'x-csrf-token': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        
+        const [{ data: meta }, { data: dl }] = await Promise.all([
+            api.post('/getTrackData', { spotify_url: url }),
+            api.post('/convert', { urls: url })
+        ]);
+        
+        return {
+            ...meta,
+            download_url: dl.url
+        };
+    } catch (error) {
+        throw new Error(error.message);
+    }
+}
+
+
 async function TIKDOWNLOADER(url) {
  
   try {
@@ -187,25 +226,32 @@ return ha;
 }
 
 
+
 async function douyin(url) {
-const axios = require('axios');
-const cheerio = require('cheerio');
+const { fetch } = require("undici");
+const cheerio = require("cheerio");
   
     try {
-        const response = await axios.post(
+
+        const bodyData = `q=${encodeURIComponent(url)}&lang=id`;
+
+        const response = await fetch(
             'https://tikvideo.app/api/ajaxSearch',
-            `q=${encodeURIComponent(url)}&lang=id`,
             {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
                     'Referer': 'https://tikvideo.app/id/download-douyin-video',
                     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-                }
+                },
+                body: bodyData
             }
         );
 
-        if (response.data.status === 'ok') {
-            const $ = cheerio.load(response.data.data);
+        const responseData = await response.json();
+
+        if (responseData.status === 'ok') {
+            const $ = cheerio.load(responseData.data);
             
             const videoInfo = {
                 title: $('h3').first().text().trim(),
@@ -229,13 +275,16 @@ const cheerio = require('cheerio');
 
             return videoInfo;
         } else {
-            return null
+            return null;
         }
 
     } catch (error) {
         console.error('Error fetching data:', error.message);
     }
 }
+
+
+
 
 async function tikdownloader(link) {
   const cheerio = require('cheerio');
@@ -270,5 +319,326 @@ async function tikdownloader(link) {
   }
 }
 
+async function tikdlbot(tiktokUrl) {
+    const { fetch } = require('undici');
 
-module.exports = { ytSearch, yts2, douyin, tikdownloader, TIKDOWNLOADER, TIKDOWNLOADER2, spot };
+    try {
+        if (!tiktokUrl || !tiktokUrl.includes("tiktok.com")) {
+            throw new Error("Invalid TikTok url");
+        }
+
+        // Cookie manual (tetap sama seperti versi axios)
+        const cookieStr = 'lang=en; _ga=GA1.1...; uid=86705190e2e25fe9f35005f1fe54206f; _ga_233R9NY1HK=...';
+
+        const response = await fetch(
+            'https://downloader.bot/api/tiktok/info',
+            {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json',
+                    'Origin': 'https://downloader.bot',
+                    'Referer': 'https://downloader.bot/en',
+                    'User-Agent':
+                        'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Mobile Safari/537.36',
+                    'Cookie': cookieStr   // ⬅ cookie masuk di sini
+                },
+                body: JSON.stringify({ url: tiktokUrl }),
+            }
+        );
+
+        const data = await response.json();
+        return data;
+
+    } catch (err) {
+        console.error("ERROR:", err.message);
+        throw err;
+    }
+}
+
+
+
+
+
+async function tikvid(url) {
+const { request } = require("undici");
+const cheerio = require("cheerio");
+  
+  const apiUrl = "https://tikvid.io/api/ajaxSearch";
+
+  try {
+    // Kirim POST pakai undici
+    const body = new URLSearchParams({ q: url }).toString();
+    const { body: resBody } = await request(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "Origin": "https://tikvid.io",
+        "Referer": "https://tikvid.io/en",
+        "User-Agent":
+          "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Mobile Safari/537.36",
+        "X-Requested-With": "XMLHttpRequest",
+      },
+      body,
+    });
+
+    const text = await resBody.text();
+    const json = JSON.parse(text);
+
+    if (json.status !== "ok") throw new Error("Gagal mendapatkan data!");
+
+    const html = json.data || json;
+    const $ = cheerio.load(html);
+
+    const result = {};
+    result.description = $(".content h3").text().trim();
+    result.thumbnail = $(".thumbnail img").attr("src") || null;
+    result.id = $("#TikTokId").val() || null;
+
+    // Ambil semua link download
+    const links = [];
+    $(".tik-button-dl").each((_, el) => {
+      const label = $(el).text().trim();
+      const href = $(el).attr("href");
+      if (href) {
+        links.push({
+          text: label,
+          url: href.startsWith("http") ? href : `https://tikvid.io${href}`,
+        });
+      }
+    });
+
+    // Pilih otomatis
+    result.links = links;
+    result.video = links.find(l => /MP4(?!.*HD)/i.test(l.text))?.url || null;
+    result.videoHD = links.find(l => /MP4 HD/i.test(l.text))?.url || null;
+    result.audio = links.find(l => /MP3/i.test(l.text))?.url || null;
+
+const begini ={
+  status: 'berhasil',
+  by: 'rullzNPC',
+  data:{
+   judul: result.description,
+   thumbnail: result.thumbnail,
+   video: result.video,
+   videoHD: result.videoHD,
+   mp3: result.audio
+  }
+}
+    return begini;
+  } catch (err) {
+    console.error("Error:", err.message);
+    return { error: err.message };
+  }
+}
+
+
+
+
+// Contoh pemakaian
+
+
+
+
+async function spotif(url){
+const { request } = require('undici');
+  
+const api =`https://apis.prexzyvilla.site/download/spotify?url=${encodeURIComponent(url)}`
+try{
+
+const { body } = await request(api);
+const dataa = await body.json()
+return dataa.data;
+} catch(error){
+  return error;
+}
+  
+}
+
+
+async function tikwm(videourl){
+const { request } = require('undici');
+
+try {
+console.log(videourl);
+const api =`
+https://www.tikwm.com/api/`;
+const { body } = await request(api,{
+ method: 'POST',
+headers:{
+  'Origin' : 'https://www.tikwm.com/',
+  'Referer' : 'https://www.tikwm.com/',
+  'User-Agent' : 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Mobile Safari/537.36',
+},
+body: JSON.stringify({url: videourl, hd:1})
+});
+const data = await body.json();
+console.log(data);
+} catch(error) {
+  return error;
+}
+}
+
+
+async function tikdownmusdown(url) {
+const { fetch } = require("undici");
+const cheerio = require("cheerio");
+  
+    try {
+        if (!url.includes('tiktok.com')) throw new Error('Invalid url.');
+
+        // === GET awal ke MusicalDown ===
+        const getRes = await fetch("https://musicaldown.com/en", {
+            method: "GET",
+            headers: {
+                "user-agent":
+                    "Mozilla/5.0 (Linux; Android 15; SM-F958 Build/AP3A.240905.015) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.86 Mobile Safari/537.36"
+            }
+        });
+
+        const html = await getRes.text();
+
+        // ambil cookie dari header
+        const rawCookies = getRes.headers.get("set-cookie");
+        const savedCookie = rawCookies
+            ? rawCookies.split(",").map(c => c.split(";")[0]).join("; ")
+            : "";
+
+        const $ = cheerio.load(html);
+
+        // === Ambil semua input form ===
+        const payload = {};
+        $("#submit-form input").each((i, elem) => {
+            const name = $(elem).attr("name");
+            const value = $(elem).attr("value");
+            if (name) payload[name] = value || "";
+        });
+
+        // Field kosong = tempat URL TikTok
+        const urlField = Object.keys(payload).find(key => !payload[key]);
+        if (urlField) payload[urlField] = url;
+
+        const formBody = new URLSearchParams(payload).toString();
+
+        // === POST ke /download ===
+        const postRes = await fetch("https://musicaldown.com/download", {
+            method: "POST",
+            headers: {
+                "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+                "cookie": savedCookie,
+                "origin": "https://musicaldown.com",
+                "referer": "https://musicaldown.com/",
+                "user-agent":
+                    "Mozilla/5.0 (Linux; Android 15; SM-F958 Build/AP3A.240905.015) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.86 Mobile Safari/537.36"
+            },
+            body: formBody
+        });
+
+        const data = await postRes.text();
+        const $$ = cheerio.load(data);
+
+        // === Extract informasi video ===
+        const videoHeader = $$('.video-header');
+        const bgImage = videoHeader.attr('style');
+        const coverMatch = bgImage?.match(/url\((.*?)\)/);
+
+        // === Extract link download ===
+        const downloads = [];
+        $$("a.download").each((i, elem) => {
+            const $elem = $$(elem);
+            downloads.push({
+                type: $elem.data("event")?.replace("_download_click", ""),
+                label: $elem.text().trim(),
+                url: $elem.attr("href")
+            });
+        });
+
+        return {
+            title: $$(".video-desc").text().trim(),
+            author: {
+                username: $$(".video-author b").text().trim(),
+                avatar: $$(".img-area img").attr("src")
+            },
+            cover: coverMatch ? coverMatch[1] : null,
+            downloads
+        };
+
+    } catch (error) {
+        throw new Error(error.message);
+    }
+}
+
+
+
+async function tiktokdownload2(url) {
+const { fetch } = require("undici");
+  
+    try {
+        const apiURL = `https://tiktok-scraper7.p.rapidapi.com/?url=${encodeURIComponent(url)}&hd=1`;
+
+        const res = await fetch(apiURL, {
+            method: "GET",
+            headers: {
+                "x-rapidapi-key": "181a3b1233mshad025fe3f4413afp16f9e9jsne749f10e4adb",
+                "x-rapidapi-host": "tiktok-scraper7.p.rapidapi.com"
+            }
+        });
+
+        const data = await res.json(); // sama seperti body.toString() + JSON.parse()
+
+        return data;
+
+    } catch (err) {
+        console.error("Error tiktokdownload:", err.message);
+        return null;
+    }
+}
+
+
+
+
+
+
+
+async function downr(url) {
+const { fetch } = require('undici');
+    try {
+        if (!url.includes('https://')) {
+            throw new Error('Invalid url.');
+        }
+
+        const response = await fetch(
+            'https://downr.org/.netlify/functions/download',
+            {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                    origin: 'https://downr.org',
+                    referer: 'https://downr.org/',
+                    'user-agent':
+                        'Mozilla/5.0 (Linux; Android 15; SM-F958 Build/AP3A.240905.015) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.86 Mobile Safari/537.36'
+                },
+                body: JSON.stringify({ url })
+            }
+        );
+
+        const data = await response.json();
+        return data;
+
+    } catch (error) {
+        throw new Error(error.message);
+    }
+}
+
+// Usage:
+
+
+
+
+
+
+
+
+
+
+module.exports = { ytSearch, yts2, douyin, tikdownloader, TIKDOWNLOADER, TIKDOWNLOADER2, spot, tikdlbot, tikvid, spotif, tikwm, tikdownmusdown, spotifydl, tiktokdownload2, downr};
