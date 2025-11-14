@@ -184,15 +184,33 @@ res.json(hasil);
   }
   break;
 
-    case 'spotify':
-const {downr} = require('./codenya/scraper.js');
-const link = req.query.link
-if (!url.includes('spotify.com')) return res.json('link salah');
-const hasil = await downr(link);
-res.json(hasil);
+case 'spotify': {
+  const { downr } = require('./codenya/scraper.js');
+  const link = req.query.link; // PERBAIKAN: gunakan 'link' bukan 'url'
+  
+  // Validasi
+  if (!link) {
+    return res.json({ status: false, error: "Masukkan link Spotify!" });
+  }
+  
+  if (!link.includes('spotify.com')) {
+    return res.json({ status: false, error: "Link harus dari Spotify!" });
+  }
 
-      
-      break;
+  try {
+    console.log(`📥 Processing Spotify: ${link}`);
+    const hasil = await downr(link);
+    res.json(hasil);
+  } catch (error) {
+    console.error('❌ Spotify Error:', error);
+    res.json({ 
+      status: false, 
+      error: "Gagal download",
+      details: error.message 
+    });
+  }
+  break;
+}
 
     case 'ytplay':
 const teks = req.query.teks
