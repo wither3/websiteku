@@ -284,21 +284,22 @@ res.json(error);
 break;
     }
 
-    case 'fbdownload':{
-const {downr} = require('./codenya/scrape.js');
-const link = req.query.link;
-if (!link) return res.json('masikkan link dulu');
-if (!link.includes('facebook.com')) return res.json('link salah');
-try{
-const hasil = await downr(link);
-res.json(hasil);
-} catch(error) {
-console.log(error);
-res.json(error);
-}
-      break;
-    }
+case 'fbdownload': {
+  const { downr } = require('./codenya/scrape.js');
 
+  const link = req.query.link;
+  if (!link) return res.json('masukkan link dulu');
+  if (!link.includes('facebook.com')) return res.json('link salah');
+
+  try {
+    const hasil = await downr(link);
+    return res.json(hasil);
+  } catch (error) {
+    console.log(error);
+    return res.json({ error: error.message });
+  }
+}
+      
 
 
 
