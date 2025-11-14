@@ -318,7 +318,43 @@ res.json(error);
 
 break;
     }
-
+case 'serverstatus': {
+  const os = require('os');
+  
+  // RAM Usage
+  const totalMem = os.totalmem();
+  const freeMem = os.freemem();
+  const usedMem = totalMem - freeMem;
+  const ramUsage = (usedMem / totalMem * 100).toFixed(2);
+  
+  // CPU Usage (averages)
+  const loadAvg = os.loadavg();
+  
+  const status = {
+    status: true,
+    platform: process.platform,
+    uptime: Math.floor(process.uptime()) + ' seconds',
+    memory: {
+      total: (totalMem / 1024 / 1024 / 1024).toFixed(2) + ' GB',
+      used: (usedMem / 1024 / 1024 / 1024).toFixed(2) + ' GB',
+      free: (freeMem / 1024 / 1024 / 1024).toFixed(2) + ' GB',
+      usage: ramUsage + '%'
+    },
+    cpu: {
+      load_1min: loadAvg[0],
+      load_5min: loadAvg[1],
+      load_15min: loadAvg[2],
+      cores: os.cpus().length
+    },
+    node: {
+      version: process.version,
+      memory: process.memoryUsage()
+    }
+  };
+  
+  res.json(status);
+  break;
+}
 
       
       
