@@ -186,9 +186,9 @@ res.json(hasil);
 
     case 'spotify':
 const {downr} = require('./codenya/scraper.js');
-const url = req.query.url
+const link = req.query.link
 if (!url.includes('spotify.com')) return res.json('link salah');
-const hasil = await downr(url);
+const hasil = await downr(link);
 res.json(hasil);
 
       
