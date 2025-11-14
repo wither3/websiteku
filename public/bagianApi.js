@@ -14,50 +14,154 @@ document.getElementById('close-button').addEventListener('click', function() {
   document.getElementById('overlay').classList.add('hidden');
 });
 
+// === GRAFIK REAL-TIME ===
+let serverDataCache = null;
 
-async function Fungsi(){
-const api =`/bagian1/serverinfo`;
-try {
-const hasil= await fetch(api);
-const gini = await hasil.json();
-const datanya = document.getElementById('datanya');
-datanya.innerHTML =`
-<div class="kotak1" style="padding:5px;">
-    <center>
- <div style="font-family: 'BBH Sans Bogle', sans-serif; font-weight: bold;">HOSTING STATUS</div><div style="margin-top:10px;"><p>${gini.cpu.brand}</p><p>${gini.system.operating_system}</p></div>
- <div style="display:flex; flex-wrap:wrap; font-family: 'BBH Sans Bogle', sans-serif; font-weight: bold; width:100%;">
- <div class="ininya">
- <p><b>MEMORY</b></p>
- <p>${gini.memory.used}/ ${gini.memory.free}</p>
-     </div>
-<div class="ininya">
-  <p><b>CPU</b></p>
-  <p>${gini.cpu.usage_percent}</p>
-    </div>
-<div class="ininya">
-  <p><b>UPTIME</b></p>
- <p>${gini.system.uptime}</p>
-    </div>
- <div class="ininya">
-  <p><b>NODE JS</b></p>
- <p>${gini.process.node_version}</p>
-    </div>
- 
-     </div>
-     
+// Setup chart
+const chartCanvas = document.createElement('canvas');
+chartCanvas.width = 300;
+chartCanvas.height = 180;
+chartCanvas.style.margin = 'px auto';
+chartCanvas.style.display = 'block';
+
+// GANTI chart initialization jadi:
+const ctx = chartCanvas.getContext('2d');
+chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: [],
+        datasets: [
+            {
+                label: 'CPU Usage %',
+                data: [],
+                borderColor: '#ff6a6a',
+                backgroundColor: 'rgba(255, 0, 0, 0.1)',
+                tension: 0,
+                borderWidth: 3,
+                fill: false,
+                pointRadius: 0,
+                spanGaps: false, // ⚡ false justru lebih baik
+                stepped: false // ⚡ pastikan false
+            },
+            {
+                label: 'RAM Usage %', 
+                data: [],
+                borderColor: '#00eaff',
+                backgroundColor: 'rgba(0, 0, 255, 0.1)',
+                tension: 0, // ⚡ 0 untuk garis lurus
+                borderWidth: 3,
+                fill: false,
+                pointRadius: 0,
+                spanGaps: false,
+                stepped: false
+            }
+        ]
+    },
+    options: {
+        responsive: false,
+        maintainAspectRatio: false,
+        animation: {
+            duration: 0 // ⚡ wajib 0
+        },
+        elements: {
+            line: {
+                tension: 0 // ⚡ wajib 0
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 100
+            }
+        }
+    }
+});
+// MAX 7 DATA
+const MAX_DATA_POINTS = 5;
+
+// Function update chart
+function updateChart(cpuData, ramData, timeLabel) {
+    chart.data.labels.push(timeLabel);
+    chart.data.datasets[0].data.push(cpuData);
+    chart.data.datasets[1].data.push(ramData);
     
-    </center>
-</div>
-`;
-} catch(e) {
- console.log(e);
+    if (chart.data.labels.length > MAX_DATA_POINTS) {
+        chart.data.labels.shift();
+        chart.data.datasets[0].data.shift();
+        chart.data.datasets[1].data.shift();
+    }
+    
+    chart.update();
 }
+
+// Fungsi utama yang menggabungkan semuanya
+async function updateServerInfo() {
+    const api = `https://endernet.web.id/bagian1/serverinfo`;
+    try {
+        const hasil = await fetch(api);
+        const gini = await hasil.json();
+        
+        // Simpan data untuk digunakan di grafik dan display
+        serverDataCache = gini;
+        
+        // Update display stats
+        const datanya = document.getElementById('datanya');
+        datanya.innerHTML = `
+            <div class="kotak1" style="padding:5px;">
+                <center>
+                    <div style="font-family: 'BBH Sans Bogle', sans-serif; font-weight: bold;">HOSTING STATUS</div>
+                    <div style="margin-top:10px;">
+                        <p>${gini.cpu.brand}</p>
+                        <p>${gini.system.operating_system}</p>
+                    </div>
+                    
+                    <!-- TEMPAT GRAFIK -->
+                    <div id="grafikContainer"></div>
+                    
+                    <div style="display:flex; flex-wrap:wrap; font-family: 'BBH Sans Bogle', sans-serif; font-weight: bold; width:100%;">
+                        <div class="ininya">
+                            <p><b>MEMORY</b></p>
+                            <p>${gini.memory.used}/ ${gini.memory.free}</p>
+                        </div>
+                        <div class="ininya">
+                            <p><b>CPU</b></p>
+                            <p>${gini.cpu.usage_percent}</p>
+                        </div>
+                        <div class="ininya">
+                            <p><b>UPTIME</b></p>
+                            <p>${gini.system.uptime}</p>
+                        </div>
+                        <div class="ininya">
+                            <p><b>NODE JS</b></p>
+                            <p>${gini.process.node_version}</p>
+                        </div>
+                    </div>
+                </center>
+            </div>
+        `;
+        
+        // Tambahkan grafik ke container
+        document.getElementById('grafikContainer').appendChild(chartCanvas);
+        
+        // Update grafik dengan data terbaru
+        const cpuPercent = parseFloat(gini.cpu.usage_percent);
+        const ramPercent = parseFloat(gini.memory.usage_percent);
+        const time = new Date().toLocaleTimeString('id-ID', { 
+            hour12: false,
+            hour: '2-digit',
+            minute: '2-digit', 
+            second: '2-digit'
+        });
+        
+        updateChart(cpuPercent, ramPercent, time);
+        
+    } catch(e) {
+        console.log(e);
+    }
 }
-setInterval(() => {
-    Fungsi();
-}, 1000);
 
-
+// Jalankan sekali saja
+setInterval(updateServerInfo, 1000);
 
 // === POPUP PROFILE VIEWER ===
 function buatPopup() {
@@ -168,7 +272,6 @@ async function TIKTOKUSERVIDEO1(){
     tombol.style.opacity = "1";
   }
 }
-
 
 // === POPUP FACEBOOK DOWNLOAD ===
 function FACEBOOKDOWNLOAD() {
@@ -337,6 +440,7 @@ async function TIKTOKDOWNLOAD2_1(){
     tombol.style.opacity = "1";
   }
 }
+
 // === POPUP SPOTIFY DOWNLOAD ===
 function SPOTIFYDOWNLOAD() {
   const overlay = document.createElement("div");
