@@ -298,10 +298,26 @@ case 'fbdownload': {
     console.log(error);
     return res.json({ error: error.message });
   }
+  break;
 }
       
 
+    case 'igdownload':{
+const {downr} = require('./codenya/scraper.js');
+const link = req.query.link;
+if (!link) return res.json('masulkan link dulu baru bisa di pakai');
+if (!link.includes('instagram.com') return res.json('link salah');
+try{
+const hasil = await downr(link);
+res.json(hasil);
 
+} catch(error) {
+console.log(error);
+res.json(error);
+}
+
+break;
+    }
 
 
       
