@@ -285,7 +285,7 @@ break;
     }
 
 case 'fbdownload': {
-  const { downr } = require('./codenya/scrape.js');
+  const { downr } = require('./codenya/scraper.js');
 
   const link = req.query.link;
   if (!link) return res.json('masukkan link dulu');
@@ -293,7 +293,7 @@ case 'fbdownload': {
 
   try {
     const hasil = await downr(link);
-    return res.json(hasil);
+    res.json(hasil);
   } catch (error) {
     console.log(error);
     return res.json({ error: error.message });
