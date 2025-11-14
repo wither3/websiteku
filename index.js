@@ -3,7 +3,7 @@ const cors = require('cors');
 const path = require('path');
 const axios = require('axios');
 
-// Import fungsi dari folder codenya/
+
 const { ttsave } = require('./ttsave');
 const igStalk = require('./igstalk');
 const igStalkPosts = require('./igpost');
@@ -23,14 +23,13 @@ const {spot} = require('./codenya/scraper.js');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// 🧱 Sajikan semua file statis dari folder public
+
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Middleware umum
+
 app.use(cors());
 app.use(express.json());
 
-// ✅ Tampilkan index.html di halaman utama
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
@@ -55,7 +54,7 @@ try {
   }
 });
 
-// ✅ IG Post API
+
 app.get('/igpost', async (req, res) => {
   const username = req.query.username;
   if (!username)
@@ -108,7 +107,7 @@ app.get('/igstalk', async (req, res) => {
   }
 });
 
-// ✅ TikTok Save API
+
 app.get('/ttsave', async (req, res) => {
   const url = req.query.url;
   if (!url)
@@ -186,10 +185,13 @@ res.json(hasil);
   break;
 
     case 'spotify':
-      if (!url) return res.status(400).json({ status: false, error: "Masukkan URL!" });
-      const data = await spot(url);
-const sama = data;
-      res.json(sama);
+const {downr} = require('./codenya/scraper.js');
+const url = req.query.url
+if (!url.includes('spotify.com')) return res.json('link salah');
+const hasil = await downr(url);
+res.json(hasil);
+
+      
       break;
 
     case 'ytplay':
