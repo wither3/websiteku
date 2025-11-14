@@ -321,6 +321,25 @@ break;
 case 'serverinfo': {
   const os = require('os');
   
+  // Function untuk mendapatkan CPU usage
+  const getCpuUsage = () => {
+    const cpus = os.cpus();
+    let totalIdle = 0, totalTick = 0;
+    
+    cpus.forEach(cpu => {
+      for (let type in cpu.times) {
+        totalTick += cpu.times[type];
+      }
+      totalIdle += cpu.times.idle;
+    });
+    
+    return {
+      idle: totalIdle / cpus.length,
+      total: totalTick / cpus.length,
+      usage: ((1 - totalIdle / totalTick) * 100).toFixed(2) + '%'
+    };
+  };
+
   // RAM Usage
   const totalMem = os.totalmem();
   const freeMem = os.freemem();
@@ -330,6 +349,7 @@ case 'serverinfo': {
   // CPU Info
   const cpus = os.cpus();
   const loadAvg = os.loadavg();
+  const cpuUsage = getCpuUsage();
   
   // Current Time
   const now = new Date();
@@ -357,6 +377,7 @@ case 'serverinfo': {
       brand: cpus[0]?.model,
       cores: cpus.length,
       speed: cpus[0]?.speed + ' MHz',
+      usage_percent: cpuUsage.usage,
       usage: {
         load_1min: loadAvg[0],
         load_5min: loadAvg[1], 
