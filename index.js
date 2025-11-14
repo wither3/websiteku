@@ -306,7 +306,7 @@ case 'fbdownload': {
 const {downr} = require('./codenya/scraper.js');
 const link = req.query.link;
 if (!link) return res.json('masulkan link dulu baru bisa di pakai');
-if (!link.includes('instagram.com') return res.json('link salah');
+if (!link.includes('instagram.com')) return res.json('link salah');
 try{
 const hasil = await downr(link);
 res.json(hasil);
