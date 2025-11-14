@@ -267,7 +267,30 @@ res.json(error);
 }
 break;
     }
-    
+    case 'tiktokdownload2':{
+const {tiktokdownload2} = require('./codenya/scraper.js');
+const link = req.query.link;
+if (!link) return res.json('masukkan link')
+if (!link.includes('tiktok.com')) return res.json('link salah');
+try {
+const hasil = await tiktokdownload2(link);
+res.json(hasil);
+} catch(error) {
+console.log(error);
+res.json(error);
+}
+
+
+break;
+    }
+
+
+
+
+
+
+
+      
       
     default:
       res.status(404).json({ status: false, message: "API tidak ditemukan" });
