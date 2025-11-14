@@ -14,6 +14,51 @@ document.getElementById('close-button').addEventListener('click', function() {
   document.getElementById('overlay').classList.add('hidden');
 });
 
+
+async function Fungsi(){
+const api =`https://endernet.web.id/bagian1/serverinfo`;
+try {
+const hasil= await fetch(api);
+const gini = await hasil.json();
+const datanya = document.getElementById('datanya');
+datanya.innerHTML =`
+<div class="kotak1" style="padding:5px;">
+    <center>
+ <div style="font-family: 'BBH Sans Bogle', sans-serif; font-weight: bold;">SERVER STATUS</div><div style="margin-top:10px;"><p>${gini.cpu.brand}</p><p>${gini.system.operating_system}</p></div>
+ <div style="display:flex; flex-wrap:wrap; font-family: 'BBH Sans Bogle', sans-serif; font-weight: bold; width:100%;">
+ <div class="ininya">
+ <p><b>MEMORY</b></p>
+ <p>${gini.memory.used}/ ${gini.memory.free}</p>
+     </div>
+<div class="ininya">
+  <p><b>CPU</b></p>
+  <p>${gini.cpu.usage_percent}</p>
+    </div>
+<div class="ininya">
+  <p><b>UPTIME</b></p>
+ <p>${gini.system.uptime}</p>
+    </div>
+ <div class="ininya">
+  <p><b>NODE JS</b></p>
+ <p>${gini.process.node_version}</p>
+    </div>
+ 
+     </div>
+     
+    
+    </center>
+</div>
+`;
+} catch(e) {
+ console.log(e);
+}
+}
+setInterval(() => {
+    Fungsi();
+}, 1000);
+
+
+
 // === POPUP PROFILE VIEWER ===
 function buatPopup() {
   const overlay = document.createElement("div");
