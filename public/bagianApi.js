@@ -123,3 +123,227 @@ async function TIKTOKUSERVIDEO1(){
     tombol.style.opacity = "1";
   }
 }
+
+
+// === POPUP FACEBOOK DOWNLOAD ===
+function FACEBOOKDOWNLOAD() {
+  const overlay = document.createElement("div");
+  overlay.className = "overlay";
+
+  const popup = document.createElement("div");
+  popup.className = "popup";
+  popup.innerHTML = `
+    <span class="close-btn">&times;</span>
+    <div style="font-family: 'BBH Sans Bogle', sans-serif; font-weight: bold;">FACEBOOK VIDEO DOWNLOAD</div>
+    <font size="2">Masukkan link Facebook di bawah:</font>
+    <input id="inputFb" style="background-color:#f3f3f3; border:1px solid black; border-radius:3px; width:100%; height:30px;" placeholder="https://www.facebook.com/share/v/...">
+    <div id="fetchFbBtn" class="tombolget" style="margin-top:2px;" onclick="FACEBOOKDOWNLOAD1()">DOWNLOAD</div>
+    <p>Response:</p>
+    <div id="nyalakanFb"></div>
+    <p>Api Link</p>
+    <div class="hitam"><div id="apilinkFb"></div></div>
+  `;
+
+  overlay.appendChild(popup);
+  document.body.appendChild(overlay);
+
+  popup.querySelector(".close-btn").onclick = () => overlay.remove();
+  overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
+}
+
+// === FETCH FACEBOOK DOWNLOAD ===
+async function FACEBOOKDOWNLOAD1(){
+  const tombol = document.getElementById('fetchFbBtn');
+  const input = document.getElementById('inputFb');
+  const apilink = document.getElementById('apilinkFb');
+  const nyalakan = document.getElementById('nyalakanFb');
+
+  const link = input.value.trim();
+  if (!link) return alert("Masukkan link Facebook terlebih dahulu!");
+  if (!link.includes('facebook.com')) return alert("Link harus dari Facebook!");
+
+  tombol.textContent = "Loading...";
+  tombol.style.opacity = "0.7";
+
+  const api = `https://endernet.web.id/bagian1/fbdownload?link=${encodeURIComponent(link)}`;
+  try {
+    const res = await fetch(api);
+    const data = await res.json();
+    const jsonRapi = JSON.stringify(data, null, 2);
+    nyalakan.innerHTML = `<div class="melayang"><pre><font size="2">${jsonRapi}</font></pre></div>`;
+    apilink.innerHTML = `<font size="2">${api}</font>`;
+  } catch (error) {
+    console.error(error);
+    nyalakan.innerHTML = `<p style="color:red;">Gagal memuat data!</p>`;
+  } finally {
+    tombol.textContent = "DOWNLOAD";
+    tombol.style.opacity = "1";
+  }
+}
+
+// === POPUP INSTAGRAM DOWNLOAD ===
+function INSTAGRAMDOWNLOAD() {
+  const overlay = document.createElement("div");
+  overlay.className = "overlay";
+
+  const popup = document.createElement("div");
+  popup.className = "popup";
+  popup.innerHTML = `
+    <span class="close-btn">&times;</span>
+    <div style="font-family: 'BBH Sans Bogle', sans-serif; font-weight: bold;">INSTAGRAM DOWNLOAD</div>
+    <font size="2">Masukkan link Instagram di bawah:</font>
+    <input id="inputIg" style="background-color:#f3f3f3; border:1px solid black; border-radius:3px; width:100%; height:30px;" placeholder="https://www.instagram.com/reel/...">
+    <div id="fetchIgBtn" class="tombolget" style="margin-top:2px;" onclick="INSTAGRAMDOWNLOAD1()">DOWNLOAD</div>
+    <p>Response:</p>
+    <div id="nyalakanIg"></div>
+    <p>Api Link</p>
+    <div class="hitam"><div id="apilinkIg"></div></div>
+  `;
+
+  overlay.appendChild(popup);
+  document.body.appendChild(overlay);
+
+  popup.querySelector(".close-btn").onclick = () => overlay.remove();
+  overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
+}
+
+// === FETCH INSTAGRAM DOWNLOAD ===
+async function INSTAGRAMDOWNLOAD1(){
+  const tombol = document.getElementById('fetchIgBtn');
+  const input = document.getElementById('inputIg');
+  const apilink = document.getElementById('apilinkIg');
+  const nyalakan = document.getElementById('nyalakanIg');
+
+  const link = input.value.trim();
+  if (!link) return alert("Masukkan link Instagram terlebih dahulu!");
+  if (!link.includes('instagram.com')) return alert("Link harus dari Instagram!");
+
+  tombol.textContent = "Loading...";
+  tombol.style.opacity = "0.7";
+
+  const api = `https://endernet.web.id/bagian1/igdownload?link=${encodeURIComponent(link)}`;
+  try {
+    const res = await fetch(api);
+    const data = await res.json();
+    const jsonRapi = JSON.stringify(data, null, 2);
+    nyalakan.innerHTML = `<div class="melayang"><pre><font size="2">${jsonRapi}</font></pre></div>`;
+    apilink.innerHTML = `<font size="2">${api}</font>`;
+  } catch (error) {
+    console.error(error);
+    nyalakan.innerHTML = `<p style="color:red;">Gagal memuat data!</p>`;
+  } finally {
+    tombol.textContent = "DOWNLOAD";
+    tombol.style.opacity = "1";
+  }
+}
+
+// === POPUP TIKTOK DOWNLOAD 2 ===
+function TIKTOKDOWNLOAD2() {
+  const overlay = document.createElement("div");
+  overlay.className = "overlay";
+
+  const popup = document.createElement("div");
+  popup.className = "popup";
+  popup.innerHTML = `
+    <span class="close-btn">&times;</span>
+    <div style="font-family: 'BBH Sans Bogle', sans-serif; font-weight: bold;">TIKTOK DOWNLOAD 2</div>
+    <font size="2">Masukkan link TikTok di bawah:</font>
+    <input id="inputTt2" style="background-color:#f3f3f3; border:1px solid black; border-radius:3px; width:100%; height:30px;" placeholder="https://vt.tiktok.com/...">
+    <div id="fetchTt2Btn" class="tombolget" style="margin-top:2px;" onclick="TIKTOKDOWNLOAD2_1()">DOWNLOAD</div>
+    <p>Response:</p>
+    <div id="nyalakanTt2"></div>
+    <p>Api Link</p>
+    <div class="hitam"><div id="apilinkTt2"></div></div>
+  `;
+
+  overlay.appendChild(popup);
+  document.body.appendChild(overlay);
+
+  popup.querySelector(".close-btn").onclick = () => overlay.remove();
+  overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
+}
+
+// === FETCH TIKTOK DOWNLOAD 2 ===
+async function TIKTOKDOWNLOAD2_1(){
+  const tombol = document.getElementById('fetchTt2Btn');
+  const input = document.getElementById('inputTt2');
+  const apilink = document.getElementById('apilinkTt2');
+  const nyalakan = document.getElementById('nyalakanTt2');
+
+  const link = input.value.trim();
+  if (!link) return alert("Masukkan link TikTok terlebih dahulu!");
+  if (!link.includes('tiktok.com')) return alert("Link harus dari TikTok!");
+
+  tombol.textContent = "Loading...";
+  tombol.style.opacity = "0.7";
+
+  const api = `https://endernet.web.id/bagian1/tiktokdownload2?link=${encodeURIComponent(link)}`;
+  try {
+    const res = await fetch(api);
+    const data = await res.json();
+    const jsonRapi = JSON.stringify(data, null, 2);
+    nyalakan.innerHTML = `<div class="melayang"><pre><font size="2">${jsonRapi}</font></pre></div>`;
+    apilink.innerHTML = `<font size="2">${api}</font>`;
+  } catch (error) {
+    console.error(error);
+    nyalakan.innerHTML = `<p style="color:red;">Gagal memuat data!</p>`;
+  } finally {
+    tombol.textContent = "DOWNLOAD";
+    tombol.style.opacity = "1";
+  }
+}
+// === POPUP SPOTIFY DOWNLOAD ===
+function SPOTIFYDOWNLOAD() {
+  const overlay = document.createElement("div");
+  overlay.className = "overlay";
+
+  const popup = document.createElement("div");
+  popup.className = "popup";
+  popup.innerHTML = `
+    <span class="close-btn">&times;</span>
+    <div style="font-family: 'BBH Sans Bogle', sans-serif; font-weight: bold;">SPOTIFY DOWNLOAD</div>
+    <font size="2">Masukkan link Spotify di bawah:</font>
+    <input id="inputSpotify" style="background-color:#f3f3f3; border:1px solid black; border-radius:3px; width:100%; height:30px;" placeholder="https://open.spotify.com/track/...">
+    <div id="fetchSpotifyBtn" class="tombolget" style="margin-top:2px;" onclick="SPOTIFYDOWNLOAD1()">DOWNLOAD</div>
+    <p>Response:</p>
+    <div id="nyalakanSpotify"></div>
+    <p>Api Link</p>
+    <div class="hitam"><div id="apilinkSpotify"></div></div>
+  `;
+
+  overlay.appendChild(popup);
+  document.body.appendChild(overlay);
+
+  popup.querySelector(".close-btn").onclick = () => overlay.remove();
+  overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
+}
+
+// === FETCH SPOTIFY DOWNLOAD ===
+async function SPOTIFYDOWNLOAD1(){
+  const tombol = document.getElementById('fetchSpotifyBtn');
+  const input = document.getElementById('inputSpotify');
+  const apilink = document.getElementById('apilinkSpotify');
+  const nyalakan = document.getElementById('nyalakanSpotify');
+
+  const link = input.value.trim();
+  if (!link) return alert("Masukkan link Spotify terlebih dahulu!");
+  if (!link.includes('spotify.com')) return alert("Link harus dari Spotify!");
+
+  tombol.textContent = "Loading...";
+  tombol.style.opacity = "0.7";
+
+  const api = `https://endernet.web.id/bagian1/spotify?link=${encodeURIComponent(link)}`;
+  try {
+    const res = await fetch(api);
+    const data = await res.json();
+    const jsonRapi = JSON.stringify(data, null, 2);
+    nyalakan.innerHTML = `<div class="melayang"><pre><font size="2">${jsonRapi}</font></pre></div>`;
+    apilink.innerHTML = `<font size="2">${api}</font>`;
+  } catch (error) {
+    console.error(error);
+    nyalakan.innerHTML = `<p style="color:red;">Gagal memuat data!</p>`;
+  } finally {
+    tombol.textContent = "DOWNLOAD";
+    tombol.style.opacity = "1";
+  }
+}
