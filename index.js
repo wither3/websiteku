@@ -296,6 +296,7 @@ res.json(hasil);
 console.log(error);
 res.json(error);
 }
+      break;
     }
 
 
