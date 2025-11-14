@@ -318,7 +318,7 @@ res.json(error);
 
 break;
     }
-case 'serverstatus': {
+case 'serverinfo': {
   const os = require('os');
   
   // RAM Usage
@@ -327,32 +327,74 @@ case 'serverstatus': {
   const usedMem = totalMem - freeMem;
   const ramUsage = (usedMem / totalMem * 100).toFixed(2);
   
-  // CPU Usage (averages)
+  // CPU Info
+  const cpus = os.cpus();
   const loadAvg = os.loadavg();
   
-  const status = {
+  // Current Time
+  const now = new Date();
+  
+  const serverInfo = {
     status: true,
-    platform: process.platform,
-    uptime: Math.floor(process.uptime()) + ' seconds',
+    timestamp: now.toISOString(),
+    local_time: now.toLocaleString('id-ID', { 
+      timeZone: 'Asia/Jakarta',
+      dateStyle: 'full',
+      timeStyle: 'long'
+    }),
+    
+    // System Information
+    system: {
+      platform: os.platform(),
+      architecture: os.arch(),
+      operating_system: `${os.type()} ${os.release()}`,
+      uptime: Math.floor(os.uptime()) + ' seconds',
+      hostname: os.hostname()
+    },
+    
+    // CPU Information
+    cpu: {
+      brand: cpus[0]?.model,
+      cores: cpus.length,
+      speed: cpus[0]?.speed + ' MHz',
+      usage: {
+        load_1min: loadAvg[0],
+        load_5min: loadAvg[1], 
+        load_15min: loadAvg[2]
+      }
+    },
+    
+    // Memory Information
     memory: {
       total: (totalMem / 1024 / 1024 / 1024).toFixed(2) + ' GB',
       used: (usedMem / 1024 / 1024 / 1024).toFixed(2) + ' GB',
       free: (freeMem / 1024 / 1024 / 1024).toFixed(2) + ' GB',
-      usage: ramUsage + '%'
+      usage_percent: ramUsage + '%',
+      usage_mb: Math.round(usedMem / 1024 / 1024) + ' MB'
     },
-    cpu: {
-      load_1min: loadAvg[0],
-      load_5min: loadAvg[1],
-      load_15min: loadAvg[2],
-      cores: os.cpus().length
+    
+    // Node.js Process Information
+    process: {
+      node_version: process.version,
+      uptime: Math.floor(process.uptime()) + ' seconds',
+      memory_usage: {
+        rss: Math.round(process.memoryUsage().rss / 1024 / 1024) + ' MB',
+        heap_total: Math.round(process.memoryUsage().heapTotal / 1024 / 1024) + ' MB',
+        heap_used: Math.round(process.memoryUsage().heapUsed / 1024 / 1024) + ' MB',
+        external: Math.round(process.memoryUsage().external / 1024 / 1024) + ' MB'
+      },
+      pid: process.pid
     },
-    node: {
-      version: process.version,
-      memory: process.memoryUsage()
+    
+    // Vercel Environment
+    environment: {
+      vercel_region: process.env.VERCEL_REGION || 'Unknown',
+      node_env: process.env.NODE_ENV || 'Unknown',
+      vercel_url: process.env.VERCEL_URL || 'Unknown'
     }
   };
   
-  res.json(status);
+  res.json(serverInfo);
   break;
 }
 
