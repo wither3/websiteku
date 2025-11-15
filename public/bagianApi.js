@@ -96,7 +96,7 @@ function updateChart(cpuData, ramData, timeLabel) {
 
 // Fungsi utama yang menggabungkan semuanya
 async function updateServerInfo() {
-    const api = `https://endernet.web.id/bagian1/serverinfo`;
+    const api = `/bagian1/serverinfo`;
     try {
         const hasil = await fetch(api);
         const gini = await hasil.json();
