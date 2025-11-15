@@ -96,7 +96,7 @@ function updateChart(cpuData, ramData, timeLabel) {
 
 // Fungsi utama yang menggabungkan semuanya
 async function updateServerInfo() {
-    const api = `/bagian1/serverinfo`;
+    const api = `https://endernet.web.id/bagian1/serverinfo`;
     try {
         const hasil = await fetch(api);
         const gini = await hasil.json();
@@ -118,7 +118,7 @@ async function updateServerInfo() {
                     <!-- TEMPAT GRAFIK -->
                     <div id="grafikContainer"></div>
                     
-                    <div style="display:flex; flex-wrap:wrap; font-family: 'BBH Sans Bogle', sans-serif; font-weight: bold; width:100%;">
+                    <div style="display:flex; flex-wrap:wrap; font-family: 'BBH Sans Bogle', sans-serif; font-weight: bold; width:100%; justify-content:center;">
                         <div class="ininya">
                             <p><b>MEMORY</b></p>
                             <p>${gini.memory.used}/ ${gini.memory.free}</p>
