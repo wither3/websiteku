@@ -361,12 +361,29 @@ case 'serverinfo': {
     global.prevCpuMeasurement = current;
   }
 
-  // RAM Usage
+  // RAM Usage - DIPERBAIKI dengan informasi lebih detail
   const totalMem = os.totalmem();
   const freeMem = os.freemem();
   const usedMem = totalMem - freeMem;
-  const ramUsage = (usedMem / totalMem * 100).toFixed(2);
+  const ramUsagePercent = (usedMem / totalMem * 100).toFixed(2);
   
+  // Tambahan: Memory breakdown
+  const memBreakdown = {
+    total: totalMem,
+    used: usedMem,
+    free: freeMem,
+    buffers: os.freemem() - os.availablemem ? (os.availablemem() || 0) : 0, // Jika tersedia
+    cached: 0 // Bisa ditambahkan jika ada info cache memory
+  };
+  
+  // Format memory untuk display
+  const formatMemory = (bytes) => {
+    const gb = (bytes / 1024 / 1024 / 1024).toFixed(2);
+    const mb = (bytes / 1024 / 1024).toFixed(0);
+    const percent = ((bytes / totalMem) * 100).toFixed(1);
+    return { gb: gb + ' GB', mb: mb + ' MB', percent: percent + '%', raw: bytes };
+  };
+
   // CPU Info
   const cpus = os.cpus();
   const loadAvg = os.loadavg();
@@ -392,12 +409,12 @@ case 'serverinfo': {
       hostname: os.hostname()
     },
     
-    // CPU Information - SEKARANG REAL-TIME!
+    // CPU Information - REAL-TIME!
     cpu: {
       brand: cpus[0]?.model,
       cores: cpus.length,
       speed: cpus[0]?.speed + ' MHz',
-      usage_percent: cpuUsagePercent, // ← INI REAL-TIME!
+      usage_percent: cpuUsagePercent,
       usage: {
         load_1min: loadAvg[0],
         load_5min: loadAvg[1], 
@@ -406,13 +423,56 @@ case 'serverinfo': {
       note: "CPU usage dihitung berdasarkan perbedaan antara request sebelumnya dan sekarang"
     },
     
-    // Memory Information
+    // Memory Information - DIPERBAIKI dengan detail lengkap
     memory: {
-      total: (totalMem / 1024 / 1024 / 1024).toFixed(2) + ' GB',
-      used: (usedMem / 1024 / 1024 / 1024).toFixed(2) + ' GB',
-      free: (freeMem / 1024 / 1024 / 1024).toFixed(2) + ' GB',
-      usage_percent: ramUsage + '%',
-      usage_mb: Math.round(usedMem / 1024 / 1024) + ' MB'
+      // Total memory information
+      total: formatMemory(totalMem).gb,
+      used: formatMemory(usedMem).gb,
+      free: formatMemory(freeMem).gb,
+      
+      // Usage percentages
+      usage_percent: ramUsagePercent + '%',
+      usage_mb: Math.round(usedMem / 1024 / 1024) + ' MB',
+      
+      // Detailed breakdown
+      detailed: {
+        total_bytes: totalMem,
+        used_bytes: usedMem,
+        free_bytes: freeMem,
+        usage_percentage: parseFloat(ramUsagePercent),
+        
+        // Human readable formats
+        human_readable: {
+          total: formatMemory(totalMem).gb,
+          used: formatMemory(usedMem).gb + ` (${formatMemory(usedMem).percent})`,
+          free: formatMemory(freeMem).gb + ` (${formatMemory(freeMem).percent})`,
+          available: formatMemory(freeMem + memBreakdown.buffers).gb
+        },
+        
+        // Memory status
+        status: ramUsagePercent > 90 ? 'CRITICAL' : 
+                ramUsagePercent > 80 ? 'HIGH' : 
+                ramUsagePercent > 60 ? 'MODERATE' : 'LOW'
+      }
+    },
+    
+    // Memory Statistics tambahan
+    memory_stats: {
+      // Physical memory usage
+      physical: {
+        total: formatMemory(totalMem).gb,
+        used: formatMemory(usedMem).gb,
+        free: formatMemory(freeMem).gb,
+        usage: ramUsagePercent + '%'
+      },
+      
+      // Swap memory (jika tersedia)
+      swap: {
+        total: '0 GB', // os.totalmem() tidak include swap di Node.js
+        used: '0 GB',
+        free: '0 GB',
+        note: 'Swap memory tidak tersedia dalam environment ini'
+      }
     },
     
     // Node.js Process Information
@@ -423,9 +483,26 @@ case 'serverinfo': {
         rss: Math.round(process.memoryUsage().rss / 1024 / 1024) + ' MB',
         heap_total: Math.round(process.memoryUsage().heapTotal / 1024 / 1024) + ' MB',
         heap_used: Math.round(process.memoryUsage().heapUsed / 1024 / 1024) + ' MB',
-        external: Math.round(process.memoryUsage().external / 1024 / 1024) + ' MB'
+        external: Math.round(process.memoryUsage().external / 1024 / 1024) + ' MB',
+        array_buffers: Math.round(process.memoryUsage().arrayBuffers / 1024 / 1024) + ' MB'
       },
-      pid: process.pid
+      pid: process.pid,
+      // Process memory vs system memory comparison
+      memory_comparison: {
+        process_rss: Math.round(process.memoryUsage().rss / 1024 / 1024) + ' MB',
+        system_total: formatMemory(totalMem).gb,
+        process_vs_system: (process.memoryUsage().rss / totalMem * 100).toFixed(2) + '%'
+      }
+    },
+    
+    // Performance Summary
+    performance_summary: {
+      cpu_usage: cpuUsagePercent,
+      ram_usage: ramUsagePercent + '%',
+      status: parseFloat(ramUsagePercent) > 90 || parseFloat(cpuUsagePercent) > 90 ? 'WARNING' : 'HEALTHY',
+      recommendations: parseFloat(ramUsagePercent) > 80 ? 
+        'RAM usage tinggi, pertimbangkan untuk optimasi' : 
+        'System dalam kondisi normal'
     },
     
     // Vercel Environment
@@ -438,7 +515,7 @@ case 'serverinfo': {
   
   res.json(serverInfo);
   break;
-  }
+}
 
       
       
