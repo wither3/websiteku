@@ -17,7 +17,7 @@ const { ytSearch } = require('./codenya/scraper.js');
 const tokdl = require('./codenya/tokdl.js');
 const { douyin } = require('./codenya/scraper.js');
 const {TIKDOWNLOADER} = require('./codenya/scraper.js');
-const {spot} = require('./codenya/scraper.js');
+const {spot, gamertagInfo} = require('./codenya/scraper.js');
 
 
 const app = express();
@@ -319,6 +319,43 @@ res.json(error);
 break;
     }
 
+    case 'gamertagInfo':{
+const username = req.query.username;
+if(!username) return res.json('username tidak boleh kosong');
+try {
+const hasil = awat gametagInfo(username);
+res.json(hasil);
+
+} catch(error) {
+res.json(error);
+}
+      
+
+      break;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
 case 'serverinfo': {
   const os = require('os');
   
