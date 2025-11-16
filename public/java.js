@@ -114,14 +114,18 @@ const audio = document.getElementById("audio");
       });
         
         
-const usernameNya =`/tikstalk?username=qhairulpratama`;
+const usernameNya = `https://endernet.web.id/tikstalk?username=qhairulpratama`;
 
 fetch(usernameNya)
-      .then(res => res.json())
-      .then(json => {
-        const user = json.data.data.user;
-        const stats = json.data.data.stats;
-        document.getElementById("profile").innerHTML = `<center><p>${user.nickname}</p>
+  .then(res => res.json())
+  .then(json => {
+    const user = json.data.data.user;
+    const stats = json.data.data.stats;
+    
+    // Handle bioLink yang mungkin tidak ada
+    const bioLink = user.bioLink ? user.bioLink.link : "";
+    
+    document.getElementById("profile").innerHTML = `<center><p>${user.nickname}</p>
    <div class="ttprofile">
     <img src="${user.avatarLarger}" style="width:100%">
    </div>    
@@ -141,32 +145,25 @@ fetch(usernameNya)
     <div style="color:white; margin:5px;">
       <p>Suka</p>
       <p>${stats.heartCount}</p>
-    
-        
     </div>
     <div style="color:white; margin:5px;">
       <p>Video</p>
       <p>${stats.videoCount}</p>
-        
     </div>
-    
    </div>
     </div>
     
     <div style="justify-content:center; text-align:center; align-items: center; display:flex;">
      <div style=" font-family: 'Patrick Hand', cursive; max-width:200px; width:95%">
      <p>${user.signature}</p>
-     <p>${user.bioLink.link || ""}</p>
+     <p>${bioLink}</p>
      </div>
-     
-    </div>
-    
-        `;
-      })
-      .catch(err => {
-        document.getElementById("profile").innerHTML = "Gagal memuat data 😢";
-        console.error(err);
-      });
+    </div>`;
+  })
+  .catch(err => {
+    document.getElementById("profile").innerHTML = "Gagal memuat data 😢";
+    console.error(err);
+  });
         
         
         
