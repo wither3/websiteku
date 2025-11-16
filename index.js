@@ -323,7 +323,7 @@ break;
 const username = req.query.username;
 if(!username) return res.json('username tidak boleh kosong');
 try {
-const hasil = awat gametagInfo(username);
+const hasil = await gamertagInfo(username);
 res.json(hasil);
 
 } catch(error) {
