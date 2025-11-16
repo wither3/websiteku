@@ -174,6 +174,32 @@ height: auto;
      border-radius: 5px;
      Border:0.8px solid black;
  }
+ .copy-btn {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 2px 1px;
+  cursor: pointer;
+  border-radius: 3px;
+  flex: 1;
+  font-family: 'BBH Sans Bogle', sans-serif;
+}
+
+.copy-btn:hover {
+  background-color: #45a049;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-10px); }
+  20% { opacity: 1; transform: translateY(0); }
+  80% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
 </style>  
 <nav class="trans p-3 fixed w-[90%] top-2 left-1/2 transform -translate-x-1/2 text-white" style="z-index:1000;">
     <div class="container mx-auto flex justify-between items-center">
