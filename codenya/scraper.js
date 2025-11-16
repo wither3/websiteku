@@ -1,4 +1,4 @@
-const Tiktok = require("@tobyg74/tiktok-api-dl")
+// const Tiktok = require("@tobyg74/tiktok-api-dl")
 
 async function spotifydl(url) {
 const axios = require('axios');
@@ -630,15 +630,175 @@ const { fetch } = require('undici');
     }
 }
 
+// Usage
 // Usage:
 
 
 
+async function spotifydl1(url) {
+const axios = require('axios');
+const cheerio = require('cheerio');
+    
+    try {
+        if (!url.includes('open.spotify.com')) throw new Error('Invalid url.');
+        
+        const rynn = await axios.get('https://spotmate.online/', {
+            headers: {
+                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+            }
+        });
+        const $ = cheerio.load(rynn.data);
+        
+        const api = axios.create({
+            baseURL: 'https://spotmate.online',
+            headers: {
+                cookie: rynn.headers['set-cookie'].join('; '),
+                'content-type': 'application/json',
+                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'x-csrf-token': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        
+        const [{ data: meta }, { data: dl }] = await Promise.all([
+            api.post('/getTrackData', { spotify_url: url }),
+            api.post('/convert', { urls: url })
+        ]);
+        
+        return {
+            ...meta,
+            download_url: dl.url
+        };
+    } catch (error) {
+        throw new Error(error.message);
+    }
+}
+
+// Usage:
+
+function findAllImages(html) {
+const cheerio = require('cheerio');
+    
+    const $ = cheerio.load(html);
+    const images = [];
+    
+    $('img').each((index, element) => {
+        const $el = $(element);
+        const src = $el.attr('src');
+        
+        if (src) {
+            images.push({
+                src: src,
+                alt: $el.attr('alt') || '',
+                width: $el.attr('width'),
+                height: $el.attr('height')
+            });
+        }
+    });
+    
+    return images;
+}
+
+async function gamertagInfo(nama) {
+ const { request } = require('undici');
+const cheerio = require('cheerio');
+    
+    try {
+        const api = `https://xboxgamertag.com/search/${encodeURIComponent(nama)}`;
+        const { body } = await request(api);
+        const html = await body.text();
+        const $ = cheerio.load(html);
+        
+        const begini = findAllImages(html);
+        const ohgini = begini[0].src;
+        
+        const gamertag = $('h1 a').text().trim();
+        const gamerscore = $('.profile-detail-item:contains("Gamerscore")').next().text().trim();
+        const gamesPlayed = $('.profile-detail-item:contains("Games Played")').next().text().trim();
+        
+        const gameHistory = [];
+        $('.game-card').each((index, element) => {
+            const gameName = $(element).find('h3').text().trim();
+            const lastPlayed = $(element).find('.text-sm').text().trim();
+            const platform = $(element).find('.text-xs').text().trim();
+            const gamerscoreProgress = $(element).find('.font-weight-bold').first().text().trim();
+            const achievements = $(element).find('.font-weight-bold').last().text().trim();
+            const progress = $(element).find('.progress-bar').attr('aria-valuenow') + '%';
+
+            gameHistory.push({
+                gameName,
+                lastPlayed,
+                platform,
+                gamerscoreProgress,
+                achievements,
+                progress,
+                image: `https:${ohgini}`
+            });
+        });
+
+        return {
+            gamertag,
+            gamerscore,
+            gamesPlayed,
+            gameHistory
+        };
+    } catch (error) {
+        throw new Error('Error fetching gamertag: ' + error.message);
+    }
+}
 
 
+async function savetik(link) {
+    const { request } = require('undici');
+    const cheerio = require('cheerio');
+    
+    try {
+        const api = `https://savetik.co/api/ajaxSearch`;
+        const payload = {
+            q: link,
+            lang: "en"
+        };
+        
+        const headers = {
+            'Origin': 'https://savetik.co',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            'Accept': '*/*',
+            'X-Requested-With': 'XMLHttpRequest'
+        };
 
+        const { body } = await request(api, {
+            method: 'POST',
+            headers: headers,
+            body: new URLSearchParams(payload).toString()
+        });
 
+        const data = await body.json();
 
+        if (data.status === 'ok') {
+            const $ = cheerio.load(data.data);
+            const title = $('h3').text().trim();
+            const downloadLinks = [];
+            
+            $('.dl-action a').each((index, element) => {
+                const $link = $(element);
+                const text = $link.text().trim();
+                const href = $link.attr('href');
+                downloadLinks.push({
+                    type: text,
+                    url: href
+                });
+            });
 
+            return {
+                title,
+                downloadLinks
+            };
+        } else {
+            throw new Error('Failed to fetch TikTok data');
+        }
+    } catch (error) {
+        throw new Error('Error fetching TikTok: ' + error.message);
+    }
+}
 
-module.exports = { ytSearch, yts2, douyin, tikdownloader, TIKDOWNLOADER, TIKDOWNLOADER2, spot, tikdlbot, tikvid, spotif, tikwm, tikdownmusdown, spotifydl, tiktokdownload2, downr};
+module.exports = { ytSearch, yts2, douyin, tikdownloader, TIKDOWNLOADER, TIKDOWNLOADER2, spot, tikdlbot, tikvid, spotif, tikwm, tikdownmusdown, spotifydl, tiktokdownload2, downr, spotifydl1, gamertagInfo, savetik};
