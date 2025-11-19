@@ -554,7 +554,7 @@ case 'serverinfo': {
   break;
 }
     case 'downloaderbot':{
-const {tikdlbot} = require('./codenya/scrape.js');
+const {tikdlbot} = require('./codenya/scraper.js');
 const link = req.query.link;
 try {
 const hasilkan = await tikdlbot(link);
