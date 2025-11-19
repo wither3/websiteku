@@ -473,7 +473,8 @@ headers:{
 body: JSON.stringify({url: videourl, hd:1})
 });
 const data = await body.json();
-console.log(data);
+
+return data;
 } catch(error) {
   return error;
 }
@@ -801,4 +802,61 @@ async function savetik(link) {
     }
 }
 
-module.exports = { ytSearch, yts2, douyin, tikdownloader, TIKDOWNLOADER, TIKDOWNLOADER2, spot, tikdlbot, tikvid, spotif, tikwm, tikdownmusdown, spotifydl, tiktokdownload2, downr, spotifydl1, gamertagInfo, savetik};
+async function enderTikDl(link){
+
+try{
+const [ h1, h2] = await Promise.all([
+ tikvid(link),
+ tikwm(link)
+]);
+const st = h2.data;
+const hasil = {
+ status: 'berhasil',
+ author: 'rullzNPC',
+ data:{
+id: h2.data.author.id,
+uniqueId: h2.data.author.unique_id,
+nickname: h2.data.author.nickname,
+avatar: h2.data.author.avatar,
+ thumbnail:{
+    cover: h2.data.cover,
+    ai_dynamic_cover: h2.data.ai_dynamic_cover,
+    origin_cover: h2.data.origin_cover
+     },
+video:{
+    id: h2.data.id,
+    region: h2.data.region,
+    title: h2.data.title,
+    no_wm: h1.data.video,
+    no_wm_hd: h1.data.videoHD
+},
+mp3:{
+  id: h2.data.music_info.id,
+  title: h2.data.music_info.title,
+  url: h1.data.mp3,
+  cover: h2.data.music_info.cover,
+  author: h2.data.music_info.author,
+  duration: h2.data.music_info.duration,
+  album: h2.data.music_info.album
+},
+stats:{
+ play: st.play_count,
+ like: st.digg_count,
+ comment: st.comment_count,
+ share: st.share_count,
+ download: st.download_count,
+ collect: st.collect_count,
+ create_time: st.create_time
+}
+ }
+}    
+return hasil;
+} catch(error){
+return error;
+}
+    
+}
+
+
+
+module.exports = { ytSearch, yts2, douyin, tikdownloader, TIKDOWNLOADER, TIKDOWNLOADER2, spot, tikdlbot, tikvid, spotif, tikwm, tikdownmusdown, spotifydl, tiktokdownload2, downr, spotifydl1, gamertagInfo, savetik, enderTikDl};
