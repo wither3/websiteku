@@ -334,7 +334,23 @@ res.json(error);
       break;
     }
 
+    case 'ssstik':{
+const Tiktok = require("@tobyg74/tiktok-api-dl")
+const link = req.query.link;
+if (!link) return res.json('link tidak boleh kosong');
+if (!link.includes('tiktok.com')) return res.json('link nya salah');
+try {
+ const hasil = await Tiktok.Downloader(link, {
+  version: "v2", // "v1" | "v2" | "v3"
+  proxy: "95.173.218.66", // optional
+});
+res.json(hasil);
+} catch(error){
+  res.json(error);
+}
 
+      break;
+    }
 
 
 
