@@ -17,7 +17,7 @@ const { ytSearch } = require('./codenya/scraper.js');
 const tokdl = require('./codenya/tokdl.js');
 const { douyin } = require('./codenya/scraper.js');
 const {TIKDOWNLOADER} = require('./codenya/scraper.js');
-const {spot, gamertagInfo} = require('./codenya/scraper.js');
+const {spot, gamertagInfo, tikdownmusdown} = require('./codenya/scraper.js');
 
 
 const app = express();
@@ -566,7 +566,18 @@ res.json(e);
       break;
     }
 
-
+    case 'msdown':{
+const link = req.query.link;
+if(!link) return res.json('link tidak boleh kosong');
+if(!link.includes('tiktok.com')) return res.json('link salah');
+try {
+const hasil = await tikdownmusdown(link);
+res.json(hasil);
+} catch(e) {
+res.json(e);
+}
+      break;
+    }
 
 
 
