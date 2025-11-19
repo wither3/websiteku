@@ -335,7 +335,7 @@ res.json(error);
     }
 
     case 'ssstik':{
-const Tiktok = require("@tobyg74/tiktok-api-dl")
+
 const link = req.query.link;
 if (!link) return res.json('link tidak boleh kosong');
 if (!link.includes('tiktok.com')) return res.json('link nya salah');
