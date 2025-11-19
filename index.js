@@ -553,6 +553,32 @@ case 'serverinfo': {
   res.json(serverInfo);
   break;
 }
+    case 'downloaderbot':{
+const {tikdlbot} = require('./codenya/scrape.js');
+const link = req.query.link;
+try {
+const hasilkan = await tikdlbot(link);
+res.json(hasilkan);
+} catch(e){
+res.json(e);
+}
+
+      break;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       
       
