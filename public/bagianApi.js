@@ -1054,3 +1054,184 @@ function TIKTOKDOWNLOADV7() {
   popup.querySelector(".close-btn").onclick = () => overlay.remove();
   overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
 }
+
+
+// === FUNGSI TIKTOK DOWNLOADER V8 (SNAPTIK) ===
+async function TIKTOKDOWNLOADV8_1(){
+  const tombol = document.getElementById('fetchTtV8Btn');
+  const input = document.getElementById('inputTtV8');
+  const apilink = document.getElementById('apilinkTtV8');
+  const nyalakan = document.getElementById('nyalakanTtV8');
+
+  const link = input.value.trim();
+  if (!link) return alert("Masukkan link TikTok terlebih dahulu!");
+  if (!link.includes('tiktok.com')) return alert("Link harus dari TikTok!");
+
+  tombol.textContent = "Loading...";
+  tombol.style.opacity = "0.7";
+
+  const api = `https://endernet.web.id/bagian1/snaptik?link=${encodeURIComponent(link)}`;
+  try {
+    const res = await fetch(api);
+    const data = await res.json();
+    const jsonRapi = JSON.stringify(data, null, 2);
+    nyalakan.innerHTML = `<div class="melayang"><pre><font size="2">${jsonRapi}</font></pre></div>`;
+    apilink.innerHTML = `<font size="2">${api}</font>`;
+  } catch (error) {
+    console.error(error);
+    nyalakan.innerHTML = `<p style="color:red;">Gagal memuat data!</p>`;
+  } finally {
+    tombol.textContent = "DOWNLOAD";
+    tombol.style.opacity = "1";
+  }
+}
+
+// === FUNGSI TIKTOK DOWNLOADER V9 (TIKTOKIO) ===
+async function TIKTOKDOWNLOADV9_1(){
+  const tombol = document.getElementById('fetchTtV9Btn');
+  const input = document.getElementById('inputTtV9');
+  const apilink = document.getElementById('apilinkTtV9');
+  const nyalakan = document.getElementById('nyalakanTtV9');
+
+  const link = input.value.trim();
+  if (!link) return alert("Masukkan link TikTok terlebih dahulu!");
+  if (!link.includes('tiktok.com')) return alert("Link harus dari TikTok!");
+
+  tombol.textContent = "Loading...";
+  tombol.style.opacity = "0.7";
+
+  const api = `https://endernet.web.id/bagian1/tiktokio?link=${encodeURIComponent(link)}`;
+  try {
+    const res = await fetch(api);
+    const data = await res.json();
+    const jsonRapi = JSON.stringify(data, null, 2);
+    nyalakan.innerHTML = `<div class="melayang"><pre><font size="2">${jsonRapi}</font></pre></div>`;
+    apilink.innerHTML = `<font size="2">${api}</font>`;
+  } catch (error) {
+    console.error(error);
+    nyalakan.innerHTML = `<p style="color:red;">Gagal memuat data!</p>`;
+  } finally {
+    tombol.textContent = "DOWNLOAD";
+    tombol.style.opacity = "1";
+  }
+}
+
+// === FUNGSI TIKTOK DOWNLOADER V10 (LOVETIK) ===
+async function TIKTOKDOWNLOADV10_1(){
+  const tombol = document.getElementById('fetchTtV10Btn');
+  const input = document.getElementById('inputTtV10');
+  const apilink = document.getElementById('apilinkTtV10');
+  const nyalakan = document.getElementById('nyalakanTtV10');
+
+  const link = input.value.trim();
+  if (!link) return alert("Masukkan link TikTok terlebih dahulu!");
+  if (!link.includes('tiktok.com')) return alert("Link harus dari TikTok!");
+
+  tombol.textContent = "Loading...";
+  tombol.style.opacity = "0.7";
+
+  const api = `https://endernet.web.id/bagian1/lovetik?link=${encodeURIComponent(link)}`;
+  try {
+    const res = await fetch(api);
+    const data = await res.json();
+    const jsonRapi = JSON.stringify(data, null, 2);
+    nyalakan.innerHTML = `<div class="melayang"><pre><font size="2">${jsonRapi}</font></pre></div>`;
+    apilink.innerHTML = `<font size="2">${api}</font>`;
+  } catch (error) {
+    console.error(error);
+    nyalakan.innerHTML = `<p style="color:red;">Gagal memuat data!</p>`;
+  } finally {
+    tombol.textContent = "DOWNLOAD";
+    tombol.style.opacity = "1";
+  }
+}
+
+// === POPUP TIKTOK DOWNLOADER V8 ===
+function TIKTOKDOWNLOADV8() {
+  const overlay = document.createElement("div");
+  overlay.className = "overlay";
+
+  const popup = document.createElement("div");
+  popup.className = "popup";
+  popup.innerHTML = `
+    <span class="close-btn">&times;</span>
+    <div style="font-family: 'BBH Sans Bogle', sans-serif; font-weight: bold;">TIKTOK DOWNLOADER V8</div>
+    <font size="2">Masukkan link TikTok di bawah:</font>
+    <input id="inputTtV8" style="background-color:#f3f3f3; border:1px solid black; border-radius:3px; width:100%; height:30px;" placeholder="https://vt.tiktok.com/...">
+    <div id="fetchTtV8Btn" class="tombolget" style="margin-top:2px;" onclick="TIKTOKDOWNLOADV8_1()">DOWNLOAD</div>
+    <p>Response:</p>
+    <div id="nyalakanTtV8"></div>
+    <p>Api Link</p>
+    <div class="hitam"><div id="apilinkTtV8"></div></div>
+    <div style="display:flex; gap:5px; margin-top:5px;">
+      <button class="copy-btn" onclick="copyJson('nyalakanTtV8')">Copy JSON</button>
+      <button class="copy-btn" onclick="copyApiLink('apilinkTtV8')">Copy API URL</button>
+    </div>
+  `;
+
+  overlay.appendChild(popup);
+  document.body.appendChild(overlay);
+
+  popup.querySelector(".close-btn").onclick = () => overlay.remove();
+  overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
+}
+
+// === POPUP TIKTOK DOWNLOADER V9 ===
+function TIKTOKDOWNLOADV9() {
+  const overlay = document.createElement("div");
+  overlay.className = "overlay";
+
+  const popup = document.createElement("div");
+  popup.className = "popup";
+  popup.innerHTML = `
+    <span class="close-btn">&times;</span>
+    <div style="font-family: 'BBH Sans Bogle', sans-serif; font-weight: bold;">TIKTOK DOWNLOADER V9</div>
+    <font size="2">Masukkan link TikTok di bawah:</font>
+    <input id="inputTtV9" style="background-color:#f3f3f3; border:1px solid black; border-radius:3px; width:100%; height:30px;" placeholder="https://vt.tiktok.com/...">
+    <div id="fetchTtV9Btn" class="tombolget" style="margin-top:2px;" onclick="TIKTOKDOWNLOADV9_1()">DOWNLOAD</div>
+    <p>Response:</p>
+    <div id="nyalakanTtV9"></div>
+    <p>Api Link</p>
+    <div class="hitam"><div id="apilinkTtV9"></div></div>
+    <div style="display:flex; gap:5px; margin-top:5px;">
+      <button class="copy-btn" onclick="copyJson('nyalakanTtV9')">Copy JSON</button>
+      <button class="copy-btn" onclick="copyApiLink('apilinkTtV9')">Copy API URL</button>
+    </div>
+  `;
+
+  overlay.appendChild(popup);
+  document.body.appendChild(overlay);
+
+  popup.querySelector(".close-btn").onclick = () => overlay.remove();
+  overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
+}
+
+// === POPUP TIKTOK DOWNLOADER V10 ===
+function TIKTOKDOWNLOADV10() {
+  const overlay = document.createElement("div");
+  overlay.className = "overlay";
+
+  const popup = document.createElement("div");
+  popup.className = "popup";
+  popup.innerHTML = `
+    <span class="close-btn">&times;</span>
+    <div style="font-family: 'BBH Sans Bogle', sans-serif; font-weight: bold;">TIKTOK DOWNLOADER V10</div>
+    <font size="2">Masukkan link TikTok di bawah:</font>
+    <input id="inputTtV10" style="background-color:#f3f3f3; border:1px solid black; border-radius:3px; width:100%; height:30px;" placeholder="https://vt.tiktok.com/...">
+    <div id="fetchTtV10Btn" class="tombolget" style="margin-top:2px;" onclick="TIKTOKDOWNLOADV10_1()">DOWNLOAD</div>
+    <p>Response:</p>
+    <div id="nyalakanTtV10"></div>
+    <p>Api Link</p>
+    <div class="hitam"><div id="apilinkTtV10"></div></div>
+    <div style="display:flex; gap:5px; margin-top:5px;">
+      <button class="copy-btn" onclick="copyJson('nyalakanTtV10')">Copy JSON</button>
+      <button class="copy-btn" onclick="copyApiLink('apilinkTtV10')">Copy API URL</button>
+    </div>
+  `;
+
+  overlay.appendChild(popup);
+  document.body.appendChild(overlay);
+
+  popup.querySelector(".close-btn").onclick = () => overlay.remove();
+  overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
+}
