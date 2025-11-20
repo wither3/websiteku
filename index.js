@@ -188,11 +188,12 @@ res.json(hasil);
 const link = req.query.link;
 if(!link) return res.json('link tidak boleh kosong');
 if(!link.includes('tiktok.com')) return res.json('link salah');
-try{
+try {
 const hasil = await tiktokio(link);
 res.json(hasil);
 } catch(error){
 res.json(error);
+}
   break;
 }
       
