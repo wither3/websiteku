@@ -193,6 +193,7 @@ const hasil = await tiktokio(link);
 res.json(hasil);
 } catch(error){
 res.json(error);
+  break;
 }
       
 case 'spotify': {
