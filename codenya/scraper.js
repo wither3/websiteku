@@ -857,6 +857,206 @@ return error;
     
 }
 
+async function snapTikDownload(link) {
+const { request } = require('undici');
+const cheerio = require('cheerio');
+    
+    try {
+ const formData = `type=video&lang=id&url=${encodeURIComponent(link)}`;       
+ const { body } = await request('https://www-snaptik.com/check/', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded',
+                'cookie': 'PHPSESSID=43637cc20f1a00b646cb7d4bba0872d3; AH=MjE2bDExajlrNjQ1bGhqams1a2ptbTA0ODc5aWoyNjJtaDA2azk1aWpsNTgybGxrOTVtODA1M2wyaG04amlpM3VwZGF0ZV9hcHBJZA==',
+                'origin': 'https://www-snaptik.com',
+                'referer': 'https://www-snaptik.com/id/',
+                'user-agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Mobile Safari/537.36',
+                'x-ah': '216e11c9d645eaccd5dcff04879bc262fa06d95bce582eed95f8053e2af8cbb3',
+                'x-requested-with': 'XMLHttpRequest'
+            },
+            body: formData
+        });
+
+const data = await body.text();
+const $ = cheerio.load(data);
+        
+const nama = $('.user-username').text().trim();
+const deskripsi = $('.user-fullname').text().trim();
+ const gambar = $('img').eq(0).attr('src');
+const video = $('a').eq(1).attr('href');
+const audio = $('a').eq(2).attr('href');
+
+        const hasil = {
+            user: nama,
+            deskripsi: deskripsi,
+            gambar: gambar,
+            video: video,
+            audio: audio
+        };
+        
+        return hasil;
+        
+    } catch (error) {
+console.error('Error:', error.message);
+        return {            
+    error: error.message
+        };
+    }
+}
+
+async function getCsrfToken(websitenya) {
+//ini di buat oleh deepsek ai
+    const { request } = require('undici');
+    const cheerio = require('cheerio');
+    
+    const { headers, body } = await request(websitenya);
+    const html = await body.text();
+    const $ = cheerio.load(html);
+    
+    
+    const csrfToken = $('input[name="dl_csrf"]').val() ||
+                     $('meta[name="csrf-token"]').attr('content');
+    
+    
+    const setCookie = headers['set-cookie'];
+    let phpsessid = null;
+    
+    if (setCookie) {
+        const match = setCookie.match(/PHPSESSID=([^;]+)/);
+        if (match) phpsessid = match[1];
+    }
+    
+ const cookie = `PHPSESSID=${phpsessid}`   
+    
+    return { csrfToken, cookie };
+}
 
 
-module.exports = { ytSearch, yts2, douyin, tikdownloader, TIKDOWNLOADER, TIKDOWNLOADER2, spot, tikdlbot, tikvid, spotif, tikwm, tikdownmusdown, spotifydl, tiktokdownload2, downr, spotifydl1, gamertagInfo, savetik, enderTikDl};
+
+async function tiktokio(link) {
+    const { request } = require('undici');
+    const cheerio = require('cheerio');
+    
+    const websitenya = 'https://tiktokio.net/id/'; 
+    const csrfnya = await getCsrfToken(websitenya);
+    
+    const { body } = await request(websitenya, {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/x-www-form-urlencoded',
+            'cookie': `${csrfnya.cookie}`,
+            'origin': 'https://tiktokio.net',
+            'referer': 'https://tiktokio.net/id/',
+            'user-agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Mobile Safari/537.36',
+            'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+            'sec-fetch-dest': 'document',
+            'sec-fetch-mode': 'navigate',
+            'sec-fetch-site': 'same-origin',
+            'sec-fetch-user': '?1',
+            'upgrade-insecure-requests': '1'
+        },
+        body: `td_url=${encodeURIComponent(link)}&dl_csrf=${encodeURIComponent(csrfnya.csrfToken)}&td_btn=`
+    });
+
+    const html = await body.text();
+    
+const $ = cheerio.load(html);
+
+const ini = $('div.container').eq(1).html();
+    
+const $$ = cheerio.load(ini);
+const apaYa = $$('span').eq(0).text().trim();
+const thumbn = $$('img').eq(0).attr('src');
+const video = $$('a').eq(0).attr('href');
+const videoHD = $$('a').eq(1).attr('href');
+const mp3 = $$('a').eq(2).attr('href');
+
+    
+const hasil ={
+    nama: apaYa,
+    thumbnail: thumbn,
+    video: video,
+    videoHD: videoHD,
+    mp3: mp3
+}
+return hasil;
+}
+
+
+
+
+async function MinecraftStalk(teks) {
+const { request } = require('undici');
+    try {
+        const { body } = await request('https://playerdb.co/api/player/xbox/' + teks);
+        const data = await body.json();
+console.log(data);
+        const result = {
+            username: data.data.player.username,
+            id: data.data.player.id,
+            raw_id: data.data.player.raw_id,
+            avatar: data.data.player.avatar,
+            skin_texture: data.data.player.skin_texture,
+            name_history: data.data.player.name_history
+        };
+
+        return result;
+    } catch (error) {
+        return error.message;
+    }
+}
+
+async function goDownloader(link) {
+const { request } = require('undici');  
+  try {
+        const { body } = await request('https://api.godownloader.com/info', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded;charset=UTF-8',
+                'lang': 'id',
+                'origin': 'https://godownloader.com',
+                'referer': 'https://godownloader.com/',
+                'user-agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36',
+                'tw': '0.ks5NOopQIKeXDAXcg0Ojjqk_1ak3Ln64gg29EoEsyj6qY8fXwMBMN7arqx8Htwbrvhxn3cNV4zg_Fy-4ARB214GQQ57HdlgFMivPGj4jZkHlYUKa8l_oUSPVMj537mzmjboME4eCoXgcnnNAWUAyWxq6IqEwCnwhQ4u2t33m8ScX7fdEgB6DUNS5M470qsJzud4vMGcWaS2-HMS4z0949RW-J4XMqSgMAXZX4GMXDuroJ-xIFYGq2_7jMgQqRbRD7Knebf108mjCi8FSeRFfqajQvSZmC9MP1tDDoW3hjP8RQXGR0OBgVWNraxjYCcZra8CPk1Z43hkUjkGd_--OTAUFUZpwv0crco7oy2owNu6PyCK105-jMLyDiNYQKKkYugi426J2rf5LyuUAa8a8Z5ywUvnA27heRxIp9WfFA2wTvOpTjISx-MuPbPdQLe_8f_hhUpHMjanscWM10egnOCGslox3z0HMtB6rgejBLbHjGokiZ-grwUqy3Zila0NHxzk7eobr1ZnoDGCiXdiP4DekMdIUP9I8tNwBC3rriBZ1NLwWRfk2IDn8zjtYxEreeN5TnYudZG1ZCGHc84JZBRUQecqfGkhOKeEAo7FGZ9lFwWLYlQbg7sls76FHbfdhrZVp0AwZo6auExeGWpiN-TFJJOfcd0ejetZj9TUEFGQowgO8nk-g1Qi5G668TBVPLmPJztisfnuQ4ygIWypkahChnwBf05F0xPgQG8h7CDQyW4TPGgCgHbSK3MewvpKvKsHw31KCAFGXs-o0rieKKLm5w5W7OCdkHTYNf4W3g2UC4kEmx9u597o60EK5rt_puHKiQiIRbH0SVdWVfw6Sk7HRUgpRDkf_Hp8s_-JaVmUdaD8vaaJnM_StFm0XtFvlLQtMGqh1Ua9ec7pxYkKDbYgfO3gmPU87ZzkxaBGEatVXs0RFqCHB5AzNC1dCBe7EHKzj8eGPTYSHYvU0ersEuw.DRtr0b4B9OzhpA08w-BZiA.d2b319e67439d12e994125f8958c0fa66ddb85d0f7f5d4a4645d751188a619a1'
+            },
+            body: `l=${encodeURIComponent(link)}`
+        });
+
+        const data = await body.json();
+        console.log('✅ Response JSON:', data);
+        
+        return data;
+        
+    } catch (error) {
+        console.log('❌ Error:', error.message);
+        return { error: error.message };
+    }
+}
+async function lovetik(link) {
+const { request } = require('undici');
+    try {
+        const { body } = await request('https://lovetik.com/api/ajax/search', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                'cookie': '_ga=GA1.1.1411422337.1763621194; __gads=ID=79add5a8de42608f:T=1763621195:RT=1763621195:S=ALNI_MYTo4FCtebPhowBVdzU51qWbuAi-A; __gpi=UID=000011b97a307ba5:T=1763621195:RT=1763621195:S=ALNI_Ma4Ak-mhrKMoZz1GAHio92CscgfVg',
+                'origin': 'https://lovetik.com',
+                'referer': 'https://lovetik.com/id',
+                'user-agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36',
+                'x-requested-with': 'XMLHttpRequest'
+            },
+            body: `query=${encodeURIComponent(link)}`
+        });
+
+        const data = await body.json();
+        
+        
+        return data;
+        
+    } catch (error) {
+        console.log('❌ Error:', error.message);
+        return { error: error.message };
+    }
+}
+
+module.exports = { ytSearch, yts2, douyin, tikdownloader, TIKDOWNLOADER, TIKDOWNLOADER2, spot, tikdlbot, tikvid, spotif, tikwm, tikdownmusdown, spotifydl, tiktokdownload2, downr, spotifydl1, gamertagInfo, savetik, enderTikDl, snapTikDownload, tiktokio, MinecraftStalk, lovetik, goDownloader};
