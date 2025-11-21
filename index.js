@@ -198,7 +198,23 @@ res.json(hasil);
       
       break;
     }
-    
+
+    case 'ttsave':{
+const link = req.query.link;
+if (!link) return res.json('link harus di isi');
+if (!link.includes('tiktok.com')) return res.json('link salah');
+try{
+const hasil = await ttsave.download(link);
+res.json(hasil);
+} catch(error){
+  res.json(error);
+}
+
+
+
+      
+      break;
+    }
     case 'tiktokio':{
 const link = req.query.link;
 if(!link) return res.json('link tidak boleh kosong');
