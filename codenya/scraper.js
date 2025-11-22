@@ -1059,4 +1059,18 @@ const { request } = require('undici');
     }
 }
 
-module.exports = { ytSearch, yts2, douyin, tikdownloader, TIKDOWNLOADER, TIKDOWNLOADER2, spot, tikdlbot, tikvid, spotif, tikwm, tikdownmusdown, spotifydl, tiktokdownload2, downr, spotifydl1, gamertagInfo, savetik, enderTikDl, snapTikDownload, tiktokio, MinecraftStalk, lovetik, goDownloader};
+async function snapsave(link) {
+
+    const { snapsave } = await import('snapsave-media-downloader');
+try {
+    const download = await snapsave(link);
+    return download;
+} catch(error){
+return error;
+}
+}
+
+
+
+
+module.exports = { ytSearch, yts2, douyin, tikdownloader, TIKDOWNLOADER, TIKDOWNLOADER2, spot, tikdlbot, tikvid, spotif, tikwm, tikdownmusdown, spotifydl, tiktokdownload2, downr, spotifydl1, gamertagInfo, savetik, enderTikDl, snapTikDownload, tiktokio, MinecraftStalk, lovetik, goDownloader, snapsave};
