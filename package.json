@@ -13,6 +13,7 @@
     "qs": "^6.13.1",
         "os": "^0.1.2",
     "form-data": "^4.0.1",
+    "snapsave-media-downloader": "^2.3.3",
     "tikwm2": "file:./codenya/tikwm2.js",
     "gemini": "file:./codenya/gemini.js",
     "@distube/ytdl-core": "^4.15.1",
