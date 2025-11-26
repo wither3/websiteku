@@ -328,7 +328,7 @@ async function tikdlbot(tiktokUrl) {
         }
 
         // Cookie manual (tetap sama seperti versi axios)
-        const cookieStr = 'lang=en; _ga=GA1.1...; uid=86705190e2e25fe9f35005f1fe54206f; _ga_233R9NY1HK=...';
+        const cookieStr = 'lang=id; _ga_233R9NY1HK=GS2.1.s1764166218$o1$g0$t1764166218$j60$l0$h0; _ga=GA1.1.1442612402.1764166218';
 
         const response = await fetch(
             'https://downloader.bot/api/tiktok/info',
