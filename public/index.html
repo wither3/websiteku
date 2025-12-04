@@ -6,6 +6,10 @@
     <title>Website ini punya rullzNPC</title>
    <meta name="description" content="Dapatkan rest api tools gratis di sini">
 <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#2bc0ff">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
      <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
@@ -14,11 +18,20 @@
 </head>
 <style>
     body {
-  background-image: url('./gambar/1762662293119.jpg');
+  background-image: url('./gambar/IMG_20251201_180659_881.jpg');
   background-attachment: fixed;
   background-size: cover;
   background-repeat: no-repeat;
-  color:white;
+  background-position: center center;     /* default untuk desktop */
+
+  color: white;
+}
+
+/* Khusus layar kecil (HP) paksa ke kanan */
+@media (max-width: 768px) {
+  body {
+    background-position: right center;
+  }
 }
 
         
