@@ -328,7 +328,7 @@ async function tikdlbot(tiktokUrl) {
         }
 
         // Cookie manual (tetap sama seperti versi axios)
-        const cookieStr = 'lang=id; _ga_233R9NY1HK=GS2.1.s1764166218$o1$g0$t1764166218$j60$l0$h0; _ga=GA1.1.1442612402.1764166218';
+        const cookieStr = 'lang=en; _ga=GA1.1...; uid=86705190e2e25fe9f35005f1fe54206f; _ga_233R9NY1HK=...';
 
         const response = await fetch(
             'https://downloader.bot/api/tiktok/info',
@@ -1070,7 +1070,54 @@ return error;
 }
 }
 
+async function scrapeTikViewer(username) {
+ const { request } = require('undici');
+    try {
+    const url = 'https://api.tikviewer.com/api/search';
+    const payload = { query: username };
+    const headers = {
+      'authority': 'api.tikviewer.com',
+      'accept': '*/*',
+      
+      'accept-language': 'id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7',
+      'content-type': 'application/json',
+      'origin': 'https://www.tikviewer.com',
+      'referer': 'https://www.tikviewer.com/',
+      'sec-ch-ua': '"Chromium";v="137", "Not/A)Brand";v="24"',
+      'sec-ch-ua-mobile': '?1',
+      'sec-ch-ua-platform': '"Android"',
+      'sec-fetch-dest': 'empty',
+      'sec-fetch-mode': 'cors',
+      'sec-fetch-site': 'same-site',
+      'user-agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Mobile Safari/537.36'
+    };
+
+    
+    
+    const { statusCode, body } = await request(url, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(payload)
+    });
+
+    console.log(`Status: ${statusCode}`);
+    
+    
+    const responseText = await body.text();
+    
+    try {
+      const data = JSON.parse(responseText);
+      
+const stringg = JSON.stringify(data,null,2);
+return data;
+    } catch (error) {
+      return error;
+    }
+    
+  } catch (error) {
+    return error;
+  }
+}
 
 
-
-module.exports = { ytSearch, yts2, douyin, tikdownloader, TIKDOWNLOADER, TIKDOWNLOADER2, spot, tikdlbot, tikvid, spotif, tikwm, tikdownmusdown, spotifydl, tiktokdownload2, downr, spotifydl1, gamertagInfo, savetik, enderTikDl, snapTikDownload, tiktokio, MinecraftStalk, lovetik, goDownloader, snapsave};
+module.exports = { ytSearch, yts2, douyin, tikdownloader, TIKDOWNLOADER, TIKDOWNLOADER2, spot, tikdlbot, tikvid, spotif, tikwm, tikdownmusdown, spotifydl, tiktokdownload2, downr, spotifydl1, gamertagInfo, savetik, enderTikDl, snapTikDownload, tiktokio, MinecraftStalk, lovetik, goDownloader, snapsave, scrapeTikViewer};
