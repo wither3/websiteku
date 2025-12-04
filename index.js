@@ -676,7 +676,7 @@ case 'serverinfo': {
     environment: {
       vercel_region: process.env.VERCEL_REGION || 'Unknown',
       node_env: process.env.NODE_ENV || 'Unknown',
-      vercel_url: process.env.VERCEL_URL || 'Unknown'
+      vercel_url: 'RAHASIA'
     }
   };
   
