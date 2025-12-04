@@ -17,7 +17,7 @@ const { ytSearch } = require('./codenya/scraper.js');
 const tokdl = require('./codenya/tokdl.js');
 const { douyin } = require('./codenya/scraper.js');
 const {TIKDOWNLOADER} = require('./codenya/scraper.js');
-const {spot, lovetik, gamertagInfo, tikdownmusdown, enderTikDl, tikvid, snapTikDownload, tiktokio, tikwm, snapsave} = require('./codenya/scraper.js');
+const {spot, lovetik, gamertagInfo, tikdownmusdown, enderTikDl, tikvid, snapTikDownload, tiktokio, tikwm, snapsave, scrapeTikViewer} = require('./codenya/scraper.js');
 
 
 const app = express();
@@ -86,7 +86,7 @@ const username = req.query.username;
   if (!username)
     return res.status(400).json({ error: 'masukkan username'});
   try {
-    const data = await getTiktokVideo(username);
+    const data = await scrapeTikViewer(username);
     res.json(data);
   } catch(error) {
     res.json(error);
@@ -239,7 +239,7 @@ res.json(hasil);
   res.json(error);
 }
 
-
+      
 
       
       break;
