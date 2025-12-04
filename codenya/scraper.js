@@ -580,7 +580,7 @@ const { fetch } = require("undici");
         const res = await fetch(apiURL, {
             method: "GET",
             headers: {
-                "x-rapidapi-key": "181a3b1233mshad025fe3f4413afp16f9e9jsne749f10e4adb",
+                "x-rapidapi-key": "ca5c6d6fa3mshfcd2b0a0feac6b7p140e57jsn72684628152a",
                 "x-rapidapi-host": "tiktok-scraper7.p.rapidapi.com"
             }
         });
