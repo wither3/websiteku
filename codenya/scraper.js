@@ -1120,4 +1120,29 @@ return data;
 }
 
 
-module.exports = { ytSearch, yts2, douyin, tikdownloader, TIKDOWNLOADER, TIKDOWNLOADER2, spot, tikdlbot, tikvid, spotif, tikwm, tikdownmusdown, spotifydl, tiktokdownload2, downr, spotifydl1, gamertagInfo, savetik, enderTikDl, snapTikDownload, tiktokio, MinecraftStalk, lovetik, goDownloader, snapsave, scrapeTikViewer};
+async function onedl(url) {
+const axios = require('axios');
+    try {
+        if (!url.includes('https://')) throw new Error('Invalid url.');
+        
+        const { data } = await axios.post('https://onedownloader.net/search', new URLSearchParams({
+            query: encodeURIComponent(url)
+        }).toString(), {
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                origin: 'https://onedownloader.net',
+                referer: 'https://onedownloader.net/',
+                'user-agent': 'Mozilla/5.0 (Linux; Android 15; SM-F958 Build/AP3A.240905.015) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.86 Mobile Safari/537.36',
+                'x-requested-with': 'XMLHttpRequest'
+            }
+        });
+        
+        return data.data;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
+
+
+module.exports = { ytSearch, yts2, douyin, tikdownloader, TIKDOWNLOADER, TIKDOWNLOADER2, spot, tikdlbot, tikvid, spotif, tikwm, tikdownmusdown, spotifydl, tiktokdownload2, downr, spotifydl1, gamertagInfo, savetik, enderTikDl, snapTikDownload, tiktokio, MinecraftStalk, lovetik, goDownloader, snapsave, scrapeTikViewer, onedl};
