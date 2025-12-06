@@ -1145,4 +1145,33 @@ const axios = require('axios');
 
 
 
-module.exports = { ytSearch, yts2, douyin, tikdownloader, TIKDOWNLOADER, TIKDOWNLOADER2, spot, tikdlbot, tikvid, spotif, tikwm, tikdownmusdown, spotifydl, tiktokdownload2, downr, spotifydl1, gamertagInfo, savetik, enderTikDl, snapTikDownload, tiktokio, MinecraftStalk, lovetik, goDownloader, snapsave, scrapeTikViewer, onedl};
+async function aiodown(url) {
+const axios = require('axios');
+const FormData = require('form-data');
+    try {
+        if (!url) throw new Error('Url is required');
+        
+        const form = new FormData();
+        form.append('query', url);
+        form.append('vt', 'home');
+        const { data } = await axios.post('https://ssvid.net/api/ajax/search?hl=en', form, {
+            headers: {
+                accept: '*/*',
+                'accept-encoding': 'gzip, deflate, br',
+                'accept-language': 'id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7',
+                origin: 'https://ssvid.net',
+                referer: 'https://ssvid.net/en',
+                'user-agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Mobile Safari/537.36',
+            }
+        });
+        
+        return data;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+}
+
+// Usage:
+
+
+module.exports = { ytSearch, yts2, douyin, tikdownloader, TIKDOWNLOADER, TIKDOWNLOADER2, spot, tikdlbot, tikvid, spotif, tikwm, tikdownmusdown, spotifydl, tiktokdownload2, downr, spotifydl1, gamertagInfo, savetik, enderTikDl, snapTikDownload, tiktokio, MinecraftStalk, lovetik, goDownloader, snapsave, scrapeTikViewer, onedl, aiodown};
