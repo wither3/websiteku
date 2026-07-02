@@ -25,7 +25,7 @@ document.getElementById('whatsapp').addEventListener('click', function() {
 fetch('https://endernet.web.id/bagian1?api=maptambakudangdanikan')
             .then(response => response.json())
             .then(data => {
-                document.getElementById('downloadPetaBedrock').addEventListener('click', function() {
+tanggalnya.innerHTML = `${data.datany.update}`;       document.getElementById('downloadPetaBedrock').addEventListener('click', function() {
                     window.location.href = `${data.datany.mapTambakBedrock}`;
                 });               
                
