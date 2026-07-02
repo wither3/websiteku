@@ -143,17 +143,18 @@ app.get('/bagian1/:api?', async (req, res) => {
     case 'maptambakudangdanikan' :
     const datany = {
   version: "1.21.111",
-  update: "31 Januari 2026",
-  mapTambakJava: "https://sfile.co/9dlHaasyS0i",
-  mapTambakBedrock: "https://sfile.co/3ZuFVDbw2P9",
+  update: "2 July 2026",
+  mapTambakJava: "https://sfile.co/1NMsZnDBoBZ",
+  mapTambakBedrock: "https://sfile.co/YuWpNVLrBXT",
   admin:{
     no1: "rullzNPC",
-    no2: "ARWIS"
+    no2: "Irsyad",
+    no3: "ARWIS"
   },
   WhatsApp: {
-    linkChannel: "https://whatsapp.com/channel/0029VbAyEGXJuyACiijTNb03",
-    linkWAgcJava: "https://chat.whatsapp.com/FZtfxpSyYCN9FyCjWekyZN?mode=wwt",
-    linkWAgcBedrock: "https://chat.whatsapp.com/JYoK6GPec1r8KSuFew4UJo?mode=wwt"
+    linkChannel: "https://whatsapp.com/channel/0029VbC9tiyA89MlaN1BFF0S",
+    linkWAgcJava: "https://chat.whatsapp.com/FZtfxpSyYCN9FyCjWekyZN",
+    linkWAgcBedrock: "https://chat.whatsapp.com/KfaG9MRgdSjCNLuWCKNRPa"
   } // ← TANPA KOMA DI SINI
 };
       res.json({ status: true, datany });
