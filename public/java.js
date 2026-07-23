@@ -166,6 +166,19 @@ fetch(usernameNya)
   });
         
         
-        
-        
-        
+  // ini text mengetik..
+  const text = "Selamat datang\ndi endernet.web.id";
+const el = document.getElementById('typedText');
+const cursor = document.getElementById('cursor');
+let i = 0;
+function type() {
+  if (i < text.length) {
+    const char = text.charAt(i);
+    el.innerHTML += char === '\n' ? '<br>' : char;
+    i++;
+    setTimeout(type, 80);
+  } else {
+    cursor.classList.add('blink');
+  }
+}
+window.onload = type;
