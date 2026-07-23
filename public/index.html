@@ -13,6 +13,7 @@
     
      <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Dancing+Script:wght@700&family=Poppins:wght@400;700&family=Lato:wght@400;700&family=Oswald:wght@400;700&family=Raleway:wght@400;700&family=Montserrat:wght@400;700&family=Open+Sans:wght@400;700&family=Lobster:wght@400&family=Pacifico:wght@400&family=Great+Vibes:wght@400&family=Satisfy:wght@400&family=Caveat:wght@400;700&family=Amatic+SC:wght@400;700&family=Shadows+Into+Light:wght@400&family=Kaushan+Script:wght@400&family=Allura:wght@400&family=Tangerine:wght@400;700&family=Parisienne:wght@400&family=Alex+Brush:wght@400&family=Marck+Script:wght@400&family=Bad+Script:wght@400&family=Calligraffitti:wght@400&family=Homemade+Apple:wght@400&family=Just+Another+Hand:wght@400&family=Kalam:wght@400;700&family=Handlee:wght@400&family=Patrick+Hand:wght@400&family=Coming+Soon:wght@400&family=Architects+Daughter:wght@400&family=Schoolbell:wght@400&family=Covered+By+Your+Grace:wght@400&family=Rock+Salt:wght@400&family=Permanent+Marker:wght@400&family=Fredoka+One:wght@400&family=Righteous:wght@400&family=Bungee:wght@400&family=Chewy:wght@400&family=Fredoka:wght@400;700&family=Comfortaa:wght@400;700&family=Nunito:wght@400;700&family=Quicksand:wght@400;700&family=Source+Sans+Pro:wght@400;700&family=Ubuntu:wght@400;700&family=Varela+Round:wght@400&family=Work+Sans:wght@400;700&family=PT+Sans:wght@400;700&family=Merriweather:wght@400;700&family=Playfair+Display:wght@400;700&family=Crimson+Text:wght@400;700&family=Libre+Baskerville:wght@400;700&family=Old+Standard+TT:wght@400;700&family=Vollkorn:wght@400;700&family=Lora:wght@400;700&family=Cardo:wght@400;700&family=EB+Garamond:wght@400;700&family=Amiri:wght@400;700&family=Tinos:wght@400;700&family=Courier+Prime:wght@400;700&family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;700&family=Fira+Code:wght@400;700&family=Inconsolata:wght@400;700&family=Source+Code+Pro:wght@400;700&family=Roboto+Mono:wght@400;700&family=Anonymous+Pro:wght@400;700&family=Overpass:wght@400;700&family=Inter:wght@400;700&family=Barlow:wght@400;700&family=Heebo:wght@400;700&family=Exo:wght@400;700&family=Rubik:wght@400;700&family=Bebas+Neue:wght@400&family=Anton:wght@400&family=Archivo+Black:wght@400&family=Black+Ops+One:wght@400&family=Bowlby+One:wght@400&family=Changa:wght@400;700&family=Francois+One:wght@400&family=Josefin+Sans:wght@400;700&family=Karla:wght@400;700&family=Mukti:wght@400;700&family=Rajdhani:wght@400;700&family=Signika:wght@400;700&family=Titillium+Web:wght@400;700&family=Yanone+Kaffeesatz:wght@400;700&family=Zilla+Slab:wght@400;700&family=Arimo:wght@400;700&family=Cabin:wght@400;700&family=Catamaran:wght@400;700&family=Chivo:wght@400;700&family=Fira+Sans:wght@400;700&family=Hind:wght@400;700&family=IBM+Plex+Sans:wght@400;700&family=Jost:wght@400;700&family=Kanit:wght@400;700&family=Lexend:wght@400;700&family=Mada:wght@400;700&family=Noto+Sans:wght@400;700&family=Outfit:wght@400;700&family=Public+Sans:wght@400;700&family=Red+Hat+Display:wght@400;700&family=Sarabun:wght@400;700&family=Sen:wght@400;700&family=Slabo+27px:wght@400&family=Sorts+Mill+Goudy:wght@400&family=Spectral:wght@400;700&family=Tenor+Sans:wght@400&family=Trispace:wght@400;700&family=Varta:wght@400;700&family=Yantramanav:wght@400;700&family=Zeyada:wght@400&display=swap" rel="stylesheet">
        
@@ -60,6 +61,26 @@ body {
   }
 }
 
+ 
+#typed {
+  display: inline-block;
+  font-size: 2rem;
+  font-family: 'Jersey 10', sans-serif;
+  color: white;
+  white-space: pre-line;
+  text-align: center;
+}
+#cursor {
+  border-right: 5px solid white;
+  padding-right: 5px;
+}
+#cursor.blink {
+  animation: blink 0.7s step-end infinite;
+}
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+ 
         
      #sidebar {
       transform: translateX(-102%);
@@ -117,7 +138,7 @@ height:400px;
  }  
  
 .inilatar {
-   background-image: url("./gambar/IMG_20251201_180659_881.jpg");
+   background-image: url("./gambar/latar.jpg");
    background-size: cover;
    background-position: center;
    background-repeat: no-repeat;
@@ -283,8 +304,23 @@ width:90%;
    margin-bottom:5px;
  }
  
+.tengahkan {
+   width:60%;
+   margin-top:10px;
+}
  
- 
+.g3 button { padding: 5px 5px; border-radius: 6px; background: transparent; color: #00ff9d; border: 1px solid #00ff9d; box-shadow: 0 0 2px #00ff9d, inset 0 0 4px rgba(0,255,157,.2); font-family:'JetBrains Mono',monospace; letter-spacing: .05em; transition: all .2s; }
+.g3 button:hover { box-shadow: 0 0 6px #00ff9d, inset 0 0 10px rgba(104, 246, 241, 0.46); color: #fff; background: ##bfffff; }
+
+.g3 .b3 { color: #bfffff; border-color: #00d4ff; box-shadow: 0 0 2px #00d4ff, inset 0 0 4px rgba(0,212,255,.2); }
+.g3 .b3:hover { box-shadow: 0 0 20px #00d4ff, inset 0 0 10px rgba(0,212,255,.3); }
+
+
+.g1 button { padding: 5px 15px; border-radius: 10px; background: linear-gradient(135deg,#ff6a6a,#ff3d81); color: #fff; box-shadow: 0 8px 20px -6px rgba(255,61,129,.6); transition: transform .2s; }
+.g1 button:hover { transform: translateY(-3px); }
+.g1 .b2 { background: linear-gradient(135deg,#4facfe,#00f2fe); box-shadow: 0 8px 20px -6px rgba(0,242,254,.6);
+margin-top:10px; }
+
 </style>
 
 
@@ -348,8 +384,24 @@ width:90%;
  
  
  
- <br><br><br><br>
+ <br><br><br>
+ <center>
+<div id="typed">
+  <span id="typedText"></span><span id="cursor"></span>
+</div>
+<br>
+<div class="tengahkan">
+<div class="grid g3">
+  <button class="b3">GET STARTED</button>
+</div>
+<div class="grid g1">
+<button class="b2" onclick="window.open('./downloadPeta.html', '_blank')">DOWNLOAD LINKS</button>
+</div></div>
+</center>
 
+
+
+<br><br><br><br>
  <div class="kotak1 left-1/2 transform -translate-x-1/2">
  <div class="inilatar"></div>  
  <div class="iniprofil"></div>
