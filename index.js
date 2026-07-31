@@ -142,10 +142,10 @@ app.get('/bagian1/:api?', async (req, res) => {
   switch (api) {
     case 'maptambakudangdanikan' :
     const datany = {
-  version: "1.21.111",
-  update: "2 July 2026",
-  mapTambakJava: "https://sfile.co/1NMsZnDBoBZ",
-  mapTambakBedrock: "https://sfile.co/YuWpNVLrBXT",
+  version: "26 23 | 1.21.8 ",
+  update: "31 July 2026",
+  mapTambakJava: "https://sfile.co/3trXeioRRK6",
+  mapTambakBedrock: "https://sfile.co/CO6RggQHnJd",
   admin:{
     no1: "rullzNPC",
     no2: "Irsyad",
