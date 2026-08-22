@@ -1,0 +1,40 @@
+ .play-btn {
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #111;
+  }
+
+  .play-icon {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 15px solid currentColor;
+    margin-left: 3px;
+  }
+
+  .pause-icon {
+    width: 14px;
+    height: 20px;
+    border-left: 4px solid currentColor;
+    border-right: 4px solid currentColor;
+  }
+
+  .play-btn:hover {
+    transform: scale(1.08);
+  }
+
+  .play-btn:active {
+    transform: scale(0.95);
+  }

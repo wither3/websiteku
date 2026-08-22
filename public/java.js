@@ -1,184 +1,62 @@
-document.getElementById('menu-button').addEventListener('click', function() {
-      document.getElementById('sidebar').classList.toggle('open');
-      document.getElementById('overlay').classList.toggle('hidden');
-    });
+const audio = document.getElementById("bgAudio");
+    const playBtn = document.getElementById("playBtnHUD");
+    const soundBars = document.getElementById("soundBars");
+    const progressBarFill = document.getElementById("progressBarFill");
+    const progressBarBg = document.getElementById("progressBarBg");
+    const currentTimeElem = document.getElementById("currentTime");
+    const totalDurationElem = document.getElementById("totalDuration");
 
-    document.getElementById('overlay').addEventListener('click', function() {
-      document.getElementById('sidebar').classList.remove('open');
-      document.getElementById('overlay').classList.add('hidden');
-    });
+    // Format detik ke format mm:ss
+    function formatTime(seconds) {
+      const min = Math.floor(seconds / 60);
+      const sec = Math.floor(seconds % 60);
+      return `${min < 10 ? '0' : ''}${min}:${sec < 10 ? '0' : ''}${sec}`;
+    }
 
-    document.getElementById('close-button').addEventListener('click', function() {
-      document.getElementById('sidebar').classList.remove('open');
-      document.getElementById('overlay').classList.add('hidden');
-    });
-
-document.getElementById('tiktokBtn').addEventListener('click', function() {
-  window.location.href = 'https://www.tiktok.com/@qhairulpratama?_t=ZS-90x9lWBVmYW&_r=1';
-});
-
-document.getElementById('YTBtn').addEventListener('click', function() {
-  window.location.href = 'https://youtube.com/@craft7yt332?si=AVXAWvopU-UJeDqs';
-});
-
-document.getElementById('IgBtn').addEventListener('click', function() {
-  window.location.href = 'https://www.instagram.com/rullznpc?igsh=MWVlZG9tMHA3dWQ4eg==';
-});
-
-
-
-
-
-
-const audio = document.getElementById("audio");
-    const playBtn = document.getElementById("playBtn");
-    const bar = document.getElementById("bar");
-    const progress = document.getElementById("progress");
-
-    // play / pause toggle
+    // Toggle Play / Pause
     playBtn.addEventListener("click", () => {
       if (audio.paused) {
         audio.play();
+        playBtn.innerText = "❚❚";
+        soundBars.classList.add("playing");
       } else {
         audio.pause();
+        playBtn.innerText = "▶";
+        soundBars.classList.remove("playing");
       }
     });
 
-    // ubah ikon tombol
-    audio.addEventListener("play", () => {
-      playBtn.innerHTML = '<i class="fa fa-pause"></i>';
-    });
-    audio.addEventListener("pause", () => {
-      playBtn.innerHTML = '<i class="fa fa-play"></i>';
+    // Update Durasi Total saat Audio Loaded
+    audio.addEventListener("loadedmetadata", () => {
+      totalDurationElem.innerText = formatTime(audio.duration);
     });
 
-    // update progress bar
+    // Update Progress Bar & Current Time saat Berjalan
     audio.addEventListener("timeupdate", () => {
-      const percent = (audio.currentTime / audio.duration) * 100;
-      bar.style.width = percent + "%";
+      if (audio.duration) {
+        const progressPercent = (audio.currentTime / audio.duration) * 100;
+        progressBarFill.style.width = `${progressPercent}%`;
+        currentTimeElem.innerText = formatTime(audio.currentTime);
+      }
     });
 
-    // klik progress untuk seek
-    progress.addEventListener("click", (e) => {
-      const rect = progress.getBoundingClientRect();
-      const offsetX = e.clientX - rect.left;
-      const percent = offsetX / rect.width;
-      audio.currentTime = percent * audio.duration;
+    // Klik pada Progress Bar untuk Seek Audio
+    progressBarBg.addEventListener("click", (e) => {
+      const rect = progressBarBg.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const width = rect.width;
+      if (audio.duration) {
+        audio.currentTime = (clickX / width) * audio.duration;
+      }
+    });
+
+    // Reset saat audio selesai
+    audio.addEventListener("ended", () => {
+      playBtn.innerText = "▶";
+      soundBars.classList.remove("playing");
+      progressBarFill.style.width = "0%";
+      currentTimeElem.innerText = "00:00";
     });
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    fetch("https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json")
-      .then(res => res.json())
-      .then(data => {
-        const g = data.Infogempa.gempa;
-        document.getElementById("gempa").innerHTML =`
- <div class="tempatGempa">
-    <img src="https://data.bmkg.go.id/DataMKG/TEWS/${g.Shakemap}" width="50%">
-<div class="agarTidakKesamping">
-  <p><div class="font-text" style="font-family: 'Fredoka One', cursive; margin-left:20px;">EARTHQUAKE</div>
-  </p>
-   <p><div class="font-text" style="font-family: 'Patrick Hand', cursive;"><b>MAGNITUDE:</b> ${g.Magnitude}</div>
-  </p>
-  <p><div class="font-text" style="font-family: 'Patrick Hand', cursive;"><b>TANGGAL:</b> ${g.Tanggal}</div>
-  </p>
-   <p><div class="font-text" style="font-family: 'Patrick Hand', cursive;"><b>JAM:</b> ${g.Jam}</div>
-  </p>
-   <p><div class="font-text" style="font-family: 'Patrick Hand', cursive;"><b>Coordinates:</b> ${g.Coordinates}</div>
-  </p>
-   <p><div class="font-text" style="font-family: 'Patrick Hand', cursive;"><b>LINTANG: ${g.Lintang}</div>
-  </p>
-   <p><div class="font-text" style="font-family: 'Patrick Hand', cursive;"><b>BUJUR:</b> ${g.Bujur}</div>
-  </p>
-   <p><div class="font-text" style="font-family: 'Patrick Hand', cursive;"><b>KEDALAMAN:</b> ${g.Kedalaman}</div>
-  </p>
-    </div>
- </div>
-        `;
- document.getElementById('dirasakan').innerHTML=`  <div class="agarTidakKesamping">
- <p><div class="font-text" style="font-family: 'Patrick Hand', cursive;"><b>WILAYAH:</b> ${g.Wilayah}</div>
-  </p>
- <p><div class="font-text" style="font-family: 'Patrick Hand', cursive;"><b>DIRASAKAN:</b> ${g.Dirasakan}</div>
-  </p></div>`;
-        })
-      .catch(err => {
-        document.getElementById("gempa").innerText = "Gagal memuat data BMKG.";
-        console.error(err);
-      });
-        
-        
-const usernameNya = `https://endernet.web.id/tikstalk?username=qhairulpratama`;
-
-fetch(usernameNya)
-  .then(res => res.json())
-  .then(json => {
-    const user = json.data.data.user;
-    const stats = json.data.data.stats;
-    
-    // Handle bioLink yang mungkin tidak ada
-    const bioLink = user.bioLink ? user.bioLink.link : "";
-    
-    document.getElementById("profile").innerHTML = `<center><p>${user.nickname}</p>
-   <div class="ttprofile">
-    <img src="${user.avatarLarger}" style="width:100%">
-   </div>    
-<div style="color:white;">
-  <p>@${user.uniqueId}</p>
-    </div></center>
- <div style="justify-content:center; text-align:center; align-items: center;">
-  <div style="display:flex; width:96%; font-family: 'Patrick Hand', cursive;justify-content:center; text-align:center; align-items: center;">
-     <div style="color:white; margin:5px;">
-     <p>Mengikuti</p>
-     <p>${stats.followingCount}</p>
-     </div>
-    <div style="color:white; margin:5px;">
-       <p>Pengikut</p>
-       <p>${stats.followerCount}</p>
-    </div>
-    <div style="color:white; margin:5px;">
-      <p>Suka</p>
-      <p>${stats.heartCount}</p>
-    </div>
-    <div style="color:white; margin:5px;">
-      <p>Video</p>
-      <p>${stats.videoCount}</p>
-    </div>
-   </div>
-    </div>
-    
-    <div style="justify-content:center; text-align:center; align-items: center; display:flex;">
-     <div style=" font-family: 'Patrick Hand', cursive; max-width:200px; width:95%">
-     <p>${user.signature}</p>
-     <p>${bioLink}</p>
-     </div>
-    </div>`;
-  })
-  .catch(err => {
-    document.getElementById("profile").innerHTML = "Gagal memuat data 😢";
-    console.error(err);
-  });
-        
-        
-  // ini text mengetik..
-  const text = "Selamat datang\ndi endernet.web.id";
-const el = document.getElementById('typedText');
-const cursor = document.getElementById('cursor');
-let i = 0;
-function type() {
-  if (i < text.length) {
-    const char = text.charAt(i);
-    el.innerHTML += char === '\n' ? '<br>' : char;
-    i++;
-    setTimeout(type, 80);
-  } else {
-    cursor.classList.add('blink');
-  }
-}
-window.onload = type;
+ 
