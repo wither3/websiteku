@@ -1,4 +1,4 @@
-fetch('http://nile.hidencloud.com:24630/api?action=ttuserinfo')
+fetch('/bagian1?api=ttuserinfo')
   .then(res => res.json())
   .then(data => {
   const user = data.data.userInfo.user;
