@@ -53,19 +53,25 @@ fetch('/bagian1?api=ttuserinfo')
  
  
  
- // Variabel global
+ // tiktokUser.js - Versi Hemat Kuota & Performa
+
+const url = "https://asfinix.my.id/bagian1/posts";
 let allPostsData = [];
 
-// Fungsi untuk membuat HTML satu postingan
-function createPostHTML(post) {
-    // Perhatikan: Saya menambahkan onclick="openModal('${post.url}')" pada img src="${post.url}"
+// Fungsi membuat HTML Postingan
+// Parameter 'isLazy' jika true, maka gambar tidak akan dimuat dulu (src kosong)
+function createPostHTML(post, isLazy = false) {
+    // Jika isLazy true, src gambar diganti placeholder atau kosong, URL asli disimpan di data-url
+    const imgSrc = isLazy ? "" : post.url;
+    const dataAttr = isLazy ? `data-real-src="${post.url}"` : "";
+
     return `
     <center>
         <div class="kotakPost">
             <div class="profilAtas">
                 <div class="profilAtass">
                     <div style="display:flex;">
-                        <img src="${post.fotoProfil}" style="border-radius:5px; width:14%; margin-left:5px;">
+                        <img src="${post.fotoProfil}" style="border-radius:5px; width:45px; height:45px; margin-left:0px;">
                         <div class="tempatNama">
                             <p>${post.nama}</p>
                             <font color="#a0a0a0">
@@ -79,11 +85,12 @@ function createPostHTML(post) {
                 </div>
             </div>
             
-            <!-- GAMBAR POSTINGAN DENGAN EVENT ONCLICK -->
-            <img src="${post.url}" 
+            <!-- Gambar Postingan -->
+            <img src="${imgSrc}" 
+                 ${dataAttr}
                  height="200px" 
-                 style="width:100%; object-fit:cover; cursor:pointer;" 
-                 onclick="openModal('${post.url}')"
+                 style="width:100%; object-fit:cover; cursor:pointer; background:#f0f0f0;" 
+                 onclick="handleImageClick(this, '${post.url}')"
                  title="Klik untuk melihat penuh">
             
             <div class="tempatDeskripsi">
@@ -94,66 +101,88 @@ function createPostHTML(post) {
     <br>`;
 }
 
-// --- FUNGSI POPUP MODAL ---
+// Fungsi khusus untuk menangani klik gambar (buka modal & load gambar jika belum)
+function handleImageClick(element, realUrl) {
+    // Jika gambar belum punya src (karena lazy load), isi dulu src-nya
+    if (!element.src || element.src === "") {
+        element.src = realUrl;
+    }
+    // Buka modal
+    openModal(realUrl);
+}
 
-// Fungsi Buka Modal
+// Fungsi Render
+function renderPosts(postsToRender, isLazy = false) {
+    const container = document.getElementById('postingan');
+    if (!container) return;
+
+    postsToRender.forEach(post => {
+        // Tambahkan HTML ke container
+        container.insertAdjacentHTML('beforeend', createPostHTML(post, isLazy));
+    });
+}
+
+// Fungsi Utama
+async function loadPosts() {
+    try {
+        // Fetch data JSON saja (ini ringan, hanya teks)
+        const response = await fetch(url);
+        allPostsData = await response.json();
+
+        if (!Array.isArray(allPostsData)) throw new Error("Data invalid");
+
+        // 1. Tampilkan 3 pertama (Gambar DIMUAT sepenuhnya)
+        const firstThree = allPostsData.slice(0, 3);
+        renderPosts(firstThree, false); 
+
+        // 2. Siapkan sisa postingan (Gambar TIDAK DIMUAT dulu / Lazy)
+        const remaining = allPostsData.slice(3);
+        
+        if (remaining.length > 0) {
+            // Buat tombol
+            const btn = document.createElement("button");
+            btn.id = "btnLihatSemua";
+            btn.innerText = `Klik untuk lihat ${remaining.length} postingan lainnya`;
+            btn.style.cssText = "display:block; margin: 20px auto; padding: 10px 20px; background:#007bff; color:white; border:none; border-radius:5px; cursor:pointer;";
+            
+            btn.onclick = function() {
+                // Saat diklik, baru render sisa postingan dengan isLazy = false (atau true jika mau tetap hemat)
+                // Di sini kita set false agar gambarnya muncul semua
+                renderPosts(remaining, false); 
+                this.remove(); // Hapus tombol
+            };
+            
+            document.getElementById('postingan').parentNode.insertBefore(btn, document.getElementById('postingan').nextSibling);
+        }
+
+    } catch (error) {
+        console.error("Error:", error);
+        document.getElementById('postingan').innerHTML = "<p>Gagal memuat data.</p>";
+    }
+}
+
+// Jalankan
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", loadPosts);
+} else {
+    loadPosts();
+}
+
+// --- FUNGSI MODAL (Sama seperti sebelumnya) ---
 function openModal(imageSrc) {
     const modal = document.getElementById("imageModal");
     const modalImg = document.getElementById("imgPopup");
-    
-    modal.style.display = "flex"; // Gunakan flex agar posisi tengah
-    modalImg.src = imageSrc;
+    if(modal && modalImg) {
+        modal.style.display = "flex";
+        modalImg.src = imageSrc;
+    }
 }
 
-// Fungsi Tutup Modal
 function closeModal() {
     const modal = document.getElementById("imageModal");
-    modal.style.display = "none";
+    if(modal) modal.style.display = "none";
 }
 
-// --- LOGIKA FETCH DATA (Sama seperti sebelumnya) ---
-
-fetch('https://asfinix.my.id/bagian1/posts')
-    .then(res => res.json())
-    .then(data => {
-        allPostsData = data;
-        const container = document.getElementById('postingan');
-        
-        if (!container) return;
-
-        // Tampilkan 3 pertama
-        const initialPosts = data.slice(0, 3);
-        let htmlContent = "";
-        initialPosts.forEach(post => {
-            htmlContent += createPostHTML(post);
-        });
-        container.innerHTML = htmlContent;
-
-        // Tombol Lihat Semua
-        if (data.length > 3) {
-            if (!document.getElementById('btnLihatSemua')) {
-                const btn = document.createElement("button");
-                btn.id = "btnLihatSemua";
-                btn.innerText = "Klik untuk lihat semua postingan";
-                btn.style.cssText = "display:block; margin: 20px auto; padding: 10px 20px; background:#007bff; color:white; border:none; border-radius:5px; cursor:pointer;";
-                
-                btn.onclick = function() {
-                    const remainingPosts = data.slice(3);
-                    let remainingHtml = "";
-                    remainingPosts.forEach(post => {
-                        remainingHtml += createPostHTML(post);
-                    });
-                    container.innerHTML += remainingHtml;
-                    this.remove(); 
-                };
-                container.parentNode.insertBefore(btn, container.nextSibling);
-            }
-        }
-    })
-    .catch(err => {
-        console.error("Gagal mengambil data:", err);
-        document.getElementById('postingan').innerHTML = "<p>Gagal memuat postingan.</p>";
-    });
     
 
   
