@@ -207,6 +207,16 @@ case 'ttuserinfo': {
     res.status(500).json({ status: false, message: 'Gagal ambil data dari HidenCloud', error: error.message });
   }
   break;
+}  
+
+case 'posts': {
+  try {
+    const { data } = await axios.get('http://nile.hidencloud.com:24630/api?action=posts');
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ status: false, message: 'Gagal ambil data posts', error: error.message });
+  }
+  break;
 }      
     case 'tikwm':{
 const link = req.query.link;
