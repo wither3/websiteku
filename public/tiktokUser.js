@@ -53,15 +53,12 @@ fetch('/bagian1?api=ttuserinfo')
  
  
  
- // tiktokUser.js - Versi Hemat Kuota & Performa
-
+ 
 const url = "https://asfinix.my.id/bagian1/posts";
 let allPostsData = [];
 
-// Fungsi membuat HTML Postingan
-// Parameter 'isLazy' jika true, maka gambar tidak akan dimuat dulu (src kosong)
 function createPostHTML(post, isLazy = false) {
-    // Jika isLazy true, src gambar diganti placeholder atau kosong, URL asli disimpan di data-url
+ 
     const imgSrc = isLazy ? "" : post.url;
     const dataAttr = isLazy ? `data-real-src="${post.url}"` : "";
 
@@ -77,9 +74,10 @@ function createPostHTML(post, isLazy = false) {
                             <font color="#a0a0a0">
                                 <p>${post.nomor}</p>
                             </font>
-                        </div>
-                        <div class="tenpatTanggal">
-                            <p>${post.tanggal}</p>
+        </div>
+<div class="tenpatTanggal">
+<p>${post.tanggal}</p>
+  <p>${post.waktu}</p>                          
                         </div>
                     </div>
                 </div>
@@ -101,55 +99,50 @@ function createPostHTML(post, isLazy = false) {
     <br>`;
 }
 
-// Fungsi khusus untuk menangani klik gambar (buka modal & load gambar jika belum)
+
 function handleImageClick(element, realUrl) {
-    // Jika gambar belum punya src (karena lazy load), isi dulu src-nya
     if (!element.src || element.src === "") {
         element.src = realUrl;
     }
-    // Buka modal
     openModal(realUrl);
 }
 
-// Fungsi Render
 function renderPosts(postsToRender, isLazy = false) {
     const container = document.getElementById('postingan');
     if (!container) return;
 
     postsToRender.forEach(post => {
-        // Tambahkan HTML ke container
+        
         container.insertAdjacentHTML('beforeend', createPostHTML(post, isLazy));
     });
 }
 
-// Fungsi Utama
+
 async function loadPosts() {
     try {
-        // Fetch data JSON saja (ini ringan, hanya teks)
+  
         const response = await fetch(url);
         allPostsData = await response.json();
 
         if (!Array.isArray(allPostsData)) throw new Error("Data invalid");
 
-        // 1. Tampilkan 3 pertama (Gambar DIMUAT sepenuhnya)
+    
         const firstThree = allPostsData.slice(0, 3);
         renderPosts(firstThree, false); 
 
-        // 2. Siapkan sisa postingan (Gambar TIDAK DIMUAT dulu / Lazy)
+        
         const remaining = allPostsData.slice(3);
         
         if (remaining.length > 0) {
-            // Buat tombol
+            
             const btn = document.createElement("button");
             btn.id = "btnLihatSemua";
             btn.innerText = `Klik untuk lihat ${remaining.length} postingan lainnya`;
             btn.style.cssText = "display:block; margin: 20px auto; padding: 10px 20px; background:#007bff; color:white; border:none; border-radius:5px; cursor:pointer;";
             
             btn.onclick = function() {
-                // Saat diklik, baru render sisa postingan dengan isLazy = false (atau true jika mau tetap hemat)
-                // Di sini kita set false agar gambarnya muncul semua
                 renderPosts(remaining, false); 
-                this.remove(); // Hapus tombol
+                this.remove(); 
             };
             
             document.getElementById('postingan').parentNode.insertBefore(btn, document.getElementById('postingan').nextSibling);
@@ -161,14 +154,11 @@ async function loadPosts() {
     }
 }
 
-// Jalankan
 if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", loadPosts);
 } else {
     loadPosts();
 }
-
-// --- FUNGSI MODAL (Sama seperti sebelumnya) ---
 function openModal(imageSrc) {
     const modal = document.getElementById("imageModal");
     const modalImg = document.getElementById("imgPopup");
