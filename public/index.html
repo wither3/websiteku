@@ -604,10 +604,30 @@ margin-top:-3px;
 
 
 
-.kotakPost{
- width: 90%;
- background-color: #0C1522;
- border: 1px solid var(--cyan-neon);
+.kotakPost {
+  width: 90%;
+  max-width: 700px; /* Batasi lebar maksimal */
+  background-color: #0C1522;
+  border: 1px solid var(--cyan-neon);
+  margin: 0 auto; /* Tengahkan */
+  overflow: hidden; /* Cegah overflow */
+}
+
+/* === PERBAIKAN UNTUK GAMBAR POSTINGAN === */
+.kotakPost img {
+    width: 100%;
+    max-height: 450px; /* Batasi tinggi maksimal */
+    object-fit: cover; /* Potong gambar agar pas, tanpa merusak proporsi */
+    object-position: center; /* Fokus ke tengah gambar */
+    cursor: pointer;
+    background: #0a0a0a;
+    display: block;
+}
+
+/* Opsional: efek hover untuk memberi tahu bisa diklik */
+.kotakPost img:hover {
+    opacity: 0.9;
+    transition: opacity 0.2s;
 }
 
 .profilAtas{
@@ -632,9 +652,7 @@ margin-top:-3px;
     padding:2px;
 }
 
-.tenpatNama p{
-    font-size=4vw;
-}
+
 
 .tenpatTanggal{
     justify-content: right;
@@ -644,9 +662,7 @@ margin-top:-3px;
     position:absolute;
 }
 
-.tenpatTanggal p{
-    font-size:4vw;
-}
+
 
 
 .tempatDeskripsi{
@@ -656,12 +672,23 @@ margin-top:-3px;
    padding-left:14px;
 }
 
-.tempatDeskripsi p{
-    font-size:4vw;
-    text-align:left;
-    justify-content:left;
+
+/* PERBAIKAN - Batasi ukuran font maksimal */
+.kotakIni p {
+  font-size: clamp(12px, 4vw, 18px); /* min, default, max */
 }
 
+.tempatDeskripsi p {
+  font-size: clamp(12px, 4vw, 16px);
+}
+
+.tenpatTanggal p {
+  font-size: clamp(10px, 3vw, 14px);
+}
+
+.tempatNama p {
+  font-size: clamp(12px, 3.5vw, 16px);
+}
 
 
 
