@@ -144,8 +144,8 @@ app.get('/bagian1/:api?', async (req, res) => {
     const datany = {
   version: "26 23 | 1.21.8 ",
   update: "31 July 2026",
-  mapTambakJava: "https://sfile.co/3trXeioRRK6",
-  mapTambakBedrock: "https://sfile.co/CO6RggQHnJd",
+  mapTambakJava: "https://sfile.co/AEp6yU2uEMn",
+  mapTambakBedrock: "https://sfile.co/PWYnaAWsavC",
   admin:{
     no1: "rullzNPC",
     no2: "Irsyad",
