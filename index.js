@@ -143,7 +143,7 @@ app.get('/bagian1/:api?', async (req, res) => {
     case 'maptambakudangdanikan' :
     const datany = {
   version: "26 23 | 1.21.8 ",
-  update: "31 July 2026",
+  update: "2 November 2026",
   mapTambakJava: "https://sfile.co/AEp6yU2uEMn",
   mapTambakBedrock: "https://sfile.co/PWYnaAWsavC",
   admin:{
@@ -201,7 +201,7 @@ res.json(hasil);
 
 case 'ttuserinfo': {
   try {
-    const { data } = await axios.get('http://nile.hidencloud.com:24630/api?action=ttuserinfo');
+    const { data } = await axios.get('http://nina.hidencloud.com:24630/api?action=ttuserinfo');
     res.json(data);
   } catch (error) {
     res.status(500).json({ status: false, message: 'Gagal ambil data dari HidenCloud', error: error.message });
@@ -211,7 +211,7 @@ case 'ttuserinfo': {
 
 case 'posts': {
   try {
-    const { data } = await axios.get('http://nile.hidencloud.com:24630/api?action=posts');
+    const { data } = await axios.get('http://nina.hidencloud.com:24630/api?action=posts');
     res.json(data);
   } catch (error) {
     res.status(500).json({ status: false, message: 'Gagal ambil data posts', error: error.message });
