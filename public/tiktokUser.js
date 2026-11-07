@@ -1,4 +1,4 @@
-fetch('/bagian1?api=ttuserinfo')
+fetch('https://asfinix.my.id/bagian1?api=ttuserinfo')
   .then(res => res.json())
   .then(data => {
   const user = data.data.userInfo.user;
@@ -181,7 +181,7 @@ function closeModal() {
   
   
   
-  fetch('https://endernet.web.id/bagian1?api=maptambakudangdanikan')
+  fetch('https://asfinix.my.id/bagian1?api=maptambakudangdanikan')
   .then(res => res.json())
   .then( data =>{
   const mapJava = data.datany.mapTambakJava;
