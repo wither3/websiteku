@@ -1,48 +1,31 @@
-document.getElementById('menu-button').addEventListener('click', function() {
-      document.getElementById('sidebar').classList.toggle('open');
-      document.getElementById('overlay').classList.toggle('hidden');
-    });
+/* Sidebar */
+function openSidebar(o){
+  document.getElementById('sidebar').classList.toggle('open', o);
+  document.getElementById('overlay').classList.toggle('show', o);
+}
+document.getElementById('menu-button').addEventListener('click', () => openSidebar(true));
+document.getElementById('close-button').addEventListener('click', () => openSidebar(false));
+document.getElementById('overlay').addEventListener('click', () => openSidebar(false));
 
-    document.getElementById('overlay').addEventListener('click', function() {
-      document.getElementById('sidebar').classList.remove('open');
-      document.getElementById('overlay').classList.add('hidden');
-    });
+/* Link download & komunitas dari API */
+fetch('https://asfinix.my.id/bagian1?api=maptambakudangdanikan')
+  .then(res => res.json())
+  .then(({ datany: d }) => {
+    document.getElementById('tanggalnya').textContent = d.update || '-';
+    document.getElementById('versionnya').textContent = d.version || '-';
 
-    document.getElementById('close-button').addEventListener('click', function() {
-      document.getElementById('sidebar').classList.remove('open');
-      document.getElementById('overlay').classList.add('hidden');
-    });
+    const go = (id, url) => document.getElementById(id).addEventListener('click', () => window.location.href = url);
+    go('whatsapp', d.WhatsApp.linkChannel);
+    go('waJava', d.WhatsApp.linkWAgcJava);
+    go('waBedrock', d.WhatsApp.linkWAgcBedrock);
+    go('downloadPetaBedrock', d.mapTambakBedrock);
+    go('downloadPetaJava', d.mapTambakJava);
 
-document.getElementById('whatsapp').addEventListener('click', function() {
-  window.location.href = 'https://chat.whatsapp.com/FZtfxpSyYCN9FyCjWekyZN?mode=wwt';
-});
-
-
-
-
-
-
-fetch('https://endernet.web.id/bagian1?api=maptambakudangdanikan')
-            .then(response => response.json())
-            .then(data => {
-tanggalnya.innerHTML = `${data.datany.update}`;       document.getElementById('downloadPetaBedrock').addEventListener('click', function() {
-                    window.location.href = `${data.datany.mapTambakBedrock}`;
-                });               
-               
-                document.getElementById('downloadPetaJava').addEventListener('click', function() {
-                    window.location.href = `${data.datany.mapTambakJava}`;
-                });               
-            })
-            .catch(error => {
-                document.getElementById('result').innerHTML = 'Error: ' + error;
-            });
-
-
-
-
-
-
-
-
-
-
+    if (d.admin) {
+      document.getElementById('adminnya').innerHTML =
+        '👑 Admin: ' + Object.values(d.admin).map(a => `<span>${a}</span>`).join(' ');
+    }
+  })
+  .catch(err => {
+    document.getElementById('result').textContent = 'Gagal memuat link: ' + err;
+  });

@@ -230,21 +230,7 @@ async function SPOTIFYDOWNLOAD1(){
   }
 }
 
-// === Sidebar Toggle ===
-document.getElementById('menu-button').addEventListener('click', function() {
-  document.getElementById('sidebar').classList.toggle('open');
-  document.getElementById('overlay').classList.toggle('hidden');
-});
-
-document.getElementById('overlay').addEventListener('click', function() {
-  document.getElementById('sidebar').classList.remove('open');
-  document.getElementById('overlay').classList.add('hidden');
-});
-
-document.getElementById('close-button').addEventListener('click', function() {
-  document.getElementById('sidebar').classList.remove('open');
-  document.getElementById('overlay').classList.add('hidden');
-});
+// (sidebar toggle dihapus — ditangani script di api.html agar tidak dobel)
 
 // === GRAFIK REAL-TIME ===
 let serverDataCache = null;
@@ -329,7 +315,7 @@ function updateChart(cpuData, ramData, timeLabel) {
 
 // Fungsi utama yang menggabungkan semuanya
 async function updateServerInfo() {
-    const api = `/bagian1/serverinfo`;
+    const api = `https://endernet.web.id/bagian1/serverinfo`;
     try {
         const hasil = await fetch(api);
         const gini = await hasil.json();

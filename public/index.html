@@ -1,929 +1,298 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ASFINIX</title>
-  <!-- Font Google: Orbitron & Rajdhani / JetBrains Mono -->
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="icon" type="image/png" href="./gambar/favicon.png">  
-  <style>
-    /* RESET & CORE HUD THEME */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Rajdhani', sans-serif;
-    }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>rullzNPC — EnderNet</title>
+<meta name="description" content="Website pribadi rullzNPC — semua link download Minecraft map dan komunitas di satu tempat">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#04050c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#04050c;
+  --txt:#eef2ff;
+  --muted:#9aa3c7;
+  --cyan:#22d3ee;
+  --violet:#8b5cf6;
+  --pink:#f472b6;
+  --glass:linear-gradient(135deg,rgba(255,255,255,.14),rgba(255,255,255,.045));
+  --stroke:rgba(255,255,255,.22);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--txt);
+  font-family:'Space Grotesk',sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit}
 
-    :root {
-      --bg-dark: #080d14;
-      --panel-bg: rgba(12, 22, 36, 0.9);
-      --cyan-neon: #00f0ff;
-      --orange-accent: #ff6600;
-      --red-alert: #ff2a2a;
-      --text-main: #e0f2fe;
-      --border-cyan: rgba(0, 240, 255, 0.4);
-    }
+/* ---------- Aurora background ---------- */
+.aurora{position:fixed;inset:0;z-index:-2;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;animation:drift 22s ease-in-out infinite alternate}
+.b1{width:56vw;height:56vw;background:radial-gradient(circle,#0ea5e9,transparent 70%);top:-18%;left:-12%}
+.b2{width:46vw;height:46vw;background:radial-gradient(circle,#7c3aed,transparent 70%);bottom:-14%;right:-10%;animation-delay:-7s}
+.b3{width:36vw;height:36vw;background:radial-gradient(circle,#db2777,transparent 70%);top:38%;left:52%;opacity:.32;animation-delay:-14s}
+@keyframes drift{to{transform:translate(7vw,-5vh) scale(1.18)}}
+.noise{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");}
 
-    body {
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      overflow-x: hidden;
-      background-image: 
-        linear-gradient(rgba(0, 240, 255, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
-      background-size: 30px 30px;
-    }
-
-    button, a {
-      -webkit-tap-highlight-color: transparent;
-      outline: none;
-      text-decoration: none;
-    }
-
-    /* NAVBAR MILITER */
-    .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 60px;
-      z-index: 999;
-      background: rgba(8, 13, 20, 0.95);
-      border-bottom: 2px solid var(--cyan-neon);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 20px;
-      box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
-    }
-
-    .brand-title {
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 900;
-      font-size: 1.2rem;
-      color: var(--cyan-neon);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      text-shadow: 0 0 8px var(--cyan-neon);
-    }
-
-  .st{
-    padding:1px;
-    background-color:var(--cyan-neon);
-     clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-    }
-    .status-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      background: rgba(8, 13, 20, 0.9);
-      
-      color: var(--cyan-neon);
-      padding: 2px 8px;
-      clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-    }
-
-    /* HERO SECTION */
-    .hero {
-      position: relative;
-      height: 85vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 0 20px;
-      background: url("./gambar/IMG_20260815143114308.jpg") center/cover no-repeat;
-          -webkit-mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
-    }
-
-    .hero-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 2.5rem;
-      font-weight: 900;
-      color: #fff;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      text-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
-      margin-bottom: 5px;
-    }
-
-    .hero-subtitle {
-      font-family: 'JetBrains Mono', monospace;
-      color: var(--cyan-neon);
-      font-size: 0.9rem;
-      letter-spacing: 1px;
-      margin-bottom: 30px;
-    }
-
-
-
-
-    /* WARSHIP STYLED BUTTONS */
-    
-    .bwp{
-    padding:1px;
-    background-color: var(--cyan-neon);
-        clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-    }
-    
-     .owp{
-     margin-top:5px;
-    padding:1px;
-    background-color: var(--orange-accent);
-        clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-    }
-    
-    .btn-warship {
-      
-      position: relative;
-      padding: 12px 25px;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #fff;
-      background-color: #0A3643;
-      Border:1px solid #0A3643;
-      cursor: pointer;
-      clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-      transition: all 0.25s ease;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      box-shadow: 0 0 10px rgba(0, 240, 255, 0.15);
-      
-    }
-
-    .btn-warship:hover {
-      background: var(--cyan-neon);
-      color: #000;
-      box-shadow: 0 0 20px var(--cyan-neon);
-    }
-
-    .btn-orange {
-      background-color: #30211D;
-      border-color: #30211D;
-      color: var(--orange-accent);
-    }
-
-    .btn-orange:hover {
-      background: var(--orange-accent);
-      color: #fff;
-      box-shadow: 0 0 20px var(--orange-accent);
-    }
-
-    /* SECTION LAYOUT */
-    .section {
-      padding: 30px 20px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .section-header {
-      border-left: 4px solid var(--cyan-neon);
-      padding-left: 12px;
-      margin-bottom: 20px;
-    }
-
-    .section-header h2 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.4rem;
-      color: #fff;
-    }
-
-    .section-header p {
-      font-family: 'JetBrains Mono', monospace;
-      color: rgba(224, 242, 254, 0.6);
-      font-size: 0.8rem;
-    }
-
-    /* CARD SCROLL */
-    .image-scroll {
-      display: flex;
-      gap: 15px;
-      overflow-x: auto;
-      padding-bottom: 15px;
-    }
-    
-    
-    .cccd {
-  
-    padding:1px;
-    background-color:var(--cyan-neon);
-      clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);  
-    }
-    
-    .card {
-      min-width: 220px;
-      background-color: #0C1522;
-  
-      clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-      overflow: hidden;
-    }
-
-    .card img {
-      width: 100%;
-      height: 130px;
-      object-fit: cover;
-    }
-
-    .card-content {
-      padding: 10px;
-    }
-
-    .card-content h3 {
-      font-size: 0.95rem;
-      color: var(--cyan-neon);
-    }
-
-    .card-content p {
-      font-size: 0.75rem;
-      color: #aaa;
-    }
-
-
-
-
-
-  .ccad {
-  
-    padding:1px;
-    background-color:var(--cyan-neon);
-      clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
-    }
-
-    /* COMMANDER PANEL */
-    .tactical-panel {
-      background-color: #0C1522;
-      
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-      padding: 20px;
-      margin: 0px auto;
-      clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
-    }
-
-    .banner-box {
-      position: relative;
-      width: 100%;
-      height: 160px;
-      background: url("./gambar/IMG_20260815165208764.jpg") center/cover no-repeat;
-      border: 1px solid rgba(0, 240, 255, 0.3);
-      margin-bottom: 15px;
-    }
-
-    .profile-avatar {
-      position: absolute;
-      bottom: -15px;
-      left: 15px;
-      width: 65px;
-      height: 65px;
-      background: url("./gambar/profil-error.jpg") center/cover no-repeat;
-      border: 2px solid var(--cyan-neon);
-      box-shadow: 0 0 10px var(--cyan-neon);
-    }
-
-    .commander-tag {
-      position: absolute;
-      bottom: 10px;
-      left: 90px;
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 700;
-      color: #fff;
-      font-size: 1rem;
-      text-shadow: 0 0 5px #000;
-    }
-
-    .tactical-bio {
-      font-size: 0.85rem;
-      color: #c0d0e0;
-      line-height: 1.5;
-      margin: 15px 0;
-      background: rgba(0, 0, 0, 0.4);
-      padding: 12px;
-      border-left: 2px solid var(--orange-accent);
-    }
-
-    .button-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .btn-full {
-      width: 100%;
-      text-align: center;
-    }
-
-    .flex-btn {
-      display: flex;
-      gap: 8px;
-    }
-
-    .flex-btn .btn-warship {
-      flex: 1;
-    }
-
-    /* --- WARSHIP MUSIC PLAYER --- */
-    .mplayer{
-    margin-top:20px;
-    padding:0.9px;
-    background-color: var(--border-cyan);
-     clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);   
-    }
-    
-    
-    .tactical-audio-player {
-     
-      padding: 15px;
-      background: rgba(4, 10, 18, 0.85);
-      border: 1px solid var(--border-cyan);
-      clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-    }
-
-    .player-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .audio-title {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
-      color: var(--cyan-neon);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .audio-title::before {
-      content: "▶";
-      font-size: 0.7rem;
-      color: var(--orange-accent);
-    }
-
-    /* Visualizer Animasi */
-    .sound-bars {
-      display: flex;
-      gap: 3px;
-      align-items: flex-end;
-      height: 16px;
-    }
-
-    .sound-bars span {
-      width: 3px;
-      height: 4px;
-      background: var(--cyan-neon);
-      transition: height 0.2s ease;
-    }
-
-    /* Animasi bar saat diputar */
-    .sound-bars.playing span:nth-child(1) { animation: barPulse 0.6s infinite alternate; }
-    .sound-bars.playing span:nth-child(2) { animation: barPulse 0.4s infinite alternate 0.2s; }
-    .sound-bars.playing span:nth-child(3) { animation: barPulse 0.8s infinite alternate 0.1s; }
-    .sound-bars.playing span:nth-child(4) { animation: barPulse 0.5s infinite alternate 0.3s; }
-
-    @keyframes barPulse {
-      0% { height: 4px; background: var(--cyan-neon); }
-      100% { height: 16px; background: var(--orange-accent); }
-    }
-
-    /* Controls Layout */
-    .player-controls {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .playbtn{
-    background-color: var(--cyan-neon);
-      padding:0.6px;
-      clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
-      
-    }
-
-    .play-btn-hud {
-      width: 42px;
-      height: 42px;
-      background-color:#042E38;
-      border: 1px solid #042E38;
-      color: var(--cyan-neon);
-      font-size: 1.1rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
-      transition: all 0.2s;
-    }
-
-    .play-btn-hud:hover {
-      background: var(--cyan-neon);
-      color: #000;
-      box-shadow: 0 0 12px var(--cyan-neon);
-    }
-
-    .progress-container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .time-display {
-      display: flex;
-      justify-content: space-between;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      color: rgba(224, 242, 254, 0.6);
-    }
-
-    .progress-bar-bg {
-      width: 100%;
-      height: 6px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(0, 240, 255, 0.3);
-      cursor: pointer;
-      position: relative;
-    }
-
-    .progress-bar-fill {
-      width: 0%;
-      height: 100%;
-      background: var(--cyan-neon);
-      box-shadow: 0 0 8px var(--cyan-neon);
-      transition: width 0.1s linear;
-    }
-
-    /* FOOTER */
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      color: rgba(255, 255, 255, 0.4);
-      border-top: 1px solid rgba(0, 240, 255, 0.1);
-    }
-    
-    /* =========================
-   HERO BUTTON KOTAK
-   ========================= */
-
-.hero-buttons {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    align-items: center;
+/* ---------- Liquid glass core ---------- */
+.glass{
+  position:relative;
+  background:var(--glass);
+  backdrop-filter:blur(22px) saturate(170%);
+  -webkit-backdrop-filter:blur(22px) saturate(170%);
+  border:1px solid var(--stroke);
+  border-radius:24px;
+  box-shadow:0 12px 44px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.28),inset 0 -12px 32px rgba(255,255,255,.04);
+  overflow:hidden;
+}
+.glass::before{
+  content:"";
+  position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:radial-gradient(130% 70% at 50% 0%,rgba(255,255,255,.16),transparent 60%);
 }
 
-.hero-btn {
-    display: block;
+/* ---------- Nav ---------- */
+.nav{
+  position:fixed;top:16px;left:50%;transform:translateX(-50%);
+  width:min(92%,560px);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px 10px 8px;border-radius:999px;z-index:1000;
 }
-
-/* TOMBOL DASAR */
-.btn-hero {
-    padding: 12px 25px;
-
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-
-    cursor: pointer;
-
-    border: 1px solid var(--cyan-neon);
-
-    /* 10% TRANSPARAN */
-    background: rgba(0, 240, 255, 0.10);
-
-    color: var(--cyan-neon);
-
-    transition: all 0.25s ease;
+.icon-btn{
+  width:42px;height:42px;border-radius:50%;
+  display:grid;place-items:center;
+  background:rgba(255,255,255,.08);
+  border:1px solid var(--stroke);
+  color:var(--txt);font-size:1.05rem;cursor:pointer;
+  transition:.25s;
 }
+.icon-btn:hover{background:rgba(255,255,255,.16);transform:scale(1.06)}
+.nav-title{font-family:'Sora';font-weight:700;letter-spacing:.14em;font-size:.92rem}
 
-/* GET STARTED */
-.hero-btn-orange .btn-hero {
-    border-color: var(--orange-accent);
-    background: rgba(255, 102, 0, 0.10);
-    color: var(--orange-accent);
+/* ---------- Sidebar ---------- */
+.overlay{position:fixed;inset:0;background:rgba(2,4,12,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:.35s;z-index:1001}
+.overlay.show{opacity:1;pointer-events:auto}
+.sidebar{
+  position:fixed;top:0;left:0;height:100dvh;width:min(80vw,300px);
+  transform:translateX(-106%);transition:transform .55s cubic-bezier(.22,.9,.24,1);
+  z-index:1002;border-radius:0 28px 28px 0;padding:24px 20px;
+  display:flex;flex-direction:column;gap:6px;
 }
-
-/* DOWNLOAD LINKS */
-.hero-btn-cyan .btn-hero {
-    border-color: var(--cyan-neon);
-    background: rgba(0, 240, 255, 0.10);
-    color: var(--cyan-neon);
+.sidebar.open{transform:translateX(0)}
+.sidebar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.sidebar-head span{font-family:'Sora';font-weight:700;font-size:1.1rem}
+.side-link{
+  display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:16px;
+  color:var(--muted);font-weight:500;transition:.22s;
+  border:1px solid transparent;
 }
+.side-link:hover{color:var(--txt);background:rgba(255,255,255,.08);border-color:var(--stroke)}
+.side-link .dot{width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--violet));flex:none}
 
-
-/* =========================
-   HOVER
-   ========================= */
-
-.hero-btn-orange .btn-hero:hover {
-    background: rgba(255, 102, 0, 0.25);
-    color: #fff;
-    box-shadow: 0 0 15px rgba(255, 102, 0, 0.6);
+/* ---------- Hero ---------- */
+.hero{
+  min-height:82vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:120px 20px 40px;gap:20px;
 }
-
-.hero-btn-cyan .btn-hero:hover {
-    background: rgba(0, 240, 255, 0.25);
-    color: #fff;
-    box-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
+.badge{
+  display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:999px;
+  font-size:.78rem;font-weight:600;letter-spacing:.16em;color:var(--txt);
 }
-
-
-@media (min-width: 1024px) {
-  .kotakIni p {
-    font-size: 1.5rem;
-  }
+.badge .pulse{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan);animation:pulse 1.8s infinite}
+@keyframes pulse{50%{opacity:.35}}
+#typed{min-height:2.6em}
+#typedText{
+  font-family:'Sora';font-weight:800;
+  font-size:clamp(2rem,7.5vw,3.6rem);line-height:1.15;
+  background:linear-gradient(90deg,#7dd3fc,#c4b5fd,#f9a8d4,#7dd3fc);
+  background-size:300% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:hue 9s linear infinite;white-space:pre-line;
 }
-
-       .kini {
-       width:90%;
-       align:center;
-      background-color: var(--cyan-neon);
-      padding: 1px;
-      clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
-    }
-
-    .kotakIni {
-      background-color: #0C1522;
-      align:center;
-      justify-content: center;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-      padding: 20px;
-      margin: 0px auto;
-      clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
-    }
-    
-    .ttprofilee img{
-        background-color: var(--cyan-neon);
-        padding:1px;
-        width:35%;
-        height: 35%;
-        justify-content: center;
-    }
-    
-    .namaTiktok{
-     color:white;
-
-     font-size:90%;
-    }
-    
-     .kotakFlexx{
-        display:flex; 
-        width:98%;
-        padding:3px; 
-        justify-content:center;
-
-    }
-    
-    .kotakData p{
-    color:white;
-    margin-right:3px;
-    margin-left:3px;
-    }
-    
-   .kotakIni p {
-  font-size: 4vw;
+@keyframes hue{to{background-position:300% 0}}
+#cursor{border-right:4px solid var(--cyan);padding-right:5px}
+#cursor.blink{animation:blink .7s step-end infinite}
+@keyframes blink{50%{border-color:transparent}}
+.hero-sub{color:var(--muted);max-width:460px;font-size:.98rem}
+.cta{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+.btn{
+  border:none;cursor:pointer;font-weight:700;font-size:.92rem;
+  padding:15px 32px;border-radius:999px;letter-spacing:.06em;transition:.25s;
 }
-
-.bagianUsername{
-color:#d3d3d3;
-margin-top:-3px;
+.btn-primary{
+  background:linear-gradient(135deg,#6366f1,#22d3ee);color:#04101a;
+  box-shadow:0 12px 32px -8px rgba(34,211,238,.55),inset 0 1px 0 rgba(255,255,255,.4);
 }
-.mdeskri{
-   justify-content: left;
+.btn-primary:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 18px 44px -8px rgba(99,102,241,.75)}
+.btn-ghost{
+  background:rgba(255,255,255,.07);border:1px solid var(--stroke);color:var(--txt);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
 }
-.mdeskri p{
-    font-size:4vw;
+.btn-ghost:hover{border-color:rgba(34,211,238,.65);box-shadow:0 0 28px rgba(34,211,238,.3);transform:translateY(-3px)}
+
+/* ---------- Cards ---------- */
+.cards{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:22px;width:min(94%,780px);margin:0 auto 150px;padding:0 6px;
 }
-
-
-
-.kotakPost {
-  width: 90%;
-  max-width: 700px; /* Batasi lebar maksimal */
-  background-color: #0C1522;
-  border: 1px solid var(--cyan-neon);
-  margin: 0 auto; /* Tengahkan */
-  overflow: hidden; /* Cegah overflow */
+.card{padding:0;transition:transform .35s,box-shadow .35s}
+.card:hover{transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 40px rgba(139,92,246,.15),inset 0 1px 0 rgba(255,255,255,.28)}
+.card-head{
+  display:flex;align-items:center;gap:12px;padding:18px 20px;
+  border-bottom:1px solid rgba(255,255,255,.1);
+  font-family:'Sora';font-weight:700;
 }
+.card-head .ic{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;font-size:.95rem;flex:none;
+  background:linear-gradient(135deg,rgba(34,211,238,.25),rgba(139,92,246,.25));border:1px solid var(--stroke)}
+.card-body{padding:20px}
+.loading{color:var(--muted);font-size:.9rem}
 
-/* === PERBAIKAN UNTUK GAMBAR POSTINGAN === */
-.kotakPost img {
-    width: 100%;
-    max-height: 450px; /* Batasi tinggi maksimal */
-    object-fit: cover; /* Potong gambar agar pas, tanpa merusak proporsi */
-    object-position: center; /* Fokus ke tengah gambar */
-    cursor: pointer;
-    background: #0a0a0a;
-    display: block;
+/* TikTok profile */
+.tt-head{display:flex;align-items:center;gap:14px}
+.tt-avatar{width:74px;height:74px;border-radius:50%;object-fit:cover;
+  border:2px solid rgba(255,255,255,.5);padding:3px;
+  background:linear-gradient(135deg,var(--cyan),var(--violet),var(--pink));}
+.tt-nick{font-family:'Sora';font-weight:700;font-size:1.15rem}
+.tt-user{color:var(--muted);font-size:.85rem}
+.tt-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0}
+.stat{padding:12px 6px;border-radius:16px;text-align:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
+.stat b{display:block;font-family:'Sora';font-size:1rem}
+.stat span{color:var(--muted);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase}
+.tt-bio{color:var(--muted);font-size:.9rem;line-height:1.6;word-break:break-word}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.chip{
+  display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:999px;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);
+  font-size:.8rem;font-weight:600;cursor:pointer;transition:.22s;color:var(--txt);
 }
+.chip:hover{border-color:rgba(34,211,238,.7);box-shadow:0 0 18px rgba(34,211,238,.3);transform:translateY(-2px)}
+.chip svg{width:15px;height:15px}
 
-/* Opsional: efek hover untuk memberi tahu bisa diklik */
-.kotakPost img:hover {
-    opacity: 0.9;
-    transition: opacity 0.2s;
+/* Music player */
+.player{
+  display:flex;align-items:center;gap:12px;margin-top:18px;
+  padding:12px 14px;border-radius:18px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);
 }
-
-.profilAtas{
-    
-    width:99%;
-    background-color: var(--cyan-neon);
-    justify-content: left;
-    align: left;
-    padding-bottom:1px;
-    margin-bottom:1px;
+#playBtn{
+  width:40px;height:40px;flex:none;border:none;border-radius:50%;cursor:pointer;
+  background:linear-gradient(135deg,#6366f1,#22d3ee);color:#04101a;font-size:.85rem;
+  box-shadow:0 6px 18px -4px rgba(34,211,238,.6);transition:.2s;
 }
+#playBtn:hover{transform:scale(1.1)}
+.progress{flex:1;height:6px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden;cursor:pointer}
+#bar{height:100%;width:0%;border-radius:inherit;background:linear-gradient(90deg,#6366f1,#22d3ee);transition:width .1s linear}
 
-.profilAtass{
-    
-    width: 100%;
-    background-color: #0C1522;
-    padding: 8px 12px;
-    position: relative; /* Wajib sebagai acuan position absolute child */
+/* Gempa */
+.quake{display:flex;gap:16px;flex-wrap:wrap}
+.quake img{width:46%;min-width:150px;border-radius:16px;border:1px solid rgba(255,255,255,.16);align-self:flex-start}
+.quake-info{flex:1;min-width:150px;display:flex;flex-direction:column;gap:9px;font-size:.86rem}
+.q-row{display:flex;justify-content:space-between;gap:12px;padding:8px 12px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)}
+.q-row b{color:var(--muted);font-weight:500}
+.q-row span{text-align:right}
+.mag{font-family:'Sora';font-weight:800;font-size:1.5rem;
+  background:linear-gradient(135deg,#f9a8d4,#f87171);-webkit-background-clip:text;background-clip:text;color:transparent}
+.dirasakan{margin-top:14px;color:var(--muted);font-size:.86rem;line-height:1.6}
+
+/* ---------- Footer dock ---------- */
+.dock{
+  position:fixed;bottom:18px;left:50%;transform:translateX(-50%);
+  display:flex;gap:6px;padding:10px 14px;border-radius:999px;z-index:900;
 }
-
-.tempatNama{
-    padding:2px;
+.dock a{
+  width:52px;height:52px;border-radius:50%;display:grid;place-items:center;
+  color:var(--txt);transition:.25s;font-size:1.15rem;
 }
+.dock a:hover{background:rgba(255,255,255,.13);transform:translateY(-6px)}
+.dock a svg{width:26px;height:26px}
+.dock .active{background:linear-gradient(135deg,rgba(99,102,241,.4),rgba(34,211,238,.3));border:1px solid rgba(34,211,238,.4)}
 
-
-
-.tenpatTanggal{
-    justify-content: right;
-    align: right;
-    right:1px;
-    top:-0.4px;
-    position:absolute;
-    text-align:right;
+@media (max-width:480px){
+  .quake img{width:100%}
 }
-
-
-
-
-.tempatDeskripsi{
-   margin-top:1px;
-   text-align:left;
-   justify-content:left;
-   padding-left:14px;
-}
-
-
-/* PERBAIKAN - Batasi ukuran font maksimal */
-.kotakIni p {
-  font-size: clamp(12px, 4vw, 18px); /* min, default, max */
-}
-
-.tempatDeskripsi p {
-  font-size: clamp(12px, 4vw, 16px);
-}
-
-.tenpatTanggal p {
-  font-size: clamp(10px, 3vw, 14px);
-}
-
-.tempatNama p {
-  font-size: clamp(12px, 3.5vw, 16px);
-}
-
-
-
-
-
-
-
-/* CSS untuk Popup */
-.modal {
-    display: none; /* Tersembunyi secara default */
-    position: fixed; 
-    z-index: 9999; 
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgba(0,0,0,0.9); /* Latar belakang hitam transparan */
-    justify-content: center;
-    align-items: center;
-}
-
-/* Gambar di dalam popup */
-.modal-content {
-    margin: auto;
-    display: block;
-    max-width: 90%; /* Agar tidak melebar melebihi layar */
-    max-height: 90vh; /* Agar tidak melebihi tinggi layar */
-    object-fit: contain; /* KUNCI: Menampilkan gambar utuh tanpa terpotong */
-    animation-name: zoom;
-    animation-duration: 0.3s;
-}
-
-/* Tombol Close (X) */
-.close-btn {
-    position: absolute;
-    top: 15px;
-    right: 35px;
-    color: #f1f1f1;
-    font-size: 40px;
-    font-weight: bold;
-    transition: 0.3s;
-    cursor: pointer;
-    z-index: 10000;
-}
-
-.close-btn:hover,
-.close-btn:focus {
-    color: #bbb;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* Animasi Zoom */
-@keyframes zoom {
-    from {transform:scale(0)} 
-    to {transform:scale(1)}
-}
-
-
-
-  </style>
+</style>
 </head>
 <body>
 
-  <!-- INI UNTUK NAVBAR -->
-  <nav class="navbar">
-    <div class="brand-title">ASFINIX</div>
-    <div class="st">
-    <div class="status-tag">SYS ONLINE</div></div>
-  </nav>
+<div class="aurora"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span></div>
+<div class="noise"></div>
 
-  <!-- INI HERO SECTION -->
-  <header class="hero">
-    <h1 class="hero-title">SELAMAT DATANG</h1>
-    <p class="hero-subtitle">asfinix.my.id</p>
-    <div class="hero-buttons">
+<nav class="nav glass">
+  <button class="icon-btn" id="menu-button" aria-label="Menu"><i class="fas fa-bars"></i></button>
+  <a class="nav-title" href="#">BERANDA</a>
+  <span style="width:42px"></span>
+</nav>
 
-    <div class="hero-btn hero-btn-orange">
-        <button class="btn-hero">
-            GET STARTED
-        </button>
-    </div>
+<div class="overlay" id="overlay"></div>
+<aside class="sidebar glass" id="sidebar">
+  <div class="sidebar-head">
+    <span>Menu</span>
+    <button class="icon-btn" id="close-button" aria-label="Tutup"><i class="fas fa-times"></i></button>
+  </div>
+  <a class="side-link" href="index.html"><span class="dot"></span>Home</a>
+  <a class="side-link" href="https://whatsapp.com/channel/0029VbAyEGXJuyACiijTNb03"><span class="dot"></span>WhatsApp channel</a>
+  <a class="side-link" href="./fitur/tiktokdownload/tiktokdownload.html"><span class="dot"></span>TikTok Downloader</a>
+  <a class="side-link" href="./fitur/igstalk/igstalk.html"><span class="dot"></span>Instagram stalk</a>
+  <a class="side-link" href="./fitur/imagen4/index.html"><span class="dot"></span>Text To Image</a>
+</aside>
 
-    <div class="hero-btn hero-btn-cyan">
-        <button class="btn-hero"
-            onclick="document.getElementById('download-hub').scrollIntoView({ behavior: 'smooth' });">
-            DOWNLOAD LINKS
-        </button>
-    </div>
-
-</div>
-  </header>
-
-  <!-- PROJECT EXPLORER SECTION -->
-  <section class="section">
-    <div class="section-header">
-      <h2>PROJECT EXPLORER</h2>
-      <p>BEBERAPA PROJECT DAN KONTEN TERBARU</p>
-    </div>
-
-    <div class="image-scroll">
-        <div class="cccd">
-      <div class="card">
-        <img src="./gambar/Screenshot_20260813-130847.jpg" alt="Project Kopdes">
-        <div class="card-content">
-          <h3>SEKTOR KOPDES</h3>
-          <p>Pengembangan fasilitas kota</p>
-        </div>
-      </div>
-</div>
-  <div class="cccd">
-      <div class="card">
-        <img src="./gambar/IMG_20260731184653536.jpg" alt="Project Ruko">
-        <div class="card-content">
-          <h3>SEKTOR RUKO</h3>
-          <p>Area pertokoan & ekonomi</p>
-        </div>
-      </div>
-</div>
-
-<div class="cccd">
-      <div class="card">
-        <img src="./gambar/IMG_20260731184638902.jpg" alt="Project Jalan">
-        <div class="card-content">
-          <h3>JALUR LOGISTIK</h3>
-          <p>Sistem lalu lintas 2 jalan 1 arah</p>
-        </div>
-      </div>
-</div>
-
-<div class="cccd">
-      <div class="card">
-        <img src="./gambar/IMG_20260731184625951.jpg" alt="Project Perumahan">
-        <div class="card-content">
-          <h3>PERUMAHAN VILLAGER</h3>
-          <p>Pemukiman warga map</p>
-        </div>
-      </div>
-      </div>
+<main>
+  <section class="hero">
+    <div class="badge glass"><span class="pulse"></span>MINECRAFT MAP · RULLZNPC</div>
+    <div id="typed"><span id="typedText"></span><span id="cursor"></span></div>
+    <p class="hero-sub">Semua link download map Minecraft, komunitas, dan sosial media-ku — dikumpul dalam satu tempat biar gampang dicari.</p>
+    <div class="cta">
+      <button class="btn btn-primary" onclick="document.querySelector('.cards').scrollIntoView({behavior:'smooth'})">GET STARTED</button>
+      <button class="btn btn-ghost" onclick="window.open('downloadPeta.html','_blank')">DOWNLOAD LINKS</button>
     </div>
   </section>
 
-
-<h3 style="margin-left:20px;">Postingan terbaru:</h3>
-
-<div id="postingan"></div>
-<!-- Struktur Popup Modal -->
-<div id="imageModal" class="modal" style="display:none;" onclick="closeModal()">
-    <span class="close-btn">&times;</span>
-    <img class="modal-content" id="imgPopup">
-</div>
-
-
-
-  <!-- COMMANDER PROFILE & DOWNLOAD HUB -->
-  <section class="section" id="download-hub">
-   <div class="ccad">
-    <div class="tactical-panel">
-      <div class="banner-box">
-        <div class="profile-avatar"></div>
-        <div class="commander-tag">@rullznpc</div>
-      </div>
-
-      <div class="tactical-bio">
-        Pemilik map Minecraft ini. Berawal dari rasa bosan bermain game kompetitif, aku mulai mengisi dunia datar ini pada 19/05/2025. Awalnya, dunia ini hanya dibuat untuk kebutuhan konten cinematic dengan shader. Namun, seiring waktu, aku mulai mengembangkannya dengan membangun berbagai macam bangunan hingga dunia ini menjadi semakin luas.
-      </div>
-
-      <div class="button-group">
-        <div class="flex-btn">
-            <div class="bwp">
-          <button class="btn-warship" onclick="window.open('https://whatsapp.com/channel/0029VbC9tiyA89MlaN1BFF0S', '_blank')">WA CHANNEL</button></div>
-          <div class="bwp">
-          <button class="btn-warship" onclick="window.open('https://chat.whatsapp.com/FZtfxpSyYCN9FyCjWekyZN?s=cl&p=a&ilr=0', '_blank')">WA GROUP</button></div>
+  <section class="cards">
+    <article class="card glass">
+      <div class="card-head"><span class="ic"><i class="fab fa-tiktok"></i></span>Profil TikTok</div>
+      <div class="card-body">
+        <div id="profile"><p class="loading">Memuat profil…</p></div>
+        <div class="chips">
+          <a class="chip" id="tiktokBtn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>@rullznpc</a>
+          <a class="chip" id="YTBtn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.85-.46-5.58a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.42a2.78 2.78 0 0 0-1.94 2C1 8.15 1 12 1 12s0 3.85.46 5.58a2.78 2.78 0 0 0 1.94 2c1.72.42 8.6.42 8.6.42s6.88 0 8.6-.42a2.78 2.78 0 0 0 1.94-2C23 15.85 23 12 23 12zM9.75 15.02V8.98L15.5 12z"/></svg>rullzNPC</a>
+          <a class="chip" id="IgBtn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92C2.21 15.58 2.2 15.2 2.2 12s.01-3.58.07-4.85C2.42 3.92 3.94 2.38 7.15 2.27 8.42 2.21 8.8 2.2 12 2.2zM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.25a3.25 3.25 0 1 1 0-6.5 3.25 3.25 0 0 1 0 6.5zM17.2 5.6a1.17 1.17 0 1 0 0 2.34 1.17 1.17 0 0 0 0-2.34z"/></svg>rullznpc</a>
         </div>
-       
-        <div id="mapDl"></div>
-      </div>
-
-
-
-
-
-
-      <!-- TACTICAL MUSIC PLAYER -->
-      <div class="mplayer">
-      <div class="tactical-audio-player">
-        <!-- Audio Element (Pastikan nama/path file mp3 kamu benar) -->
-        <audio id="bgAudio" src="./musik/musik.mp3" preload="metadata"></audio>
-
-        <div class="player-header">
-          <div class="audio-title">BACKGROUND_THEME.MP3</div>
-          <div class="sound-bars" id="soundBars">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
+        <div class="player">
+          <audio id="audio" src="https://c.termai.cc/a147/6I3oLc.mp3"></audio>
+          <button id="playBtn" aria-label="Putar musik"><i class="fa fa-play"></i></button>
+          <div class="progress" id="progress"><div id="bar"></div></div>
         </div>
-
-        <div class="player-controls">
-          <div class="playbtn">
-          <button class="play-btn-hud" id="playBtnHUD">▶</button>
-          </div>
-          <div class="progress-container">
-            <div class="progress-bar-bg" id="progressBarBg">
-              <div class="progress-bar-fill" id="progressBarFill"></div>
-            </div>
-            <div class="time-display">
-              <span id="currentTime">00:00</span>
-              <span id="totalDuration">--:--</span>
-            </div>
-          </div>
-        </div>
-        
       </div>
-</div>
-    </div>
-   </div>
+    </article>
+
+    <article class="card glass">
+      <div class="card-head"><span class="ic"><i class="fas fa-mountain"></i></span>Gempa Terkini · BMKG</div>
+      <div class="card-body">
+        <div id="gempa"><p class="loading">Memuat data gempa…</p></div>
+        <div id="dirasakan"></div>
+      </div>
+    </article>
   </section>
+</main>
 
+<footer class="dock glass">
+  <a class="active" href="index.html" aria-label="Home"><i class="fas fa-home"></i></a>
+  <a href="downloadPeta.html" aria-label="Map">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg>
+  </a>
+  <a href="tools.html" aria-label="Tools"><i class="fas fa-wrench"></i></a>
+</footer>
 
-<!-- Di sini kartu profil tiktok -->
-<div id="ttBox"></div>
-
-
-
-
-  <footer>
-    ASFINIX.MY.ID &copy; 2026 // ALL RIGHTS RESERVED
-  </footer>
-
-  <!-- JAVASCRIPT UNTUK MUSIC PLAYER -->
-  <script src="./java.js"></script>
-  <script src="./tiktokUser.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+<script src="java.js"></script>
 </body>
 </html>
