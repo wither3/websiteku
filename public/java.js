@@ -94,7 +94,7 @@ fetch('https://endernet.web.id/tikstalk?username=qhairulpratama')
   });
 
 /* Text mengetik */
-const text = 'Selamat datang\ndi website rullzNPC';
+const text = 'Selamat datang\ndi website rullzG99';
 const el = document.getElementById('typedText');
 const cursor = document.getElementById('cursor');
 let i = 0;
